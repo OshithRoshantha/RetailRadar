@@ -67,3 +67,19 @@ def productInsights(df):
         'topFrequent': topFrequent.toJSON().collect()
     }
     return response
+
+def operationalInsights(df):
+    mostUsedPaymentMethod = df.groupBy("Payment_Method").count().orderBy(F.desc("count")).limit(1)
+    mostUsedShippingMethod = df.groupBy("Shipping_Method").count().orderBy(F.desc("count")).limit(1)
+    orderStatusDistribution = df.groupBy('Order_Status').count()
+    deliverySuccessRate = ((df.filter(F.col("Order_Status") == "Delivered").count())/(df.count()))*100
+    shippedDeliverRatio = (df.filter(F.col("Order_Status") == "Shipped").count())/(df.filter(F.col("Order_Status") == "Delivered").count())
+    
+    response = {
+        'mostUsedPaymentMethod ': mostUsedPaymentMethod.toJSON().collect(),
+        'mostUsedShippingMethod': mostUsedShippingMethod.toJSON().collect(),
+        'orderStatusDistribution': orderStatusDistribution.toJSON().collect(),
+        'deliverySuccessRate': deliverySuccessRate,
+        'shippedDeliverRatio': shippedDeliverRatio
+    }
+    return response
