@@ -53,3 +53,17 @@ def salesInsights(df):
         'avgOrderValue': avgOrderValue
     }
     return response
+
+def productInsights(df):
+    ratings = df.groupBy("Product_Type").agg(F.avg("Ratings").alias("Avg_Rating"))
+    topHighRated = ratings.orderBy(F.desc("Avg_Rating")).limit(5)
+    lowestRated = ratings.orderBy('Avg_Rating').limit(5)
+    
+    topFrequent = df.groupBy("Product_Type").count().orderBy(F.desc("count")).limit(5)
+    
+    response = {
+        'topHighRated': topHighRated.toJSON().collect(),
+        'lowestRated': lowestRated.toJSON().collect(),
+        'topFrequent': topFrequent.toJSON().collect()
+    }
+    return response
