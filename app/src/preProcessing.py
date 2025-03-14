@@ -2,7 +2,7 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType, 
 from pyspark.sql import functions as F
 from pyspark import StorageLevel
 from config.globalSession import spark
-from src.insights import customerInsights, geographicInsights, salesInsights, productInsights
+from src.insights import customerInsights, geographicInsights, salesInsights, productInsights, operationalInsights
 
 def initialProcessing():
     schema = StructType([
@@ -67,6 +67,7 @@ def initialProcessing():
     geo = geographicInsights(df)
     sales = salesInsights(df)
     product = productInsights(df)
+    order = operationalInsights(df)
     
     minDate, maxDate = df.select(F.min(F.col("Date")), F.max(F.col("Date"))).first()
     response = {
@@ -76,7 +77,8 @@ def initialProcessing():
         'customerInsights': customer,
         'geographicInsights': geo,
         'salesInsights': sales,
-        'productInsights': product
+        'productInsights': product,
+        'operationalInsights': order
     }
     
     df.write.parquet('data/processed/cleanedData.parquet', mode='overwrite')
