@@ -38,14 +38,13 @@ def geographicInsights(df):
     return response
 
 def salesInsights(df):
-    currentDate = df.select(F.max("Date")).collect()[0][0]
-    lastYear = F.date_add(F.lit(currentDate), -365)
-    lastYearData = df.filter(F.col("Date") >= lastYear)
-    monthlyRevenue = lastYearData.groupBy("Year", "Month").agg(F.sum("Total_Amount").alias("Total_Revenue")).orderBy("Year", "Month").drop('Year')
+    dfTemp = df.withColumn("tempYear", F.year(df["Date"]))
+    maxYear = dfTemp.select(F.max("tempYear")).collect()[0][0]
+    monthlyRevenue = dfTemp.where(F.col('tempYear')==maxYear).groupBy('Month').agg(F.sum("Total_Amount").alias("Total_Revenue")).orderBy('Month')
     
     topPopularCategories = df.groupBy("Product_Category").count().orderBy(F.desc("count")).limit(5)
     avgOrderValue = (df.agg(F.sum("Total_Amount")).collect()[0][0])/(df.agg(F.sum("Total_Purchases")).collect()[0][0])  
-    yearlyRevenue = df.groupBy("Year").agg(F.sum("Total_Amount").alias("Total_Revenue")).orderBy("Year")
+    yearlyRevenue = df.withColumn("tempYear", F.year(df["Date"])).groupBy("tempYear").agg(F.sum("Total_Amount").alias("Total_Revenue")).orderBy("tempYear")
     
     response = {
         'monthlyRevenue': monthlyRevenue.toJSON().collect(),
