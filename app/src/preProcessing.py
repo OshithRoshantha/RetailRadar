@@ -46,7 +46,7 @@ def initialProcessing():
     df.cache()
     
     df = df.dropDuplicates(['Transaction_ID'])
-    df = df.drop('Name', 'Email', 'Phone', 'Address', 'State', 'Zipcode', 'Product_Brand', 'Feedback', 'Ratings', 'products')
+    df = df.drop('Name', 'Email', 'Phone', 'Address', 'State', 'Zipcode', 'Product_Brand', 'Feedback', 'products')
     df = df.withColumn(
         "Date",
         F.coalesce(
