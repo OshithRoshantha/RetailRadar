@@ -26,3 +26,13 @@ def customerInsights(df):
         'segmentsByRevenue': topSegmentsByRevenue.toJSON().collect() 
     }
     return response
+
+def geographicInsights(df):
+    topCitiesBySales = df.groupBy('City').agg(F.sum("Total_Amount").alias("Total_Sales")).orderBy(F.desc("Total_Sales")).limit(10)
+    customerOverCountries = df.groupBy("Country").agg(F.countDistinct("Customer_ID").alias("Customer_Count")).orderBy(F.desc("Customer_Count"))
+    
+    response = {
+        'citiesBySales': topCitiesBySales.toJSON().collect(),
+        'customerOverCountries': customerOverCountries.toJSON().collect()
+    }
+    return response
