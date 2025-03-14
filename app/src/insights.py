@@ -36,3 +36,21 @@ def geographicInsights(df):
         'customerOverCountries': customerOverCountries.toJSON().collect()
     }
     return response
+
+def salesInsights(df):
+    currentDate = df.select(F.max("Date")).collect()[0][0]
+    lastYear = F.date_add(F.lit(currentDate), -365)
+    lastYearData = df.filter(F.col("Date") >= lastYear)
+    monthlyRevenue = lastYearData.groupBy("Year", "Month").agg(F.sum("Total_Amount").alias("Total_Revenue")).orderBy("Year", "Month").drop('Year')
+    
+    topPopularCategories = df.groupBy("Product_Category").count().orderBy(F.desc("count")).limit(5)
+    avgOrderValue = (df.agg(F.sum("Total_Amount")).collect()[0][0])/(df.agg(F.sum("Total_Purchases")).collect()[0][0])  
+    yearlyRevenue = df.groupBy("Year").agg(F.sum("Total_Amount").alias("Total_Revenue")).orderBy("Year")
+    
+    response = {
+        'monthlyRevenue': monthlyRevenue.toJSON().collect(),
+        'yearlyRevenue': yearlyRevenue.toJSON().collect(),
+        'topPopularCategories': topPopularCategories.toJSON().collect(),
+        'avgOrderValue': avgOrderValue
+    }
+    return response
