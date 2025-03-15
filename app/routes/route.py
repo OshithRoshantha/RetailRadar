@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from src.preProcessing import initialProcessing
-from src.predictions import churnPredict
+from src.predictions import churnPredict, clvPredict
 from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
 
@@ -20,4 +20,9 @@ def trainModels():
 def model1():
     data=request.get_json()
     return churnPredict(data)
+
+@rrBlueprint.route('/predict/clv', methods=["POST"])
+def model2():
+    data=request.get_json()
+    return clvPredict(data)
 
