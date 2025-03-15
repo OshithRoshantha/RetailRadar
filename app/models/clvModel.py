@@ -17,11 +17,12 @@ def clvPreProcess(data):
     lifeSpanDf = dfGrouped.withColumn('Lifespan', F.round(((F.datediff(F.col("Last_Purchase_Date"), F.col("First_Purchase_Date")))/365), 2))
     lifeSpanDf = lifeSpanDf.drop('First_Purchase_Date', 'Last_Purchase_Date', 'Customer_ID')
     clvDf = lifeSpanDf.withColumn('CLV', F.round(((F.col('Total_Purchases'))/(F.col('Lifespan')))*(F.col('Total_Spend')), 2))
+    clvDF = clvDF.where(F.col('Lifespan') != 0)
     clvDf.write.parquet('data/processed/model/clvData.parquet', mode='overwrite')
     
 def trainClvModel():
     df = pd.read_parquet('data/processed/model/clvData.parquet', engine='pyarrow')
-    df = pd.get_dummies(df, columns=['Type'])
+    df = pd.get_dummies(df, columns=['Type'], dtype=int)
     
     X = df[['Total_Spend', 'Total_Purchases', 'Lifespan', 'Type_New', 'Type_Premium', 'Type_Regular']]
     y = df['CLV']
@@ -37,6 +38,6 @@ def trainClvModel():
     ])
 
     model.compile(optimizer='adam', loss='mse', metrics=['mae'])
-    model.fit(X_train, y_train, epochs=100, batch_size=16, validation_data=(X_test, y_test))
+    model.fit(X_train, y_train, epochs=50, batch_size=16, validation_data=(X_test, y_test))
     joblib.dump(model, 'data/processed/model/clvModel.pkl')
     return 'Model2 Trained!'
