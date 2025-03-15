@@ -1,7 +1,6 @@
 from pyspark.sql import functions as F
 import pandas as pd
-from tensorflow import keras
-from keras import layers
+from xgboost import XGBRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 import joblib
@@ -17,7 +16,7 @@ def clvPreProcess(data):
     lifeSpanDf = dfGrouped.withColumn('Lifespan', F.round(((F.datediff(F.col("Last_Purchase_Date"), F.col("First_Purchase_Date")))/365), 2))
     lifeSpanDf = lifeSpanDf.drop('First_Purchase_Date', 'Last_Purchase_Date', 'Customer_ID')
     clvDf = lifeSpanDf.withColumn('CLV', F.round(((F.col('Total_Purchases'))/(F.col('Lifespan')))*(F.col('Total_Spend')), 2))
-    clvDF = clvDF.where(F.col('Lifespan') != 0)
+    clvDf = clvDf.where(F.col('Lifespan') != 0)
     clvDf.write.parquet('data/processed/model/clvData.parquet', mode='overwrite')
     
 def trainClvModel():
@@ -30,14 +29,7 @@ def trainClvModel():
     X_scaled = scaler.fit_transform(X)
     X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
     
-    model = keras.Sequential([
-        layers.Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
-        layers.Dense(32, activation='relu'),
-        layers.Dense(16, activation='relu'),
-        layers.Dense(1) 
-    ])
-
-    model.compile(optimizer='adam', loss='mse', metrics=['mae'])
-    model.fit(X_train, y_train, epochs=50, batch_size=16, validation_data=(X_test, y_test))
+    model = XGBRegressor(n_estimators=100, learning_rate=0.1, max_depth=6, random_state=42)
+    model.fit(X_train, y_train)
     joblib.dump(model, 'data/processed/model/clvModel.pkl')
     return 'Model2 Trained!'
