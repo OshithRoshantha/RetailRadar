@@ -4,6 +4,7 @@ from pyspark import StorageLevel
 from config.globalSession import spark
 from src.insights import customerInsights, geographicInsights, salesInsights, productInsights, operationalInsights
 from models.churnModel import churnPreProcess
+from models.clvModel import clvPreProcess
 
 def initialProcessing():
     schema = StructType([
@@ -70,6 +71,7 @@ def initialProcessing():
     product = productInsights(df)
     order = operationalInsights(df)
     churnPreProcess(df)
+    clvPreProcess(df)
     
     minDate, maxDate = df.select(F.min(F.col("Date")), F.max(F.col("Date"))).first()
     response = {
