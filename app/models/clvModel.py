@@ -32,4 +32,5 @@ def trainClvModel():
     model = XGBRegressor(n_estimators=100, learning_rate=0.1, max_depth=6, random_state=42)
     model.fit(X_train, y_train)
     joblib.dump(model, 'data/processed/model/clvModel.pkl')
+    joblib.dump(scaler, 'data/processed/model/clvScaler.pkl')
     return 'Model2 Trained!'

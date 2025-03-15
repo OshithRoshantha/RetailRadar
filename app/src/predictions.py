@@ -16,13 +16,19 @@ def churnPredict(input):
 
 def clvPredict(input):
     model = joblib.load('data/processed/model/clvModel.pkl')
-    input = pd.DataFrame(input)
+    scaler = joblib.load('data/processed/model/clvScaler.pkl')
+    input = pd.DataFrame([input])
     inputDf = pd.get_dummies(input, columns=['Type'], dtype=int)
-    scaler = MinMaxScaler()
-    inputScaled = scaler.fit_transform(inputDf)
-    prediction = model.predict(inputScaled)[0]
     
+    requiredColumns = ['Total_Spend', 'Total_Purchases', 'Lifespan', 'Type_New', 'Type_Premium', 'Type_Regular']
+    for col in requiredColumns:
+        if col not in inputDf.columns:
+            inputDf[col] = 0
+    
+    inputDf = inputDf[requiredColumns]
+    inputScaled = scaler.transform(inputDf)
+    prediction = model.predict(inputScaled)[0]
     response = {
-        "predictedClv": round(prediction, 2)
+        "predictedClv": float(prediction)
     }
     return response
