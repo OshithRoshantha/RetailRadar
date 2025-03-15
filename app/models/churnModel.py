@@ -6,7 +6,7 @@ import joblib
 
 def churnPreProcess(data):
     latestDate = data.select(F.max('Date')).collect()[0][0]
-    dfGrouped = df.groupBy("Customer_ID").agg(
+    dfGrouped = data.groupBy("Customer_ID").agg(
         F.array_sort(F.collect_list("Date")).alias("Purchase_Dates"),
         F.round(F.sum("Total_Amount") ,2).alias("Total_Spend"),
         F.sum("Total_Purchases").alias("Total_Purchases")
