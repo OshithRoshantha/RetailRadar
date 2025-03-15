@@ -1,10 +1,9 @@
 from pyspark.sql import functions as F
 import pandas as pd
-import tensorflow as tf
 from tensorflow import keras
 from keras import layers
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+from sklearn.preprocessing import MinMaxScaler
 import joblib
 
 def clvPreProcess(data):
