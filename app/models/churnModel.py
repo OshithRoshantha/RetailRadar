@@ -38,4 +38,4 @@ def trainChurnModel():
     model = XGBClassifier(random_state=42, eval_metric="logloss")
     model.fit(X_train, y_train)
     joblib.dump(model, 'data/processed/model/churnModel.pkl')
-    
+    return 'Model1 Trained!'
