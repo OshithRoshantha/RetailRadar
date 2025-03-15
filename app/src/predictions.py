@@ -1,12 +1,14 @@
 import joblib
+import pandas as pd
 
 def churnPredict(input):
-    model = joblib.load('churn_model.pkl')
-    churnPrediction = model.predict(input)
-    churnProbability = model.predict_proba(input)[:, 1]
+    model = joblib.load('data/processed/model/churnModel.pkl')
+    input = pd.DataFrame(input)
+    churnPrediction = model.predict(input)[0]
+    churnProbability = model.predict_proba(input)[0, 1]
     
     response = {
-        'prediction': churnPrediction,
-        'probability': churnProbability
+        'prediction': int(churnPrediction),
+        'probability': float(churnProbability)
     }
     return response
