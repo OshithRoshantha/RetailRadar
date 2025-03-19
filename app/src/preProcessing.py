@@ -5,6 +5,7 @@ from config.globalSession import spark
 from src.insights import customerInsights, geographicInsights, salesInsights, productInsights, operationalInsights
 from models.churnModel import churnPreProcess
 from models.clvModel import clvPreProcess
+from models.demandForcastModel import demandDataPreProcess
 
 def initialProcessing():
     schema = StructType([
@@ -72,6 +73,7 @@ def initialProcessing():
     order = operationalInsights(df)
     churnPreProcess(df)
     clvPreProcess(df)
+    demandDataPreProcess(df)
     
     minDate, maxDate = df.select(F.min(F.col("Date")), F.max(F.col("Date"))).first()
     response = {

@@ -3,7 +3,7 @@ from config.globalSession import spark
 import pandas as pd
 from prophet import Prophet
 
-def dfPreProcess(data):
+def demandDataPreProcess(data):
     df = df.groupBy("Product_Category", "Date").agg(F.sum(F.col('Total_Purchases')).alias("Total_Purchases")).orderBy("Date", "Product_Category")
     df.createOrReplaceTempView("sales_data")
     minMaxDates = spark.sql("""
