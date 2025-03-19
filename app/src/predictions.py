@@ -1,5 +1,7 @@
 import joblib
 import pandas as pd
+import numpy as np
+from datetime import timedelta
 from app.models.demandForecastModel import trainProphetModel
 
 def churnPredict(input):
@@ -56,6 +58,30 @@ def demandPredict():
     response = {
         "nextWeek": totalSales7Days.to_json(),
         "nextMonth": totalSales30Days.to_json()
+    }
+    return response
+
+def salesPredict():
+    model = joblib.load('data/processed/model/lstmModel.pkl')
+    scaler = joblib.load('data/processed/model/lstmScaler.pkl')
+    df = pd.read_parquet('data/processed/model/salesTimeSeriesData.parquet', engine='pyarrow')
+    
+    lastSequence = df['Total_Sales'].values[-30:].reshape((1, 30, 1))
+    prediction = model.predict(lastSequence)
+    prediction = np.clip(prediction, 0, None)
+    prediction = scaler.inverse_transform(prediction.reshape(-1, 1)).flatten()
+    predictionDates = [maxDate + timedelta(days=i) for i in range(1, 181)]
+    
+    predictionsDf = pd.DataFrame({
+        'Date': predictionDates,
+        'Sales': prediction
+    })
+    predictionsDf['Date'] = pd.to_datetime(predictionsDf['Date'])
+    predictionsDf['YearMonth'] = predictionsDf['Date'].dt.to_period('M')
+    monthlyPredictions = predictionsDf.groupby('YearMonth')['Sales'].sum().reset_index()
+    monthlyPredictions['YearMonth'] = monthlyPredictions['YearMonth'].astype(str)
+    response = {
+        "predictions": monthlyPredictions.to_json()
     }
     return response
     
