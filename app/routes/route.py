@@ -1,8 +1,9 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from src.preProcessing import initialProcessing
 from src.predictions import churnPredict, clvPredict, demandPredict
 from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
+from models.salesForecastModel import trainLSTMModel
 
 rrBlueprint=Blueprint('retailradar', __name__)
 
@@ -14,7 +15,8 @@ def intializeProcessing():
 def trainModels():
     model1 = trainChurnModel()
     model2 = trainClvModel()
-    return {'model1': model1, 'model2': model2}
+    model3 = trainLSTMModel()
+    return {'model1': model1, 'model2': model2, 'model3':model3}
 
 @rrBlueprint.route('/predict/churn', methods=["POST"])
 def model1():
