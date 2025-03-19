@@ -71,12 +71,12 @@ def demandPredict():
         "nextWeek": totalSales7Days.to_json(),
         "nextMonth": totalSales30Days.to_json(),
         "top-6-products": {
-            "nextWeek": ,
-            "nextMonth": 
-        }
+            "nextWeek": result1,
+            "nextMonth": result3 
+        },
         "least-3-products": {
-            "nextWeek": ,
-            "nextMonth": 
+            "nextWeek": result2,
+            "nextMonth": result4
         }
     }
     return response
