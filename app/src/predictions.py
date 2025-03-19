@@ -62,9 +62,11 @@ def demandPredict():
         productSeriesData = productSeriesData[productSeriesData['Product_Type'] == product]
         forecast7 = trainProphetModel2(7)
         forecast30  = trainProphetModel2(30)
-        forecasts7 [product] = forecast7
+        forecasts7[product] = forecast7
         forecasts30[product] = forecast30 
     
+    result1, result2 = filterStep(forecasts7)
+    result3, result4 = filterStep(forecasts30)
     response = {
         "nextWeek": totalSales7Days.to_json(),
         "nextMonth": totalSales30Days.to_json(),
@@ -78,4 +80,15 @@ def demandPredict():
         }
     }
     return response
+
+def filterStep(forecasts):
+    total = {}
+    for product, forecast in forecasts.items():
+        total[product] = forecast['yhat'].sum()
+        
+    high = sorted(total.items(), key=lambda x: x[1], reverse=True)
+    top6 = [product for product, sales in high[:6]]
+    low = sorted(total.items(), key=lambda x: x[1])
+    least3 = [product for product, sales in low[:3]]
+    return top6, least3
     
