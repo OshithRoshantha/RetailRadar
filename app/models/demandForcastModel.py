@@ -53,4 +53,4 @@ def trainProphetModel():
         model = Prophet()
         model.fit(prophetData)
         models[category] = model
-    return models
+    return models, dfFilled

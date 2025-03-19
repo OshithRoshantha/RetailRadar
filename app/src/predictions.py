@@ -1,6 +1,7 @@
 import joblib
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+from models.demandForcastModel import trainProphetModel
 
 def churnPredict(input):
     model = joblib.load('data/processed/model/churnModel.pkl')
@@ -32,3 +33,25 @@ def clvPredict(input):
         "predictedClv": float(prediction)
     }
     return response
+
+def demandPredict():
+    models, timeSeriesData = trainProphetModel()
+    timeSeriesData['Date'] = pd.to_datetime(timeSeriesData['Date'])
+    predictions = {}
+    for category, model in models.items():
+        categoryData = timeSeriesData[timeSeriesData['Product_Category'] == category]
+        prophetData = categoryData[['Date', 'Total_Purchases']].rename(columns={'Date': 'ds', 'Total_Purchases': 'y'})
+        lastDate = prophetData['ds'].max()
+        future = model.make_future_dataframe(periods=30, include_history=False)
+        future = future[future['ds'] > lastDate]
+        forecast = model.predict(future)
+        predictions[category] = forecast[['ds', 'yhat']].assign(Product_Category=category)
+    
+    allPredictions = pd.concat(predictions.values())
+    totalSales30Days = allPredictions.groupby('Product_Category')['yhat'].sum().round().astype(int).reset_index()
+    totalSales30Days.columns = ['Product_Category', 'Total_Predicted_Sales_30Days']
+    
+    next7Days = allPredictions[allPredictions['ds'] <= (allPredictions['ds'].min() + pd.Timedelta(days=6))]
+    totalSales7Days = next7Days.groupby('Product_Category')['yhat'].sum().round().astype(int).reset_index()
+    totalSales7Days.columns = ['Product_Category', 'Total_Predicted_Sales_7Days']
+    
