@@ -5,7 +5,7 @@ from config.globalSession import spark
 from src.insights import customerInsights, geographicInsights, salesInsights, productInsights, operationalInsights
 from models.churnModel import churnPreProcess
 from models.clvModel import clvPreProcess
-from models.demandForcastModel import demandDataPreProcess
+from app.models.demandForecastModel import demandDataPreProcess
 
 def initialProcessing():
     schema = StructType([

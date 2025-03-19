@@ -1,7 +1,6 @@
 import joblib
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
-from models.demandForcastModel import trainProphetModel
+from app.models.demandForecastModel import trainProphetModel
 
 def churnPredict(input):
     model = joblib.load('data/processed/model/churnModel.pkl')
