@@ -40,10 +40,18 @@ def demandDataPreProcess(data):
         LEFT JOIN sales_data sd
         ON ds.Product_Category = sd.Product_Category AND ds.Date = sd.Date
     """)
+    allDates = data.select("Date").distinct()
+    allProducts = data.select("Product_Type").distinct()
+
+    completeDf = allDates.crossJoin(allProducts)
+    dfComplete = completeDf.join(df, on=["Date", "Product_Type"], how="left").na.fill(0)
     dfFilledCategory.write.parquet('data/processed/model/categoryTimeSeriesData.parquet', mode='overwrite')
+    dfComplete.write.parquet('data/processed/model/productTimeSeriesData.parquet', mode='overwrite')
     
 def trainProphetModel():
     dfFilledCategory = pd.read_parquet('data/processed/model/categoryTimeSeriesData.parquet', engine='pyarrow')
+    dfCompleteProduct = pd.read_parquet('data/processed/model/productTimeSeriesData.parquet', engine='pyarrow')
+    products = dfCompleteProduct['Product_Type'].unique()
     dfFilledCategory['Date'] = pd.to_datetime(dfFilledCategory['Date'])
     models = {}
     for category in dfFilledCategory['Product_Category'].unique():
@@ -52,4 +60,13 @@ def trainProphetModel():
         model = Prophet()
         model.fit(prophetData)
         models[category] = model
-    return models, dfFilledCategory
+    return models, dfFilledCategory, products, dfCompleteProduct
+
+def trainProphetModel2(period):
+    dfCompleteProduct = pd.read_parquet('data/processed/model/productTimeSeriesData.parquet', engine='pyarrow')
+    dfCompleteProduct = dfCompleteProduct.rename(columns={'Date': 'ds', 'Total_Purchases': 'y'})
+    model = Prophet()
+    model.fit(dfCompleteProduct)
+    future = model.make_future_dataframe(periods=period)
+    forecast = model.predict(future)
+    return forecast[['ds', 'yhat']]

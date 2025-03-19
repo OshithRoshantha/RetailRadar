@@ -1,7 +1,7 @@
 import joblib
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-from models.demandForcastModel import trainProphetModel
+from models.demandForcastModel import trainProphetModel, trainProphetModel2
 
 def churnPredict(input):
     model = joblib.load('data/processed/model/churnModel.pkl')
@@ -35,7 +35,7 @@ def clvPredict(input):
     return response
 
 def demandPredict():
-    models, categorySeriesData = trainProphetModel()
+    models, categorySeriesData, products, productSeriesData = trainProphetModel()
     categorySeriesData['Date'] = pd.to_datetime(categorySeriesData['Date'])
     predictions = {}
     for category, model in models.items():
@@ -54,9 +54,28 @@ def demandPredict():
     next7Days = allPredictions[allPredictions['ds'] <= (allPredictions['ds'].min() + pd.Timedelta(days=6))]
     totalSales7Days = next7Days.groupby('Product_Category')['yhat'].sum().round().astype(int).reset_index()
     totalSales7Days.columns = ['Product_Category', 'Saless']
+    
+    forecasts7 = {}
+    forecasts30 = {}
+    
+    for product in products:
+        productSeriesData = productSeriesData[productSeriesData['Product_Type'] == product]
+        forecast7 = trainProphetModel2(7)
+        forecast30  = trainProphetModel2(30)
+        forecasts7 [product] = forecast7
+        forecasts30[product] = forecast30 
+    
     response = {
         "nextWeek": totalSales7Days.to_json(),
-        "nextMonth": totalSales30Days.to_json()
+        "nextMonth": totalSales30Days.to_json(),
+        "top-6-products": {
+            "nextWeek": ,
+            "nextMonth": 
+        }
+        "least-3-products": {
+            "nextWeek": ,
+            "nextMonth": 
+        }
     }
     return response
     
