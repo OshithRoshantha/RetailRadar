@@ -65,6 +65,7 @@ def salesPredict():
     model = joblib.load('data/processed/model/lstmModel.pkl')
     scaler = joblib.load('data/processed/model/lstmScaler.pkl')
     df = pd.read_parquet('data/processed/model/salesTimeSeriesData.parquet', engine='pyarrow')
+    maxDate = df["Date"].max()
     
     lastSequence = df['Total_Sales'].values[-30:].reshape((1, 30, 1))
     prediction = model.predict(lastSequence)
