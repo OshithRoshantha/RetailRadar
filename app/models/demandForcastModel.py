@@ -44,7 +44,7 @@ def demandDataPreProcess(data):
     allProducts = data.select("Product_Type").distinct()
 
     completeDf = allDates.crossJoin(allProducts)
-    dfComplete = completeDf.join(df, on=["Date", "Product_Type"], how="left").na.fill(0)
+    dfComplete = completeDf.join(data, on=["Date", "Product_Type"], how="left").na.fill(0)
     dfFilledCategory.write.parquet('data/processed/model/categoryTimeSeriesData.parquet', mode='overwrite')
     dfComplete.write.parquet('data/processed/model/productTimeSeriesData.parquet', mode='overwrite')
     
