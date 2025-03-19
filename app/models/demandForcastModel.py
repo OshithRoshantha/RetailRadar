@@ -5,7 +5,6 @@ from prophet import Prophet
 
 def demandDataPreProcess(data):
     df = data.groupBy("Product_Category", "Date").agg(F.sum(F.col('Total_Purchases')).alias("Total_Purchases")).orderBy("Date", "Product_Category")
-    df2 = data.groupBy("Product_Type", "Date").agg(F.sum(F.col('Total_Purchases')).alias("Total_Purchases")).orderBy("Date", "Product_Type")
     df.createOrReplaceTempView("sales_data")
     minMaxDates = spark.sql("""
         SELECT 
@@ -31,23 +30,7 @@ def demandDataPreProcess(data):
             FROM minMaxDates
         )
     """)
-    dateSeriesProduct = spark.sql("""
-        SELECT 
-            Product_Type, 
-            date_add(min_date, idx) AS Date
-        FROM (
-            SELECT 
-                Product_Type, 
-                min_date, 
-                max_date, 
-                posexplode(
-                    split(space(datediff(max_date, min_date)), ' ')
-                ) AS (idx, _)
-            FROM minMaxDates
-        )
-    """)
     dateSeriesCategory.createOrReplaceTempView("dateSeriesCategory")
-    dateSeriesProduct.createOrReplaceTempView("dateSeriesProduct")
     dfFilledCategory = spark.sql("""
         SELECT 
             ds.Product_Category, 
@@ -57,17 +40,7 @@ def demandDataPreProcess(data):
         LEFT JOIN sales_data sd
         ON ds.Product_Category = sd.Product_Category AND ds.Date = sd.Date
     """)
-    dfFilledProduct = spark.sql("""
-        SELECT 
-            ds.Product_Type, 
-            ds.Date, 
-            COALESCE(sd.Total_Purchases, 0) AS Total_Purchases
-        FROM dateSeriesCategory ds
-        LEFT JOIN sales_data sd
-        ON ds.Product_Type = sd.Product_Type AND ds.Date = sd.Date
-    """)
     dfFilledCategory.write.parquet('data/processed/model/categoryTimeSeriesData.parquet', mode='overwrite')
-    dfFilledProduct.write.parquet('data/processed/model/productTimeSeriesData.parquet', mode='overwrite')
     
 def trainProphetModel():
     dfFilledCategory = pd.read_parquet('data/processed/model/categoryTimeSeriesData.parquet', engine='pyarrow')
