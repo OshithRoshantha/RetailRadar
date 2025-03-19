@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from src.preProcessing import initialProcessing
-from src.predictions import churnPredict, clvPredict, demandPredict
+from src.predictions import churnPredict, clvPredict, demandPredict, salesPredict
 from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
@@ -32,4 +32,7 @@ def model2():
 def model3():
     return demandPredict()
 
+@rrBlueprint.route('/predict/sales', methods=["GET"])
+def model4():
+    return salesPredict()
 
