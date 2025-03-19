@@ -70,13 +70,13 @@ def demandDataPreProcess(data):
     dfFilledProduct.write.parquet('data/processed/model/productTimeSeriesData.parquet', mode='overwrite')
     
 def trainProphetModel():
-    dfFilled = pd.read_parquet('data/processed/model/categoryTimeSeriesData.parquet', engine='pyarrow')
-    dfFilled['Date'] = pd.to_datetime(dfFilled['Date'])
+    dfFilledCategory = pd.read_parquet('data/processed/model/categoryTimeSeriesData.parquet', engine='pyarrow')
+    dfFilledCategory['Date'] = pd.to_datetime(dfFilledCategory['Date'])
     models = {}
-    for category in dfFilled['Product_Category'].unique():
-        categoryData = dfFilled[dfFilled['Product_Category'] == category]
+    for category in dfFilledCategory['Product_Category'].unique():
+        categoryData = dfFilledCategory[dfFilledCategory['Product_Category'] == category]
         prophetData = categoryData[['Date', 'Total_Purchases']].rename(columns={'Date': 'ds', 'Total_Purchases': 'y'})
         model = Prophet()
         model.fit(prophetData)
         models[category] = model
-    return models, dfFilled
+    return models, dfFilledCategory

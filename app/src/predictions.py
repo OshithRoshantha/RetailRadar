@@ -35,11 +35,11 @@ def clvPredict(input):
     return response
 
 def demandPredict():
-    models, timeSeriesData = trainProphetModel()
-    timeSeriesData['Date'] = pd.to_datetime(timeSeriesData['Date'])
+    models, categorySeriesData = trainProphetModel()
+    categorySeriesData['Date'] = pd.to_datetime(categorySeriesData['Date'])
     predictions = {}
     for category, model in models.items():
-        categoryData = timeSeriesData[timeSeriesData['Product_Category'] == category]
+        categoryData = categorySeriesData[categorySeriesData['Product_Category'] == category]
         prophetData = categoryData[['Date', 'Total_Purchases']].rename(columns={'Date': 'ds', 'Total_Purchases': 'y'})
         lastDate = prophetData['ds'].max()
         future = model.make_future_dataframe(periods=30, include_history=False)
