@@ -2,7 +2,7 @@ import joblib
 import pandas as pd
 import numpy as np
 from datetime import timedelta
-from app.models.demandForecastModel import trainProphetModel
+from models.demandForecastModel import trainProphetModel
 
 def churnPredict(input):
     model = joblib.load('data/processed/model/churnModel.pkl')
