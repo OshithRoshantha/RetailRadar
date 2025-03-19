@@ -49,9 +49,14 @@ def demandPredict():
     
     allPredictions = pd.concat(predictions.values())
     totalSales30Days = allPredictions.groupby('Product_Category')['yhat'].sum().round().astype(int).reset_index()
-    totalSales30Days.columns = ['Product_Category', 'Total_Predicted_Sales_30Days']
+    totalSales30Days.columns = ['Product_Category', 'Sales']
     
     next7Days = allPredictions[allPredictions['ds'] <= (allPredictions['ds'].min() + pd.Timedelta(days=6))]
     totalSales7Days = next7Days.groupby('Product_Category')['yhat'].sum().round().astype(int).reset_index()
-    totalSales7Days.columns = ['Product_Category', 'Total_Predicted_Sales_7Days']
+    totalSales7Days.columns = ['Product_Category', 'Saless']
+    response = {
+        "nextWeek": totalSales7Days.to_json(),
+        "nextMonth": totalSales30Days.to_json()
+    }
+    return response
     
