@@ -1,5 +1,7 @@
 from pyspark.sql import functions as F
 from config.globalSession import spark
+import pandas as pd
+from prophet import Prophet
 
 def dfPreProcess(data):
     df = df.groupBy("Product_Category", "Date").agg(F.sum(F.col('Total_Purchases')).alias("Total_Purchases")).orderBy("Date", "Product_Category")
@@ -40,3 +42,15 @@ def dfPreProcess(data):
     """)
     dfFilled.createOrReplaceTempView("filled_data")
     dfFilled.write.parquet('data/processed/model/demandTimeSeriesData.parquet', mode='overwrite')
+    
+def trainProphetModel():
+    dfFilled = pd.read_parquet('data/processed/model/demandTimeSeriesData.parquet', engine='pyarrow')
+    dfFilled['Date'] = pd.to_datetime(dfFilled['Date'])
+    models = {}
+    for category in dfFilled['Product_Category'].unique():
+        categoryData = dfFilled[dfFilled['Product_Category'] == category]
+        prophetData = categoryData[['Date', 'Total_Purchases']].rename(columns={'Date': 'ds', 'Total_Purchases': 'y'})
+        model = Prophet()
+        model.fit(prophetData)
+        models[category] = model
+    return models
