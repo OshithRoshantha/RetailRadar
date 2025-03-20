@@ -20,10 +20,10 @@ def customerInsights(df):
     topSegmentsByRevenue = df.groupBy("Customer_Segment").agg(F.sum("Total_Amount").alias("Total_Revenue")).orderBy(F.desc("Total_Revenue"))
     
     response = {
-        'genderWise': genderDistribution.toJSON().collect(),
-        'ageWise': ageGrouped.toJSON().collect(),
-        'incomeWise': incomeDistribution.toJSON().collect(),
-        'segmentsByRevenue': topSegmentsByRevenue.toJSON().collect() 
+        'genderWise': [row.asDict() for row in genderDistribution.toLocalIterator()],
+        'ageWise': [row.asDict() for row in ageGrouped.toLocalIterator()],
+        'incomeWise': [row.asDict() for row in incomeDistribution.toLocalIterator()],
+        'segmentsByRevenue': [row.asDict() for row in topSegmentsByRevenue.toLocalIterator()]
     }
     return response
 
@@ -32,8 +32,8 @@ def geographicInsights(df):
     customerOverCountries = df.groupBy("Country").agg(F.countDistinct("Customer_ID").alias("Customer_Count")).orderBy(F.desc("Customer_Count"))
     
     response = {
-        'citiesBySales': topCitiesBySales.toJSON().collect(),
-        'customerOverCountries': customerOverCountries.toJSON().collect()
+        'citiesBySales': [row.asDict() for row in topCitiesBySales.toLocalIterator()],
+        'customerOverCountries': [row.asDict() for row in customerOverCountries.toLocalIterator()]
     }
     return response
 
@@ -47,9 +47,9 @@ def salesInsights(df):
     yearlyRevenue = df.withColumn("tempYear", F.year(df["Date"])).groupBy("tempYear").agg(F.sum("Total_Amount").alias("Total_Revenue")).orderBy("tempYear")
     
     response = {
-        'monthlyRevenue': monthlyRevenue.toJSON().collect(),
-        'yearlyRevenue': yearlyRevenue.toJSON().collect(),
-        'topPopularCategories': topPopularCategories.toJSON().collect(),
+        'monthlyRevenue': [row.asDict() for row in monthlyRevenue.toLocalIterator()],
+        'yearlyRevenue': [row.asDict() for row in yearlyRevenue.toLocalIterator()],
+        'topPopularCategories': [row.asDict() for row in topPopularCategories.toLocalIterator()],
         'avgOrderValue': avgOrderValue
     }
     return response
@@ -62,9 +62,9 @@ def productInsights(df):
     topFrequent = df.groupBy("Product_Type").count().orderBy(F.desc("count")).limit(5)
     
     response = {
-        'topHighRated': topHighRated.toJSON().collect(),
-        'lowestRated': lowestRated.toJSON().collect(),
-        'topFrequent': topFrequent.toJSON().collect()
+        'topHighRated': [row.asDict() for row in topHighRated.toLocalIterator()],
+        'lowestRated': [row.asDict() for row in lowestRated.toLocalIterator()],
+        'topFrequent': [row.asDict() for row in topFrequent.toLocalIterator()]
     }
     return response
 
@@ -76,9 +76,9 @@ def operationalInsights(df):
     shippedDeliverRatio = (df.filter(F.col("Order_Status") == "Shipped").count())/(df.filter(F.col("Order_Status") == "Delivered").count())
     
     response = {
-        'mostUsedPaymentMethod': mostUsedPaymentMethod.toJSON().collect(),
-        'mostUsedShippingMethod': mostUsedShippingMethod.toJSON().collect(),
-        'orderStatusDistribution': orderStatusDistribution.toJSON().collect(),
+        'mostUsedPaymentMethod': [row.asDict() for row in mostUsedPaymentMethod.toLocalIterator()],
+        'mostUsedShippingMethod': [row.asDict() for row in mostUsedShippingMethod.toLocalIterator()],
+        'orderStatusDistribution': [row.asDict() for row in orderStatusDistribution.toLocalIterator()], 
         'deliverySuccessRate': deliverySuccessRate,
         'shippedDeliverRatio': shippedDeliverRatio
     }
