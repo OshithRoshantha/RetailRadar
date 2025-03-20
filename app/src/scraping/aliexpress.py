@@ -28,3 +28,12 @@ async def scraping(category):
         await browser.close()
         
         return {"Category": category, "Products": products}
+    
+async def initializeScraping(categories):
+    results = []
+    for category in categories:
+        data = scraping(category)
+        results.append(data)
+        
+    print(results)
+    
