@@ -3,6 +3,7 @@ from src.preProcessing import initialProcessing
 from src.predictions import churnPredict, clvPredict, demandPredict, salesPredict
 from src.schemas.preProcessing import preProcessResponse
 from src.schemas.predictions import churnResponse, clvResponse, demandResponse, salesResponse
+from src.schemas.inputs import churnInput, clvInput
 from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
@@ -21,11 +22,11 @@ def trainModels() -> dict:
     return {'model1': model1, 'model2': model2, 'model3':model3}
 
 @rrRouter.post('/predict/churn')
-def model1(data: dict) -> churnResponse:
+def model1(data: churnInput) -> churnResponse:
     return churnPredict(data)
 
 @rrRouter.post('/predict/clv')
-def model2(data: dict) -> clvResponse:
+def model2(data: clvInput) -> clvResponse:
     return clvPredict(data)
 
 @rrRouter.get('/predict/demand')
