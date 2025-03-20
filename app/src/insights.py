@@ -76,7 +76,7 @@ def operationalInsights(df):
     shippedDeliverRatio = (df.filter(F.col("Order_Status") == "Shipped").count())/(df.filter(F.col("Order_Status") == "Delivered").count())
     
     response = {
-        'mostUsedPaymentMethod ': mostUsedPaymentMethod.toJSON().collect(),
+        'mostUsedPaymentMethod': mostUsedPaymentMethod.toJSON().collect(),
         'mostUsedShippingMethod': mostUsedShippingMethod.toJSON().collect(),
         'orderStatusDistribution': orderStatusDistribution.toJSON().collect(),
         'deliverySuccessRate': deliverySuccessRate,

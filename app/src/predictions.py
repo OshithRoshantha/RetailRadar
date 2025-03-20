@@ -6,7 +6,7 @@ from models.demandForecastModel import trainProphetModel
 
 def churnPredict(input):
     model = joblib.load('data/processed/model/churnModel.pkl')
-    input = pd.DataFrame(input)
+    input = pd.DataFrame([input])
     churnPrediction = model.predict(input)[0]
     churnProbability = model.predict_proba(input)[0, 1]
     

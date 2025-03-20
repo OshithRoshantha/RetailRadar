@@ -1,38 +1,36 @@
-from flask import Blueprint, request
+from fastapi import APIRouter, HTTPException
 from src.preProcessing import initialProcessing
 from src.predictions import churnPredict, clvPredict, demandPredict, salesPredict
 from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
 
-rrBlueprint=Blueprint('retailradar', __name__)
+rrRouter=APIRouter(prefix="/retailradar")
 
-@rrBlueprint.route('/initialize', methods=["GET"])
+@rrRouter.get('/initialize')
 def intializeProcessing():
     return initialProcessing()
 
-@rrBlueprint.route('/train', methods=["GET"])
+@rrRouter.get('/train')
 def trainModels():
     model1 = trainChurnModel()
     model2 = trainClvModel()
     model3 = trainLSTMModel()
     return {'model1': model1, 'model2': model2, 'model3':model3}
 
-@rrBlueprint.route('/predict/churn', methods=["POST"])
-def model1():
-    data=request.get_json()
+@rrRouter.post('/predict/churn')
+def model1(data: dict):
     return churnPredict(data)
 
-@rrBlueprint.route('/predict/clv', methods=["POST"])
-def model2():
-    data=request.get_json()
+@rrRouter.post('/predict/clv')
+def model2(data: dict):
     return clvPredict(data)
 
-@rrBlueprint.route('/predict/demand', methods=["GET"])
+@rrRouter.get('/predict/demand')
 def model3():
     return demandPredict()
 
-@rrBlueprint.route('/predict/sales', methods=["GET"])
+@rrRouter.get('/predict/sales')
 def model4():
     return salesPredict()
 
