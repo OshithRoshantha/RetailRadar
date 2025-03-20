@@ -1,8 +1,9 @@
-from flask import Flask
-from routes.route import rrBlueprint
+from fastapi import FastAPI
+from routes.route import rrRouter
 
-retailradar=Flask(__name__)
-retailradar.register_blueprint(rrBlueprint)
+retailradar = FastAPI()
+retailradar.include_router(rrRouter)
 
 if __name__ == '__main__':
-    retailradar.run()
+    import uvicorn
+    uvicorn.run(retailradar, host='0.0.0.0', port=8000)
