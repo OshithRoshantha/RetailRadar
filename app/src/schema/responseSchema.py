@@ -22,12 +22,16 @@ class salesDataframe(BaseModel):
     
 class salesResponse(BaseModel):
     predictions: salesDataframe
-    
+
 class Product(BaseModel):
     Name: str
     Price: str
     URL: str
     Image_URL: str
-    
+
+class Category(BaseModel):
+    Category: str
+    Products: List[Product]
+
 class scrapeResponse(BaseModel):
-    Result: List[Product]
+    Result: List[Category]
