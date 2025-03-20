@@ -56,8 +56,8 @@ def demandPredict():
     totalSales7Days = next7Days.groupby('Product_Category')['yhat'].sum().round().astype(int).reset_index()
     totalSales7Days.columns = ['Product_Category', 'Saless']
     response = {
-        "nextWeek": totalSales7Days.to_json(),
-        "nextMonth": totalSales30Days.to_json()
+        "nextWeek": totalSales7Days.to_dict(),
+        "nextMonth": totalSales30Days.to_dict()
     }
     return response
 
@@ -82,7 +82,7 @@ def salesPredict():
     monthlyPredictions = predictionsDf.groupby('YearMonth')['Sales'].sum().reset_index()
     monthlyPredictions['YearMonth'] = monthlyPredictions['YearMonth'].astype(str)
     response = {
-        "predictions": monthlyPredictions.to_json()
+        "predictions": monthlyPredictions.to_dict()
     }
     return response
     

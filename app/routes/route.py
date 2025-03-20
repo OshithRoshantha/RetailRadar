@@ -5,6 +5,7 @@ from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
 from src.schema.inputSchema import churnInput, clvInput 
+from src.schema.responseSchema import churnResponse, clvResponse
 
 rrRouter=APIRouter(prefix="/retailradar")
 
@@ -20,11 +21,11 @@ def trainModels():
     return {'model1': model1, 'model2': model2, 'model3':model3}
 
 @rrRouter.post('/predict/churn')
-def model1(data: churnInput):
+def model1(data: churnInput) -> churnResponse:
     return churnPredict(data.model_dump())
 
 @rrRouter.post('/predict/clv')
-def model2(data: clvInput):
+def model2(data: clvInput) -> clvResponse:
     return clvPredict(data.model_dump())
 
 @rrRouter.get('/predict/demand')
