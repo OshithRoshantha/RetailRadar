@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from src.preProcessing import initialProcessing
 from src.predictions import churnPredict, clvPredict, demandPredict, salesPredict
 from models.churnModel import trainChurnModel
@@ -6,11 +6,12 @@ from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
 from src.schema.inputSchema import churnInput, clvInput 
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse
+from src.schema.preProcessingSchema import initialResponse
 
 rrRouter=APIRouter(prefix="/retailradar")
 
 @rrRouter.get('/initialize')
-def intializeProcessing():
+def intializeProcessing() -> initialResponse:
     return initialProcessing()
 
 @rrRouter.get('/train')
