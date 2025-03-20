@@ -7,6 +7,7 @@ from models.salesForecastModel import trainLSTMModel
 from src.schema.inputSchema import churnInput, clvInput 
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse
 from src.schema.preProcessingSchema import initialResponse
+from src.scraping.aliexpress import initializeScraping
 
 rrRouter=APIRouter(prefix="/retailradar")
 
@@ -36,4 +37,11 @@ def model3() -> demandResponse:
 @rrRouter.get('/predict/sales')
 def model4() -> salesResponse:
     return salesPredict()
+
+@rrRouter.get('/scrape')
+async def intializeScraping():
+    categories = ['electronics', 'books']
+    results = await initializeScraping(categories)
+    return results
+
 
