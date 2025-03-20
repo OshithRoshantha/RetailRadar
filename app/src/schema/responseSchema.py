@@ -11,7 +11,7 @@ class demandDataframe(BaseModel):
     Product_Category: dict
     Sales: dict
     
-class demandRespose(BaseModel):
+class demandResponse(BaseModel):
     nextWeek: demandDataframe
     nextMonth: demandDataframe
 
