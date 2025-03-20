@@ -6,3 +6,18 @@ class churnResponse(BaseModel):
     
 class clvResponse(BaseModel):
     predictedClv: float
+    
+class demandDataframe(BaseModel):
+    Product_Category: dict
+    Sales: dict
+    
+class demandRespose(BaseModel):
+    nextWeek: demandDataframe
+    nextMonth: demandDataframe
+
+class salesDataframe(BaseModel):
+    YearMonth: dict
+    Sales: dict
+    
+class salesResponse(BaseModel):
+    predictions: salesDataframe

@@ -54,7 +54,7 @@ def demandPredict():
     
     next7Days = allPredictions[allPredictions['ds'] <= (allPredictions['ds'].min() + pd.Timedelta(days=6))]
     totalSales7Days = next7Days.groupby('Product_Category')['yhat'].sum().round().astype(int).reset_index()
-    totalSales7Days.columns = ['Product_Category', 'Saless']
+    totalSales7Days.columns = ['Product_Category', 'Sales']
     response = {
         "nextWeek": totalSales7Days.to_dict(),
         "nextMonth": totalSales30Days.to_dict()
