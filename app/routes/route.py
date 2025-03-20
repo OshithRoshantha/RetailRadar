@@ -13,7 +13,7 @@ def intializeProcessing() -> preProcessResponse:
     return initialProcessing()
 
 @rrRouter.get('/train')
-def trainModels():
+def trainModels() -> dict:
     model1 = trainChurnModel()
     model2 = trainClvModel()
     model3 = trainLSTMModel()
