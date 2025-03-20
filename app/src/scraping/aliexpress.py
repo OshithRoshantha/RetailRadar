@@ -34,5 +34,7 @@ async def initializeScraping(categories):
     for category in categories:
         data = await scraping(category) 
         results.append(data)
-        
-    return results
+    response = {
+        'Result': results
+    }    
+    return response
