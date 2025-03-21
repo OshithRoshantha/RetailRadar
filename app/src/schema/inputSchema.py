@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List
 
 class churnInput(BaseModel):
     Total_Spend: float
@@ -11,5 +12,7 @@ class clvInput(BaseModel):
     Total_Purchases: int
     Lifespan: float
     Type: str
-    
+   
+class scrapeInput(BaseModel):
+    categories: List[str] 
     

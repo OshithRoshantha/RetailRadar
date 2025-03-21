@@ -4,7 +4,7 @@ from src.predictions import churnPredict, clvPredict, demandPredict, salesPredic
 from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
-from src.schema.inputSchema import churnInput, clvInput 
+from src.schema.inputSchema import churnInput, clvInput, scrapeInput
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
@@ -39,9 +39,8 @@ def model4() -> salesResponse:
     return salesPredict()
 
 @rrRouter.get('/scrape')
-async def intializeScraping() -> scrapeResponse:
-    categories = ['electronics', 'books']
-    results = await initializeScraping(categories)
+async def intializeScraping(data: scrapeInput) -> scrapeResponse:
+    results = await initializeScraping(data.categories)
     return results
 
 
