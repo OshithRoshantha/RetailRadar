@@ -5,7 +5,7 @@ from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
 from models.llm.langChain import initializeAgent
-from src.schema.inputSchema import churnInput, clvInput, scrapeInput
+from src.schema.inputSchema import churnInput, clvInput, scrapeInput, llmInput
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
@@ -45,5 +45,9 @@ def model4() -> salesResponse:
 async def intializeScraping(data: scrapeInput) -> scrapeResponse:
     results = await initializeScraping(data.categories)
     return results
+
+@rrRouter.post('/askAgent')
+def llm(data: llmInput) -> str:
+    return agent.run(data.question)
 
 

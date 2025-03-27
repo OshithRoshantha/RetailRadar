@@ -16,3 +16,5 @@ class clvInput(BaseModel):
 class scrapeInput(BaseModel):
     categories: List[str] 
     
+class llmInput(BaseModel):
+    question: str
