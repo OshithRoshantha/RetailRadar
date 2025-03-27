@@ -4,12 +4,15 @@ from src.predictions import churnPredict, clvPredict, demandPredict, salesPredic
 from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
+from models.llm.langChain import initializeAgent
 from src.schema.inputSchema import churnInput, clvInput, scrapeInput
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
 
-rrRouter=APIRouter(prefix="/retailradar")
+rrRouter = APIRouter(prefix="/retailradar")
+ 
+agent = initializeAgent()
 
 @rrRouter.get('/initialize')
 def intializeProcessing() -> initialResponse:
