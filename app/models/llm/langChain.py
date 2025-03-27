@@ -12,11 +12,7 @@ def initializeAgent():
 
     llm = ChatOpenAI(model=os.getenv('MODEL'))
 
-    systemMsg = SystemMessagePromptTemplate.from_template(
-        "You are working with a dataframe containing transaction data. "
-        "Each row represents one unique transaction. "
-        "The dataframe has been loaded and is ready for analysis."
-    )
+    systemMsg = SystemMessagePromptTemplate.from_template(os.getenv("SYSPROMPT"))
 
     memory = ConversationBufferWindowMemory(k=5, memory_key="chat_history", return_messages=True)
 
