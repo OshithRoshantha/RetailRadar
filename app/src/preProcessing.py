@@ -67,6 +67,27 @@ def initialProcessing():
         .otherwise(F.col("Date"))
     )
     
+    llmDf = df.withColumn(
+        "combinedData",
+        F.concat_ws(" | ",
+            F.concat(F.lit("City: "), F.col("City")),
+            F.concat(F.lit("Country: "), F.col("Country")),
+            F.concat(F.lit("Age: "), F.col("Age").cast("string")),
+            F.concat(F.lit("Gender: "), F.col("Gender")),
+            F.concat(F.lit("Income: "), F.col("Income").cast("string")),
+            F.concat(F.lit("Segment: "), F.col("Customer_Segment")),
+            F.concat(F.lit("Date: "), F.col("Date").cast("string")),
+            F.concat(F.lit("Purchases: "), F.col("Total_Purchases").cast("string")),
+            F.concat(F.lit("Amount: "), F.col("Amount").cast("string")),
+            F.concat(F.lit("Total Amount: "), F.col("Total_Amount").cast("string")),
+            F.concat(F.lit("Category: "), F.col("Product_Category")),
+            F.concat(F.lit("Type: "), F.col("Product_Type")),
+            F.concat(F.lit("Shipping: "), F.col("Shipping_Method")),
+            F.concat(F.lit("Payment: "), F.col("Payment_Method"))
+        )
+    )
+    llmDf = llmDf.select('combinedData')
+    
     customer = customerInsights(df)
     geo = geographicInsights(df)
     sales = salesInsights(df)
@@ -90,4 +111,5 @@ def initialProcessing():
     }
     
     df.write.parquet('data/processed/cleanedData.parquet', mode='overwrite')
+    llmDf.write.parquet('data/processed/llmData.parquet', mode='overwrite')
     return response
