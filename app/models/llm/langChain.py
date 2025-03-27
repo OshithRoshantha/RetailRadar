@@ -4,13 +4,15 @@ from langchain.chat_models import ChatOpenAI
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.prompts import SystemMessagePromptTemplate
+from config.coreConfig import mainConfig
 
 def initializeAgent():
+    mainConfig()
     source = pd.read_parquet('../../data/processed/cleanedData.parquet')
 
     llm = ChatOpenAI(model=os.getenv('MODEL'))
 
-    system = SystemMessagePromptTemplate.from_template(
+    systemMsg = SystemMessagePromptTemplate.from_template(
         "You are working with a dataframe containing transaction data. "
         "Each row represents one unique transaction. "
         "The dataframe has been loaded and is ready for analysis."
@@ -24,6 +26,6 @@ def initializeAgent():
         verbose=False,
         allow_dangerous_code=True,
         memory=memory,
-        system_message=system,
-        extra_prompt_messages=[system]  
+        system_message=systemMsg,
+        extra_prompt_messages=[systemMsg]  
     )  
