@@ -48,6 +48,6 @@ async def intializeScraping(data: scrapeInput) -> scrapeResponse:
 
 @rrRouter.post('/askAgent')
 def llm(data: llmInput) -> str:
-    return agent.run(data.question)
+    return agent.invoke(data.question)
 
 
