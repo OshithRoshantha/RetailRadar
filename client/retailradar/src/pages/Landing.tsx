@@ -2,9 +2,9 @@ import { LoginForm } from '@/components/LoginForm';
 import mainLogo from '../assets/logo/logo1.png'
 import './css/SignIn.css'
 import { SignupForm } from "@/components/SignupForm";
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export default function SignIn() {
+export default function Landing() {
     const [state, setState] = useState<boolean>(true);
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
