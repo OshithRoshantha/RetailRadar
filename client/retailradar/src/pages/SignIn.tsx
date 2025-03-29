@@ -1,10 +1,11 @@
-import { LoginForm } from "@/components/LoginForm";
-import { GalleryVerticalEnd } from "lucide-react"
+import { LoginForm } from '@/components/LoginForm';
 import mainLogo from '../assets/logo/logo1.png'
 import './css/SignIn.css'
 import { SignupForm } from "@/components/SignupForm";
+import React, { useState } from 'react';
 
 export default function SignIn() {
+    const [state, setState] = useState<boolean>(true);
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -21,7 +22,11 @@ export default function SignIn() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <SignupForm/>
+            {state ? (
+              <LoginForm setState={setState} />
+            ) : (
+              <SignupForm setState={setState} />
+            )}
           </div>
         </div>
       </div>

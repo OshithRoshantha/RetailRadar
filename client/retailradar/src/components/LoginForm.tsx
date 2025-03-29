@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export function LoginForm({
+  setState,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
@@ -46,7 +47,7 @@ export function LoginForm({
       </div>
       <div className="text-center text-sm">
         New to RetailRadar?{" "}
-        <a href="#" className="underline underline-offset-4 font-bold text-[#0718c4]">
+        <a className="underline underline-offset-4 font-bold text-[#0718c4] cursor-pointer" onClick={() => setState(false)}>
           Sign up
         </a>
       </div>

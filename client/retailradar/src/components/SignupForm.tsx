@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export function SignupForm({
+  setState,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
@@ -12,7 +13,7 @@ export function SignupForm({
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Boost Your Sales<br></br>Sign Up Free</h1>
         <p className="text-balance text-sm text-muted-foreground ">
-        No credit card required. <br></br>Get full access to AI-powered retail analytics.
+            Get full access to AI-powered retail analytics.
         </p>
       </div>
       <div className="grid gap-6">
@@ -40,7 +41,7 @@ export function SignupForm({
       </div>
       <div className="text-center text-sm">
       Already have an account?{" "}
-        <a href="#" className="underline underline-offset-4 font-bold text-[#0718c4]">
+        <a className="underline underline-offset-4 font-bold text-[#0718c4] cursor-pointer" onClick={() => setState(true)}>
           Sign in
         </a>
       </div>
