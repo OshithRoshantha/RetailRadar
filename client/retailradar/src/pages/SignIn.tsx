@@ -2,6 +2,7 @@ import { LoginForm } from "@/components/LoginForm";
 import { GalleryVerticalEnd } from "lucide-react"
 import mainLogo from '../assets/logo/logo1.png'
 import './css/SignIn.css'
+import { SignupForm } from "@/components/SignupForm";
 
 export default function SignIn() {
   return (
@@ -20,7 +21,7 @@ export default function SignIn() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginForm />
+            <SignupForm/>
           </div>
         </div>
       </div>
