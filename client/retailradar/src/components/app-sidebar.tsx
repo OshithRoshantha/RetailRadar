@@ -7,10 +7,8 @@ import {
   IconFileAi,
   IconFileDescription,
   IconFolder,
-  IconListDetails,
   IconBrain,
   IconBuildingStore,
-  IconUsers,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -23,7 +21,6 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import mainLogo from '../assets/logo/logo3.png'
