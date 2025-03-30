@@ -53,6 +53,11 @@ const data = {
       icon: IconBuildingStore,
     },
     {
+      title: "Ask Agent",
+      url: "#",
+      icon: IconBuildingStore,
+    },
+    {
       title: "Dataset Manager",
       url: "#",
       icon: IconFolder,
