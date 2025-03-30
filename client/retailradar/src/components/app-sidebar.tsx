@@ -116,10 +116,13 @@ const data = {
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ setSelectedItem, ...props }: 
+  React.ComponentProps<typeof Sidebar> & {  
+    setSelectedItem: (item: string) => void; 
+  }) {
 
   const handleItemClick = (title: string) => {
-    console.log("Clicked:", title); 
+    setSelectedItem(title);
   };
 
   return (
