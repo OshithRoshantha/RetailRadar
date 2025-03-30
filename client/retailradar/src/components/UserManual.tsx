@@ -14,8 +14,15 @@ export default function UserManual() {
             <ul>
                 <li>File Format: Only CSV files are supported.</li>
                 <li>Required Structure: Ensure your CSV has the correct columns,</li>
+                    <ul>
+                        <li><ExampleTable/></li>
+                    </ul>
+                <li>Upload Process:</li>
+                    <ul>
+                        <li>Click "Choose File" and select your CSV.</li>
+                        <li>Click "Upload" to process the data.</li>
+                    </ul>
             </ul>
-            <ExampleTable/>
     </div>
     </div>
   )
