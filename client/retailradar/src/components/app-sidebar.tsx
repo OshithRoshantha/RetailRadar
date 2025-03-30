@@ -9,6 +9,7 @@ import {
   IconFolder,
   IconBrain,
   IconBuildingStore,
+  IconMessageFilled,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -55,7 +56,7 @@ const data = {
     {
       title: "Ask Agent",
       url: "#",
-      icon: IconBuildingStore,
+      icon: IconMessageFilled,
     },
     {
       title: "Dataset Manager",
