@@ -2,18 +2,14 @@ import * as React from "react"
 import {
   IconCamera,
   IconChartBar,
-  IconDashboard,
-  IconDatabase,
+  IconBook,
+  IconStairs,
   IconFileAi,
   IconFileDescription,
-  IconFileWord,
   IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
   IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
+  IconBrain,
+  IconBuildingStore,
   IconUsers,
 } from "@tabler/icons-react"
 
@@ -40,14 +36,9 @@ const data = {
   },
   navMain: [
     {
-      title: "Dashboard",
+      title: "Getting Started",
       url: "#",
-      icon: IconDashboard,
-    },
-    {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
+      icon: IconStairs,
     },
     {
       title: "Analytics",
@@ -55,14 +46,24 @@ const data = {
       icon: IconChartBar,
     },
     {
-      title: "Projects",
+      title: "Predictions",
+      url: "#",
+      icon: IconBrain,
+    },
+    {
+      title: "Product Search",
+      url: "#",
+      icon: IconBuildingStore,
+    },
+    {
+      title: "Dataset Manager",
       url: "#",
       icon: IconFolder,
     },
     {
-      title: "Team",
+      title: "Instruction Manual",
       url: "#",
-      icon: IconUsers,
+      icon: IconBook,
     },
   ],
   navClouds: [

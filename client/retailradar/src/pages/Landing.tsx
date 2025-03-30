@@ -31,7 +31,6 @@ export default function Landing() {
         </div>
       </div>
       <div className="relative hidden bg-muted lg:block">
-
       </div>
     </div>
   )
