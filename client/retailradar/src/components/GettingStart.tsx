@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiUpload, FiFileText, FiX } from "react-icons/fi";
 import Spinner from 'react-bootstrap/Spinner';
 import './css/GettingStart.css';
@@ -7,7 +7,7 @@ export default function GettingStart() {
   const [isDragging, setIsDragging] = useState(false);
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [showProgress, setShowProgress] = useState(true);
+  const [showProgress, setShowProgress] = useState(false);
 
   const maxSize = 524288000; 
 
@@ -73,6 +73,28 @@ export default function GettingStart() {
     }
     return `${(bytes / 1024).toFixed(2)} KB`;
   };
+
+  const initializeProcessing = () =>{
+    setShowProgress(true);
+  }
+
+  const steps = [
+    "Initialize Session",
+    "Data Cleaning",
+    "Data Transformation",
+    "Extraction",
+  ];
+
+  const [currentStep, setCurrentStep] = useState(steps[0]);
+  let stepIndex = 0;
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      stepIndex = (stepIndex + 1) % steps.length;
+      setCurrentStep(steps[stepIndex]);
+    }, 2000); 
+    return () => clearInterval(intervalId);
+  }, [steps]);
 
   return (
     <div className="w-full h-full overflow-hidden">
@@ -154,12 +176,13 @@ export default function GettingStart() {
         <br></br>
         {showProgress && (<div className="flex pb-2">
             <Spinner animation="grow" variant="primary" className="mr-3"/>
-            <p className="text-gray-500 text-sm mt-2">Please wait, this may take some time...</p>
+            <p className="text-gray-500 text-sm mt-2"><b className="text-blue-800">{currentStep}</b>&nbsp;&nbsp;&nbsp;Please wait, this may take some time...</p>
         </div>)}
         <br></br>
         <button type="button" 
           className={`btn ${showProgress ? 'bg-gray-500 hover:bg-gray-600' : 'bg-blue-800 hover:bg-blue-900'} btn-primary pt-1 px-4 py-2 rounded`} 
           disabled={showProgress}
+          onClick={initializeProcessing}
         >Initialize Processing</button>
       </div>
     </div>
