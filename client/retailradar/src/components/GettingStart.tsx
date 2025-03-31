@@ -8,7 +8,7 @@ export default function GettingStart() {
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showProgress, setShowProgress] = useState(false);
-  const [isComplete, setIsComplete] = useState(true);
+  const [isComplete, setIsComplete] = useState(false);
 
   const maxSize = 524288000; 
 
@@ -184,7 +184,7 @@ export default function GettingStart() {
             <p className="text-gray-500 text-sm mt-2"><b className="text-blue-800">{currentStep}</b>&nbsp;&nbsp;Please wait, this may take some time...</p>
         </div>)}
         <br></br>
-        {!isComplete && (
+        {!isComplete && csvFile !== null && (
         <button type="button" 
           className={`btn ${showProgress ? 'bg-gray-500 hover:bg-gray-600' : 'bg-blue-800 hover:bg-blue-900'} btn-primary pt-1 px-4 py-2 rounded`} 
           disabled={showProgress}
