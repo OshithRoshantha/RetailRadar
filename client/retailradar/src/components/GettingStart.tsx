@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { FiUpload, FiFileText, FiX } from "react-icons/fi";
+import Spinner from 'react-bootstrap/Spinner';
 import './css/GettingStart.css';
 
 export default function GettingStart() {
   const [isDragging, setIsDragging] = useState(false);
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showProgress, setShowProgress] = useState(true);
 
   const maxSize = 524288000; 
 
@@ -76,7 +78,6 @@ export default function GettingStart() {
     <div className="w-full h-full overflow-hidden">
       <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5">
         <h5 className="pb-4">Upload CSV</h5>
-
         <div 
           className={`drag-drop bg-white border-4 border-dotted ${
             isDragging ? 'border-blue-800' : error ? 'border-red-500' : 'border-blue-200'
@@ -150,6 +151,16 @@ export default function GettingStart() {
         {error && (
           <p className="text-red-500 text-sm mt-2">{error}</p>
         )}
+        <br></br>
+        {showProgress && (<div className="flex pb-2">
+            <Spinner animation="grow" variant="primary" className="mr-3"/>
+            <p className="text-gray-500 text-sm mt-2">Please wait, this may take some time...</p>
+        </div>)}
+        <br></br>
+        <button type="button" 
+          className={`btn ${showProgress ? 'bg-gray-500 hover:bg-gray-600' : 'bg-blue-800 hover:bg-blue-900'} btn-primary pt-1 px-4 py-2 rounded`} 
+          disabled={showProgress}
+        >Initialize Processing</button>
       </div>
     </div>
   );

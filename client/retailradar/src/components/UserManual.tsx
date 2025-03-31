@@ -20,8 +20,7 @@ export default function UserManual() {
                     </ul>
                 <li>Upload Process:</li>
                     <ul>
-                        <li>Click "Choose File" and select your CSV.</li>
-                        <li>Click "Upload" to process the data.</li>
+                        <li>Click "Initialize Processing" to process the data.</li>
                     </ul>
             </ul>
         <h5 className='pt-3'>2.Analytics</h5>
