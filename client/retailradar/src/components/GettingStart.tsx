@@ -161,7 +161,7 @@ export default function GettingStart() {
               
               <button 
                 type="button" 
-                className="btn bg-blue-800 hover:bg-blue-900 text-white btn-primary pt-1 px-4 py-2 rounded"
+                className=" bg-blue-800 hover:bg-blue-900 text-white btn-primary pt-1 px-4 py-2 rounded"
               >
                 Browse File
               </button>
@@ -188,7 +188,7 @@ export default function GettingStart() {
         <br></br>
         {!isComplete && csvFile !== null && (
         <button type="button" 
-          className={`btn ${showProgress ? 'bg-gray-500 hover:bg-gray-600' : 'bg-blue-800 hover:bg-blue-900'} btn-primary pt-1 px-4 py-2 rounded`} 
+          className={` ${showProgress ? 'bg-gray-300 hover:bg-gray-600' : 'bg-blue-800 hover:bg-blue-900'} text-white pt-1 px-4 py-2 rounded`} 
           disabled={showProgress}
           onClick={initializeProcessing}
         >Initialize Processing</button>)}
