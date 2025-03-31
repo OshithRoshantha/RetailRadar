@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiUpload, FiFileText, FiX } from "react-icons/fi";
+import { FiUpload, FiFileText, FiX, FiCheckSquare} from "react-icons/fi";
 import Spinner from 'react-bootstrap/Spinner';
 import './css/GettingStart.css';
 
@@ -8,7 +8,7 @@ export default function GettingStart() {
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showProgress, setShowProgress] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState(true);
 
   const maxSize = 524288000; 
 
@@ -175,16 +175,21 @@ export default function GettingStart() {
           <p className="text-red-500 text-sm mt-2">{error}</p>
         )}
         <br></br>
+        {isComplete && (<div className="flex pb-2">
+            <FiCheckSquare size={32} className="text-blue-800 mr-3"/>
+            <p className="text-gray-500 text-sm mt-2"><b className="text-blue-800">Process Successful!</b>&nbsp;&nbsp;&nbsp; Analytics are available.</p>
+        </div>)}
         {showProgress && !isComplete && (<div className="flex pb-2">
             <Spinner animation="grow" variant="primary" className="mr-3"/>
-            <p className="text-gray-500 text-sm mt-2"><b className="text-blue-800">{currentStep}</b>&nbsp;&nbsp;&nbsp;Please wait, this may take some time...</p>
+            <p className="text-gray-500 text-sm mt-2"><b className="text-blue-800">{currentStep}</b>&nbsp;&nbsp;Please wait, this may take some time...</p>
         </div>)}
         <br></br>
+        {!isComplete && (
         <button type="button" 
           className={`btn ${showProgress ? 'bg-gray-500 hover:bg-gray-600' : 'bg-blue-800 hover:bg-blue-900'} btn-primary pt-1 px-4 py-2 rounded`} 
           disabled={showProgress}
           onClick={initializeProcessing}
-        >Initialize Processing</button>
+        >Initialize Processing</button>)}
       </div>
     </div>
   );
