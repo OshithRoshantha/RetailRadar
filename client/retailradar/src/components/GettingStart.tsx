@@ -129,6 +129,7 @@ export default function GettingStart() {
                     <p className="text-gray-500 text-sm">{formatFileSize(csvFile.size)}</p>
                   </div>
                 </div>
+                {!showProgress && (
                 <button 
                   onClick={(e) => {
                     e.stopPropagation();
@@ -137,11 +138,12 @@ export default function GettingStart() {
                   className="text-gray-500 hover:text-gray-700 ml-4"
                 >
                   <FiX size={20} />
-                </button>
+                </button>)}
               </div>
+              {!showProgress && (
               <p className="text-medium text-gray-500 mt-3">
                 Drag and drop to replace another file
-              </p>
+              </p>)}
             </div>
           ) : (
             <>
