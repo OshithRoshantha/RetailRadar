@@ -29,7 +29,7 @@ export default function UserManual() {
         <h5 className='pt-3'>3.Predictions</h5>
         <p>Click "Launch Model Training" to train the models and forecast sales, demand, or customer behavior. <br></br>Predictions appear in a table/graph.</p>
         <h5 className='pt-3'>4.Product Search</h5>
-        <p>Get real-time best-selling products from AliExpress (scraped/API-based).</p>
+        <p>Get real-time best-selling products from AliExpress (scraped).</p>
         <h5 className='pt-3'>5.Ask Agent</h5>
         <p>An AI assistant helps answer questions about your dataset.</p>
         <h6>How to Use</h6>
