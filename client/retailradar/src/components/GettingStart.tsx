@@ -154,7 +154,7 @@ export default function GettingStart() {
               <h3 className={`${
                 isDragging ? 'text-blue-800' : error ? 'text-red-500' : 'text-blue-800'
               }`}>
-                {isDragging ? 'Drop your CSV file here' : 'Drag and Drop to Upload File'}
+                {isDragging ? 'Drop your CSV file here' : 'Drag and Drop to Upload CSV'}
               </h3>
               
               <p className="my-2 text-gray-600">OR</p>

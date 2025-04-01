@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar"
+import AskAgent from "@/components/AskAgent";
 import GettingStart from "@/components/GettingStart";
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
@@ -18,7 +19,7 @@ export default function Dashboard() {
             <SiteHeader selectedItem={selectedItem}/>
             <div className="flex flex-1 flex-col">
             <div className="@container/main flex flex-1 flex-col gap-2">
-              <GettingStart/>
+              <AskAgent/>
             </div>
             </div>
         </SidebarInset>
