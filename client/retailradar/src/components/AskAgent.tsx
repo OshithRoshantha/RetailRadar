@@ -2,9 +2,9 @@ import { useState, useRef } from "react";
 import { FiArrowUpCircle } from "react-icons/fi";
 
 export default function AskAgent() {
-
     const [text, setText] = useState<string>("");
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const [thinking, setThinking] = useState<boolean>(false);
   
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setText(event.target.value);
@@ -16,11 +16,18 @@ export default function AskAgent() {
       }
     };
 
+    const askAgent = () =>{
+        setThinking(true);
+    } 
+
   return (
     <div className="w-full h-full overflow-hidden">
       <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-        <p className="text-gray-800 font-bold" style={{fontSize:'150%'}}>Hi, I'm RetailRadar, your AI assistant. 🤖</p>
-        <p className="text-gray-500 text-sm mt" style={{fontSize:'95%', marginTop: '-15px'}}>How can I help you today?</p>
+        {!thinking && (
+        <p className="text-gray-800 font-bold" style={{fontSize:'150%'}}>Hi, I'm RetailRadar, your AI assistant. 🤖</p>)}
+        {!thinking && (
+        <p className="text-gray-500 text-sm mt" style={{fontSize:'95%', marginTop: '-15px'}}>How can I help you today?</p>)}
+        {!thinking && (
         <textarea
             ref={textAreaRef}
             value={text}
@@ -34,8 +41,9 @@ export default function AskAgent() {
                 overflow: "hidden",
                 resize: "none"
             }}
-        />
-        <FiArrowUpCircle className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>
+        />)}
+        {!thinking && (
+        <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>)}
       </div>
     </div>
   )
