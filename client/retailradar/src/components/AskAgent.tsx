@@ -47,7 +47,7 @@ export default function AskAgent() {
         />)}
         {!thinking && (
         <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>)}
-        <div className="chat-window">
+        <div className="chat-window flex flex-col justify-end">
             <Sent/>
             <Reply/>
         </div>
