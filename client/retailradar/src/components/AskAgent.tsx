@@ -36,7 +36,7 @@ export default function AskAgent() {
             value={text}
             placeholder="Ask me anything"	
             onChange={handleChange}
-            className="bg-blue-800 p-2 text-white"
+            className="p-2 bg-gray-200"
             style={{
                 borderRadius: "15px",
                 width: "60%",
@@ -57,7 +57,7 @@ export default function AskAgent() {
               value={text}
               placeholder="Ask me anything"	
               onChange={handleChange}
-              className="bg-blue-800 p-2 text-white"
+              className="p-2 bg-gray-200"
               style={{
                   borderRadius: "15px",
                   width: "100%",
