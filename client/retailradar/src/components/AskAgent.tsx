@@ -48,8 +48,22 @@ export default function AskAgent() {
         <div className="chat-window">
 
         </div>
-        <div className="input-area">
-
+        <div className="input-area flex">
+          <textarea
+              ref={textAreaRef}
+              value={text}
+              placeholder="Ask me anything"	
+              onChange={handleChange}
+              className="bg-blue-800 p-2 text-white"
+              style={{
+                  borderRadius: "15px",
+                  width: "100%",
+                  minHeight: "40px",
+                  overflow: "hidden",
+                  resize: "none"
+              }}
+          />
+          <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>
         </div>
       </div>
     </div>
