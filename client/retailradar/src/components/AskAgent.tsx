@@ -3,11 +3,13 @@ import { FiArrowUpCircle } from "react-icons/fi";
 import './css/AskAgent.css'
 import Sent from "./Sent";
 import Reply from "./Reply";
+import Loading from "./Loading";
 
 export default function AskAgent() {
     const [text, setText] = useState<string>("");
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const [thinking, setThinking] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
   
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setText(event.target.value);
@@ -21,6 +23,7 @@ export default function AskAgent() {
 
     const askAgent = () =>{
         setThinking(true);
+        setLoading(true);
     } 
 
   return (
@@ -50,7 +53,9 @@ export default function AskAgent() {
         {thinking && (
         <div className="chat-window flex flex-col justify-end">
             <Sent content={'My message'}/>
-            <Reply content={'Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'}/>
+            {loading && (
+              <Loading/>
+            )}
         </div>)}
         {thinking && (
         <div className="input-area flex">
