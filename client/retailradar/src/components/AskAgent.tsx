@@ -106,3 +106,9 @@ export default function AskAgent() {
     </div>
   )
 }
+
+
+//setTimeout(() => {
+//  setMessages(prev => [...prev, { content: "This is a simulated response", isUser: false }]);
+//  setLoading(false);
+//}, 1500);
