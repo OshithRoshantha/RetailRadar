@@ -1,10 +1,11 @@
 import { useState, useRef } from "react";
 import { FiArrowUpCircle } from "react-icons/fi";
+import './css/AskAgent.css'
 
 export default function AskAgent() {
     const [text, setText] = useState<string>("");
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const [thinking, setThinking] = useState<boolean>(false);
+    const [thinking, setThinking] = useState<boolean>(true);
   
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setText(event.target.value);
@@ -44,6 +45,12 @@ export default function AskAgent() {
         />)}
         {!thinking && (
         <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>)}
+        <div className="chat-window">
+
+        </div>
+        <div className="input-area">
+
+        </div>
       </div>
     </div>
   )
