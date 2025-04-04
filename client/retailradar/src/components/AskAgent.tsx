@@ -7,7 +7,7 @@ import Reply from "./Reply";
 export default function AskAgent() {
     const [text, setText] = useState<string>("");
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const [thinking, setThinking] = useState<boolean>(true);
+    const [thinking, setThinking] = useState<boolean>(false);
   
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setText(event.target.value);
@@ -47,10 +47,12 @@ export default function AskAgent() {
         />)}
         {!thinking && (
         <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>)}
+        {thinking && (
         <div className="chat-window flex flex-col justify-end">
-            <Sent/>
-            <Reply/>
-        </div>
+            <Sent content={'My message'}/>
+            <Reply content={'Hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'}/>
+        </div>)}
+        {thinking && (
         <div className="input-area flex">
           <textarea
               ref={textAreaRef}
@@ -67,7 +69,7 @@ export default function AskAgent() {
               }}
           />
           <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>
-        </div>
+        </div>)}
       </div>
     </div>
   )
