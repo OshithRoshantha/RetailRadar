@@ -5,11 +5,17 @@ import Sent from "./Sent";
 import Reply from "./Reply";
 import Loading from "./Loading";
 
+interface Message {
+  content: string;
+  isUser: boolean;
+}
+
 export default function AskAgent() {
     const [text, setText] = useState<string>("");
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const [thinking, setThinking] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
+    const [messages, setMessages] = useState<Message[]>([]);
   
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setText(event.target.value);
@@ -22,9 +28,20 @@ export default function AskAgent() {
     };
 
     const askAgent = () =>{
-        setThinking(true);
-        setLoading(true);
+      if (text.trim() === "") return; 
+        
+      setMessages(prev => [...prev, { content: text, isUser: true }]);
+      setText("");
+      setThinking(true);
+      setLoading(true);
     } 
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          askAgent();
+      }
+  };
 
   return (
     <div className="w-full h-full overflow-hidden">
@@ -38,6 +55,7 @@ export default function AskAgent() {
             ref={textAreaRef}
             value={text}
             placeholder="Ask me anything"	
+            onKeyDown={handleKeyDown}
             onChange={handleChange}
             className="p-2 bg-gray-200"
             style={{
@@ -52,10 +70,14 @@ export default function AskAgent() {
         <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>)}
         {thinking && (
         <div className="chat-window flex flex-col justify-end">
-            <Sent content={'My message'}/>
-            {loading && (
-              <Loading/>
-            )}
+            {messages.map((message, index) => (
+              message.isUser ? (
+                <Sent key={index} content={message.content} />
+              ) : (
+                <Reply key={index} content={message.content} />
+              )
+            ))}
+            {loading && <Loading />}
         </div>)}
         {thinking && (
         <div className="input-area flex">
@@ -63,6 +85,7 @@ export default function AskAgent() {
               ref={textAreaRef}
               value={text}
               placeholder="Ask me anything"	
+              onKeyDown={handleKeyDown}
               onChange={handleChange}
               className="p-2 bg-gray-200"
               style={{

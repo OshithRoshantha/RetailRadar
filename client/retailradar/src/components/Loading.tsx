@@ -12,7 +12,7 @@ export default function Loading() {
             <SyncLoader
                 color="#193cb8"
                 speedMultiplier={0.7}
-                size={12}
+                size={10}
             />
         </div>
     </div>
