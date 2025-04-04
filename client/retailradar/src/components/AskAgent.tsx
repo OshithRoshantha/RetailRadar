@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { FiArrowUpCircle } from "react-icons/fi";
 import './css/AskAgent.css'
+import Sent from "./Sent";
+import Reply from "./Reply";
 
 export default function AskAgent() {
     const [text, setText] = useState<string>("");
@@ -46,7 +48,8 @@ export default function AskAgent() {
         {!thinking && (
         <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>)}
         <div className="chat-window">
-
+            <Sent/>
+            <Reply/>
         </div>
         <div className="input-area flex">
           <textarea
