@@ -65,7 +65,8 @@ export default function AskAgent() {
                 overflow: "hidden",
                 resize: "none"
             }}
-        />)}
+        />
+        )}
         {!thinking && (
         <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>)}
         {thinking && (
@@ -84,18 +85,21 @@ export default function AskAgent() {
           <textarea
               ref={textAreaRef}
               value={text}
-              placeholder="Ask me anything"	
-              onKeyDown={handleKeyDown}
+              placeholder={loading ? "RetailRadar is thinking..." : "Ask me anything"}
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
               className="p-2 bg-gray-200"
+              disabled={loading}
               style={{
                   borderRadius: "15px",
                   width: "100%",
                   minHeight: "40px",
                   overflow: "hidden",
-                  resize: "none"
+                  resize: "none",
+                  opacity: loading ? 0.7 : 1,
+                  cursor: loading ? "not-allowed" : "text"
               }}
-          />
+            />
           <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>
         </div>)}
       </div>
