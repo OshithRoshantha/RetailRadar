@@ -8,12 +8,85 @@ import {
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
-
+import { GenderDistribution } from "./Gender"
+import { AgeDistribution } from "./Age"
+import { IncomeDistribution } from "./Income"
+import { RevenueSegments } from "./Revenue"
 
   export default function Analytics() {
     const startDate = new Date("2001-01-24T00:00:00")
     const endDate = new Date("2024-02-29T00:00:00")
     const transactions = 522456
+
+    const data = {
+        customerInsights: {
+            "genderWise": [
+                {
+                    "Gender": "Female",
+                    "count": 32591
+                },
+                {
+                    "Gender": "Male",
+                    "count": 53689
+                }
+            ],
+            "ageWise": [
+                {
+                    "age_group": "30-39",
+                    "count": 12389
+                },
+                {
+                    "age_group": "20-29",
+                    "count": 36027
+                },
+                {
+                    "age_group": "60+",
+                    "count": 8031
+                },
+                {
+                    "age_group": "40-49",
+                    "count": 15967
+                },
+                {
+                    "age_group": "Under 20",
+                    "count": 5664
+                },
+                {
+                    "age_group": "50-59",
+                    "count": 8202
+                }
+            ],
+            "incomeWise": [
+                {
+                    "Income": "High",
+                    "count": 21391
+                },
+                {
+                    "Income": "Low",
+                    "count": 27508
+                },
+                {
+                    "Income": "Medium",
+                    "count": 37381
+                }
+            ],
+            "segmentsByRevenue": [
+                {
+                    "Customer_Segment": "Regular",
+                    "Total_Revenue": 191527952.18494225
+                },
+                {
+                    "Customer_Segment": "New",
+                    "Total_Revenue": 118515704.15899372
+                },
+                {
+                    "Customer_Segment": "Premium",
+                    "Total_Revenue": 82654961.53085995
+                }
+            ]},
+        geographicInsights: { /*...*/ },
+        salesInsights: { /*...*/ }
+    };
   
     const formattedStartDate = new Intl.DateTimeFormat("en-US", {
       weekday: "long",
@@ -56,7 +129,10 @@ import {
                 </TabsList>
                 <TabsContent value="Customer Insights">
                     <Card className="w-[1170px]">
-
+                        <GenderDistribution data={data.customerInsights.genderWise}/>
+                        <AgeDistribution data={data.customerInsights.ageWise}/>
+                        <IncomeDistribution data={data.customerInsights.incomeWise}/>
+                        <RevenueSegments data={data.customerInsights.segmentsByRevenue}/>
                     </Card>
                 </TabsContent>
                 <TabsContent value="Geographic Insights">
