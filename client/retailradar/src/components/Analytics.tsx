@@ -55,19 +55,29 @@ import {
                     <TabsTrigger value="Operational Insights">Operational Insights</TabsTrigger>
                 </TabsList>
                 <TabsContent value="Customer Insights">
+                    <Card className="w-[1170px]">
 
+                    </Card>
                 </TabsContent>
                 <TabsContent value="Geographic Insights">
-
+                    <Card className="w-[1170px]">
+                        
+                    </Card>
                 </TabsContent>
                  <TabsContent value="Sales Insights">
-
+                    <Card className="w-[1170px]">
+                        
+                    </Card>
                 </TabsContent>
                 <TabsContent value="Product Insights">
-
+                    <Card className="w-[1170px]">
+                        
+                    </Card>
                 </TabsContent>
                 <TabsContent value="Operational Insights">
-
+                    <Card className="w-[1170px]">
+                        
+                    </Card>
                 </TabsContent>
             </Tabs>
         </div>
