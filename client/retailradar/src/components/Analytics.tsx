@@ -1,8 +1,15 @@
 import {
-    Card,
-    CardTitle,
-  } from "@/components/ui/card"
-  
+  Card,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+  } from "@/components/ui/tabs"
+
+
   export default function Analytics() {
     const startDate = new Date("2001-01-24T00:00:00")
     const endDate = new Date("2024-02-29T00:00:00")
@@ -39,6 +46,30 @@ import {
               <h5 className="mt-[-7%] text-white font-bold">{formattedEndDate}</h5>
             </Card>
           </div>
+          <Tabs className="w-[800px] pt-4" defaultValue="Customer Insights">
+                <TabsList className="grid w-full grid-cols-5 gap-1">
+                    <TabsTrigger value="Customer Insights">Customer Insights</TabsTrigger>
+                    <TabsTrigger value="Geographic Insights">Geographic Insights</TabsTrigger>
+                    <TabsTrigger value="Sales Insights">Sales Insights</TabsTrigger>
+                    <TabsTrigger value="Product Insights">Product Insights</TabsTrigger>
+                    <TabsTrigger value="Operational Insights">Operational Insights</TabsTrigger>
+                </TabsList>
+                <TabsContent value="Customer Insights">
+
+                </TabsContent>
+                <TabsContent value="Geographic Insights">
+
+                </TabsContent>
+                 <TabsContent value="Sales Insights">
+
+                </TabsContent>
+                <TabsContent value="Product Insights">
+
+                </TabsContent>
+                <TabsContent value="Operational Insights">
+
+                </TabsContent>
+            </Tabs>
         </div>
       </div>
     )
