@@ -26,17 +26,17 @@ import {
       <div className="w-full h-full overflow-hidden">
         <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5">
           <div className="flex flex-row gap-4">
-            <Card className="w-[300px] px-4">
-              <CardTitle className="text-xl">Total Transactions</CardTitle>
-              <h1 className="mt-[-9%] text-blue-800">{transactions.toLocaleString()}</h1>
+            <Card className="w-[300px] px-4 bg-blue-800">
+              <CardTitle className="font-medium text-blue-200">Total Transactions</CardTitle>
+              <h1 className="mt-[-9%] text-white">{transactions.toLocaleString()}</h1>
             </Card>
-            <Card className="w-[350px] px-4">
-              <CardTitle className="text-xl">Start Date</CardTitle>
-              <h2 className="mt-[-9%] text-blue-800">{formattedStartDate}</h2>
+            <Card className="w-[350px] px-4 bg-blue-800">
+              <CardTitle className="font-medium mt-1 text-blue-200">Start Date</CardTitle>
+              <h5 className="mt-[-7%] text-white">{formattedStartDate}</h5>
             </Card>
-            <Card className="w-[350px] px-4">
-              <CardTitle className="text-xl">End Date</CardTitle>
-              <h2 className="mt-[-9%] text-blue-800">{formattedEndDate}</h2>
+            <Card className="w-[350px] px-4 bg-blue-800">
+              <CardTitle className="font-medium mt-1 text-blue-200">End Date</CardTitle>
+              <h5 className="mt-[-7%] text-white">{formattedEndDate}</h5>
             </Card>
           </div>
         </div>
