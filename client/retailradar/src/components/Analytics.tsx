@@ -128,12 +128,26 @@ import { RevenueSegments } from "./Revenue"
                     <TabsTrigger value="Operational Insights">Operational Insights</TabsTrigger>
                 </TabsList>
                 <TabsContent value="Customer Insights">
-                    <Card className="w-[1170px]">
-                        <GenderDistribution data={data.customerInsights.genderWise}/>
-                        <AgeDistribution data={data.customerInsights.ageWise}/>
-                        <IncomeDistribution data={data.customerInsights.incomeWise}/>
-                        <RevenueSegments data={data.customerInsights.segmentsByRevenue}/>
-                    </Card>
+                <Card className="w-[1170px]">
+                <div className="flex flex-wrap">
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Gender Distribution</CardTitle>
+                    <GenderDistribution data={data.customerInsights.genderWise}/>
+                    </div>
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Age Distribution</CardTitle>
+                    <AgeDistribution data={data.customerInsights.ageWise}/>
+                    </div>
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Income Distribution</CardTitle>
+                    <IncomeDistribution data={data.customerInsights.incomeWise}/>
+                    </div>
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Revenue by Customer Segment</CardTitle>
+                    <RevenueSegments data={data.customerInsights.segmentsByRevenue}/>
+                    </div>
+                </div>
+                </Card>
                 </TabsContent>
                 <TabsContent value="Geographic Insights">
                     <Card className="w-[1170px]">
