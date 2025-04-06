@@ -12,6 +12,8 @@ import { GenderDistribution } from "./Gender"
 import { AgeDistribution } from "./Age"
 import { IncomeDistribution } from "./Income"
 import { RevenueSegments } from "./Revenue"
+import { CitySales } from "./Geographic"
+import { CustomersByCountryMap } from "./GeographicCountries"
 
   export default function Analytics() {
     const startDate = new Date("2001-01-24T00:00:00")
@@ -84,7 +86,72 @@ import { RevenueSegments } from "./Revenue"
                     "Total_Revenue": 82654961.53085995
                 }
             ]},
-        geographicInsights: { /*...*/ },
+        geographicInsights: {
+            "citiesBySales": [
+                {
+                    "City": "Chicago",
+                    "Total_Sales": 28372836.169618607
+                },
+                {
+                    "City": "Portsmouth",
+                    "Total_Sales": 26924728.708016396
+                },
+                {
+                    "City": "San Francisco",
+                    "Total_Sales": 15874074.634117126
+                },
+                {
+                    "City": "Frankfurt",
+                    "Total_Sales": 13510932.646224022
+                },
+                {
+                    "City": "Boston",
+                    "Total_Sales": 12366644.036525726
+                },
+                {
+                    "City": "New York",
+                    "Total_Sales": 6980997.681756973
+                },
+                {
+                    "City": "Fort Worth",
+                    "Total_Sales": 6914907.102074623
+                },
+                {
+                    "City": "London",
+                    "Total_Sales": 5758369.665026665
+                },
+                {
+                    "City": "Winnipeg",
+                    "Total_Sales": 3085706.3790683746
+                },
+                {
+                    "City": "Plymouth",
+                    "Total_Sales": 3074540.642024994
+                }
+            ],
+            "customerOverCountries": [
+                {
+                    "Country": "USA",
+                    "Customer_Count": 57056
+                },
+                {
+                    "Country": "UK",
+                    "Customer_Count": 43790
+                },
+                {
+                    "Country": "Germany",
+                    "Customer_Count": 38351
+                },
+                {
+                    "Country": "Australia",
+                    "Customer_Count": 34191
+                },
+                {
+                    "Country": "Canada",
+                    "Customer_Count": 33949
+                }
+            ]
+        },
         salesInsights: { /*...*/ }
     };
   
@@ -151,7 +218,16 @@ import { RevenueSegments } from "./Revenue"
                 </TabsContent>
                 <TabsContent value="Geographic Insights">
                     <Card className="w-[1170px]">
-                        
+                    <div className="flex flex-wrap">
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Sales by Cities</CardTitle>
+                    <CitySales data={data.geographicInsights.citiesBySales}/>
+                    </div>
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Sales by Countries</CardTitle>
+                    <CustomersByCountryMap data={data.geographicInsights.customerOverCountries}/>
+                    </div>                    
+                    </div>                        
                     </Card>
                 </TabsContent>
                  <TabsContent value="Sales Insights">
