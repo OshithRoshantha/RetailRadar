@@ -16,6 +16,7 @@ import { CitySales } from "./Geographic"
 import { CustomersByCountryMap } from "./GeographicCountries"
 import { MonthlyRevenueChart } from "./MonthlyRevenue"
 import { YearlyRevenueChart } from "./YearlyRevenue"
+import { TopCategoriesChart } from "./TopCategories"
 
   export default function Analytics() {
     const startDate = new Date("2001-01-24T00:00:00")
@@ -374,13 +375,22 @@ import { YearlyRevenueChart } from "./YearlyRevenue"
                     <div className="w-1/2 p-2 h-1/2">
                     <CardTitle className="font-medium text-blue-500 px-4 pb-3">Yearly Revenue</CardTitle>
                     <YearlyRevenueChart data={data.salesInsights.yearlyRevenue}/>
-                    </div>                    
+                    </div> 
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Top Product Categories</CardTitle>
+                    <TopCategoriesChart data={data.salesInsights.topPopularCategories}/>
+                    </div>                     
                     </div>                        
                     </Card>
                 </TabsContent>
                 <TabsContent value="Product Insights">
                     <Card className="w-[1170px]">
-                        
+                    <div className="flex flex-wrap">
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Top Product Categories</CardTitle>
+                    <TopCategoriesChart data={data.salesInsights.topPopularCategories}/>
+                    </div>                     
+                    </div>                          
                     </Card>
                 </TabsContent>
                 <TabsContent value="Operational Insights">
