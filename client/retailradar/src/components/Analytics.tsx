@@ -19,6 +19,7 @@ import { YearlyRevenueChart } from "./YearlyRevenue"
 import { TopCategoriesChart } from "./TopCategories"
 import { ProductRatingsChart } from "./ProductRatings"
 import { OrderStatusChart } from "./OrderStatus"
+import { DeliveryMetrics } from "./Delivery"
 
   export default function Analytics() {
     const startDate = new Date("2001-01-24T00:00:00")
@@ -504,10 +505,16 @@ import { OrderStatusChart } from "./OrderStatus"
                     <Card className="w-[1170px]">
                     <div className="flex flex-wrap">
                     <div className="w-1/2 p-2 h-1/2">
-                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Top Product Categories</CardTitle>
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Order Status Distribution</CardTitle>
                     <OrderStatusChart data={data.operationalInsights.orderStatusDistribution}/>
                     </div> 
-                                        
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Delivery Performance</CardTitle>
+                    <DeliveryMetrics 
+                        successRate={data.operationalInsights.deliverySuccessRate} 
+                        ratio={data.operationalInsights.shippedDeliverRatio}
+                    />
+                    </div>                                         
                     </div>                        
                     </Card>
                 </TabsContent>
