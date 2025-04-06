@@ -14,6 +14,8 @@ import { IncomeDistribution } from "./Income"
 import { RevenueSegments } from "./Revenue"
 import { CitySales } from "./Geographic"
 import { CustomersByCountryMap } from "./GeographicCountries"
+import { MonthlyRevenueChart } from "./MonthlyRevenue"
+import { YearlyRevenueChart } from "./YearlyRevenue"
 
   export default function Analytics() {
     const startDate = new Date("2001-01-24T00:00:00")
@@ -152,7 +154,139 @@ import { CustomersByCountryMap } from "./GeographicCountries"
                 }
             ]
         },
-        salesInsights: { /*...*/ }
+        salesInsights: {
+            "monthlyRevenue": [
+            {
+                "Month": "April",
+                "Total_Revenue": 2985032.3960409164
+            },
+            {
+                "Month": "August",
+                "Total_Revenue": 1852115.3086948395
+            },
+            {
+                "Month": "December",
+                "Total_Revenue": 33228.60144042969
+            },
+            {
+                "Month": "February",
+                "Total_Revenue": 13846249.317204475
+            },
+            {
+                "Month": "January",
+                "Total_Revenue": 17145209.30132675
+            },
+            {
+                "Month": "July",
+                "Total_Revenue": 1523255.4830551147
+            },
+            {
+                "Month": "June",
+                "Total_Revenue": 53193.574310302734
+            },
+            {
+                "Month": "March",
+                "Total_Revenue": 46880.344341278076
+            },
+            {
+                "Month": "May",
+                "Total_Revenue": 1228377.3318252563
+            },
+            {
+                "Month": "November",
+                "Total_Revenue": 47931.81126785278
+            },
+            {
+                "Month": "October",
+                "Total_Revenue": 49774.44246292114
+            },
+            {
+                "Month": "September",
+                "Total_Revenue": 38083.070404052734
+            }
+        ],
+        "yearlyRevenue": [
+            {
+                "tempYear": 2001,
+                "Total_Revenue": 12947917.647756577
+            },
+            {
+                "tempYear": 2002,
+                "Total_Revenue": 12669399.748908997
+            },
+            {
+                "tempYear": 2003,
+                "Total_Revenue": 12991884.153577805
+            },
+            {
+                "tempYear": 2004,
+                "Total_Revenue": 12785401.809646606
+            },
+            {
+                "tempYear": 2005,
+                "Total_Revenue": 12749526.866526604
+            },
+            {
+                "tempYear": 2006,
+                "Total_Revenue": 12928685.474289894
+            },
+            {
+                "tempYear": 2007,
+                "Total_Revenue": 12903236.704656601
+            },
+            {
+                "tempYear": 2008,
+                "Total_Revenue": 13135186.525945663
+            },
+            {
+                "tempYear": 2009,
+                "Total_Revenue": 13136610.281612396
+            },
+            {
+                "tempYear": 2010,
+                "Total_Revenue": 12685347.156924248
+            },
+            {
+                "tempYear": 2011,
+                "Total_Revenue": 12724935.832907677
+            },
+            {
+                "tempYear": 2012,
+                "Total_Revenue": 12974866.237421036
+            },
+            {
+                "tempYear": 2023,
+                "Total_Revenue": 199216288.45224762
+            },
+            {
+                "tempYear": 2024,
+                "Total_Revenue": 38849330.98237419
+            }
+        ],
+        "topPopularCategories": [
+            {
+                "Product_Category": "Electronics",
+                "count": 67737
+            },
+            {
+                "Product_Category": "Grocery",
+                "count": 63685
+            },
+            {
+                "Product_Category": "Clothing",
+                "count": 52044
+            },
+            {
+                "Product_Category": "Books",
+                "count": 51899
+            },
+            {
+                "Product_Category": "Home Decor",
+                "count": 51640
+            }
+        ],
+        "avgOrderValue": 255.18402808450534
+        }
     };
   
     const formattedStartDate = new Intl.DateTimeFormat("en-US", {
@@ -232,7 +366,16 @@ import { CustomersByCountryMap } from "./GeographicCountries"
                 </TabsContent>
                  <TabsContent value="Sales Insights">
                     <Card className="w-[1170px]">
-                        
+                    <div className="flex flex-wrap">
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Monthly Revenue</CardTitle>
+                    <MonthlyRevenueChart data={data.salesInsights.monthlyRevenue}/>
+                    </div>
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Yearly Revenue</CardTitle>
+                    <YearlyRevenueChart data={data.salesInsights.yearlyRevenue}/>
+                    </div>                    
+                    </div>                        
                     </Card>
                 </TabsContent>
                 <TabsContent value="Product Insights">
