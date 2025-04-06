@@ -18,6 +18,7 @@ import { MonthlyRevenueChart } from "./MonthlyRevenue"
 import { YearlyRevenueChart } from "./YearlyRevenue"
 import { TopCategoriesChart } from "./TopCategories"
 import { ProductRatingsChart } from "./ProductRatings"
+import { OrderStatusChart } from "./OrderStatus"
 
   export default function Analytics() {
     const startDate = new Date("2001-01-24T00:00:00")
@@ -357,6 +358,40 @@ import { ProductRatingsChart } from "./ProductRatings"
                 }
             ]
         },
+        "operationalInsights": {
+        "mostUsedPaymentMethod": [
+            {
+                "Payment_Method": "Credit Card",
+                "count": 85362
+            }
+        ],
+        "mostUsedShippingMethod": [
+            {
+                "Shipping_Method": "Same-Day",
+                "count": 99167
+            }
+        ],
+        "orderStatusDistribution": [
+            {
+                "Order_Status": "Shipped",
+                "count": 61602
+            },
+            {
+                "Order_Status": "Processing",
+                "count": 54157
+            },
+            {
+                "Order_Status": "Delivered",
+                "count": 124929
+            },
+            {
+                "Order_Status": "Pending",
+                "count": 46317
+            }
+        ],
+        "deliverySuccessRate": 43.528509956272536,
+        "shippedDeliverRatio": 0.49309607857262927
+        }
     };
   
     const formattedStartDate = new Intl.DateTimeFormat("en-US", {
@@ -467,7 +502,13 @@ import { ProductRatingsChart } from "./ProductRatings"
                 </TabsContent>
                 <TabsContent value="Operational Insights">
                     <Card className="w-[1170px]">
-                        
+                    <div className="flex flex-wrap">
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Top Product Categories</CardTitle>
+                    <OrderStatusChart data={data.operationalInsights.orderStatusDistribution}/>
+                    </div> 
+                                        
+                    </div>                        
                     </Card>
                 </TabsContent>
             </Tabs>
