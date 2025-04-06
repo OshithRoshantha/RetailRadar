@@ -17,6 +17,7 @@ import { CustomersByCountryMap } from "./GeographicCountries"
 import { MonthlyRevenueChart } from "./MonthlyRevenue"
 import { YearlyRevenueChart } from "./YearlyRevenue"
 import { TopCategoriesChart } from "./TopCategories"
+import { ProductRatingsChart } from "./ProductRatings"
 
   export default function Analytics() {
     const startDate = new Date("2001-01-24T00:00:00")
@@ -287,7 +288,75 @@ import { TopCategoriesChart } from "./TopCategories"
             }
         ],
         "avgOrderValue": 255.18402808450534
-        }
+        },
+        "productInsights": {
+            "topHighRated": [
+                {
+                    "Product_Type": "BlueStar AC",
+                    "Avg_Rating": 4.394293732460243
+                },
+                {
+                    "Product_Type": "Mitsubishi 1.5 Ton 3 Star Split AC",
+                    "Avg_Rating": 3.8780678443020165
+                },
+                {
+                    "Product_Type": "Fridge",
+                    "Avg_Rating": 3.467000835421888
+                },
+                {
+                    "Product_Type": "Water",
+                    "Avg_Rating": 3.3017432917450007
+                },
+                {
+                    "Product_Type": "Shirt",
+                    "Avg_Rating": 3.1430534088957582
+                }
+            ],
+            "lowestRated": [
+                {
+                    "Product_Type": "Jeans",
+                    "Avg_Rating": 3.0670899107755663
+                },
+                {
+                    "Product_Type": "Dress",
+                    "Avg_Rating": 3.088407292741658
+                },
+                {
+                    "Product_Type": "Shoes",
+                    "Avg_Rating": 3.08970792767733
+                },
+                {
+                    "Product_Type": "Tools",
+                    "Avg_Rating": 3.094874977832949
+                },
+                {
+                    "Product_Type": "Shorts",
+                    "Avg_Rating": 3.0970873786407767
+                }
+            ],
+            "topFrequent": [
+                {
+                    "Product_Type": "Water",
+                    "count": 23404
+                },
+                {
+                    "Product_Type": "Smartphone",
+                    "count": 17490
+                },
+                {
+                    "Product_Type": "Non-Fiction",
+                    "count": 17229
+                },
+                {
+                    "Product_Type": "Fiction",
+                    "count": 17121
+                },
+                {
+                    "Product_Type": "Juice",
+                    "count": 11625
+                }
+            ]
+        },
     };
   
     const formattedStartDate = new Intl.DateTimeFormat("en-US", {
@@ -375,10 +444,6 @@ import { TopCategoriesChart } from "./TopCategories"
                     <div className="w-1/2 p-2 h-1/2">
                     <CardTitle className="font-medium text-blue-500 px-4 pb-3">Yearly Revenue</CardTitle>
                     <YearlyRevenueChart data={data.salesInsights.yearlyRevenue}/>
-                    </div> 
-                    <div className="w-1/2 p-2 h-1/2">
-                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Top Product Categories</CardTitle>
-                    <TopCategoriesChart data={data.salesInsights.topPopularCategories}/>
                     </div>                     
                     </div>                        
                     </Card>
@@ -389,6 +454,13 @@ import { TopCategoriesChart } from "./TopCategories"
                     <div className="w-1/2 p-2 h-1/2">
                     <CardTitle className="font-medium text-blue-500 px-4 pb-3">Top Product Categories</CardTitle>
                     <TopCategoriesChart data={data.salesInsights.topPopularCategories}/>
+                    </div> 
+                    <div className="w-1/2 p-2 h-1/2">
+                    <CardTitle className="font-medium text-blue-500 px-4 pb-3">Product Ratings Comparison (Top/Lowest 5)</CardTitle>
+                    <ProductRatingsChart 
+                        topHighRated={data.productInsights.topHighRated} 
+                        lowestRated={data.productInsights.lowestRated} 
+                    />
                     </div>                     
                     </div>                          
                     </Card>
