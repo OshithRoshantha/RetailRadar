@@ -2,6 +2,7 @@ import Analytics from "@/components/Analytics";
 import { AppSidebar } from "@/components/app-sidebar"
 import AskAgent from "@/components/AskAgent";
 import GettingStart from "@/components/GettingStart";
+import ProductSearch from "@/components/ProductSearch";
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import UserManual from "@/components/UserManual";
@@ -21,6 +22,8 @@ export default function Dashboard() {
         return <AskAgent />;
       case "Getting Started":
         return <GettingStart />;
+      case "Product Search":
+        return <ProductSearch/>;
     }
   };
 
