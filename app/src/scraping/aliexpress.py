@@ -24,7 +24,7 @@ async def scraping(category):
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
         
-        await page.goto(f"https://www.aliexpress.com/w/wholesale-{category.replace(' ', '-')}.html?g=y&SearchText={category.replace(' ', '-')}&sortType=total_tranpro_desc&currency=USD")
+        await page.goto(f"https://www.aliexpress.com/w/wholesale-{category.replace(' ', '-')}.html?g=y&SearchText={category.replace(' ', '-')}&sortType=total_tranpro_desc&currency=USD", timeout=60000)
         await page.wait_for_selector(".hs_bw.search-item-card-wrapper-gallery")
         
         products = []
