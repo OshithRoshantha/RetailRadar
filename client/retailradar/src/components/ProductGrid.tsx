@@ -78,7 +78,7 @@ export default function ProductGrid({ data }: ProductGridProps) {
 
       <div className="product-grid">
         {filteredProducts.map((product, index) => (
-          <div key={index} className="product-card">
+          <div key={index} className="product-card cursor-pointer">
             <a href={product.URL} target="_blank" rel="noopener noreferrer">
               <div className="product-image-container">
                 <img 
