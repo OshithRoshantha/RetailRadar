@@ -1,5 +1,6 @@
 import React from 'react'
 import { IconCircleDashedCheck, IconRefresh, IconSettingsCheck } from "@tabler/icons-react"
+import { BarLoader } from "react-spinners";
 
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
@@ -21,13 +22,13 @@ export default function Predictions() {
             </li>
           ))}
         </ul>
-        <BarLoader color="#2a00ff" />
         {!modelAvailable && !isTraining && (
         <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"><IconSettingsCheck className='inline'/> Launch Training</button>)}
         {modelAvailable && !isTraining && (
         <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"><IconRefresh className='inline'/> Re-Train</button>)}
         {isTraining && (
-        <button disabled className="mt-4 bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-400 w-full">Training in progress...</button>)}   
+        <button disabled className="mt-4 bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-300 w-full">Training in progress...</button>)}   
+        <BarLoader color="#193cb8" width={1175}/>
       </div>
     </div>
   );
