@@ -2,7 +2,8 @@ import React from 'react'
 import { IconCircleDashedCheck, IconRefresh, IconSettingsCheck } from "@tabler/icons-react"
 
 export default function Predictions() {
-  const [modelAvailable, setModelAvailable] = React.useState(true);
+  const [modelAvailable, setModelAvailable] = React.useState(false);
+  const [isTraining, setIsTraining] = React.useState(true);
   const count = modelAvailable ? 4 : 0;
   const iconColor = modelAvailable ? 'text-green-500' : 'text-gray-400';
   const textColor = modelAvailable ? '' : 'text-gray-400';
@@ -20,10 +21,13 @@ export default function Predictions() {
             </li>
           ))}
         </ul>
-        {!modelAvailable && (
+        <BarLoader color="#2a00ff" />
+        {!modelAvailable && !isTraining && (
         <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"><IconSettingsCheck className='inline'/> Launch Training</button>)}
-        {modelAvailable && (
+        {modelAvailable && !isTraining && (
         <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"><IconRefresh className='inline'/> Re-Train</button>)}
+        {isTraining && (
+        <button disabled className="mt-4 bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-400 w-full">Training in progress...</button>)}   
       </div>
     </div>
   );
