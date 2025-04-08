@@ -4,7 +4,7 @@ import { BarLoader } from "react-spinners";
 
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
-  const [isTraining, setIsTraining] = React.useState(true);
+  const [isTraining, setIsTraining] = React.useState(false);
   const count = modelAvailable ? 4 : 0;
   const iconColor = modelAvailable ? 'text-green-500' : 'text-gray-400';
   const textColor = modelAvailable ? '' : 'text-gray-400';
@@ -28,7 +28,8 @@ export default function Predictions() {
         <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"><IconRefresh className='inline'/> Re-Train</button>)}
         {isTraining && (
         <button disabled className="mt-4 bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-300 w-full">Training in progress...</button>)}   
-        <BarLoader color="#193cb8" width={1175}/>
+        {isTraining && (
+        <BarLoader color="#193cb8" width={1175}/>)}
       </div>
     </div>
   );
