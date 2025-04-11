@@ -1,6 +1,7 @@
 import React from 'react'
 import { IconCircleDashedCheck, IconRefresh, IconSettingsCheck, IconInfoCircle } from "@tabler/icons-react"
 import { BarLoader } from "react-spinners";
+import SalesPredictions from './SalesPrediction';
 
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(true);
@@ -138,6 +139,30 @@ export default function Predictions() {
     return clvFormData.totalSpend && clvFormData.totalPurchases && 
            clvFormData.lifespan && clvFormData.type;
   };
+
+  const result3 = {
+"predictions": {
+        "YearMonth": {
+            "0": "2024-03",
+            "1": "2024-04",
+            "2": "2024-05",
+            "3": "2024-06",
+            "4": "2024-07",
+            "5": "2024-08"
+        },
+        "Sales": {
+            "0": 4559382.0,
+            "1": 2569459.25,
+            "2": 5039383.5,
+            "3": 3714567.0,
+            "4": 3887112.5,
+            "5": 1164110.5
+        }
+    }
+  };
+
+
+
 
   return (
     <div className="w-full h-full overflow-hidden">
@@ -396,6 +421,9 @@ export default function Predictions() {
             </div>
           )}
         </div>
+
+
+        <SalesPredictions  data={result3}/>
       </div>
     </div>
   );
