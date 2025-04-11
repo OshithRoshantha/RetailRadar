@@ -3,7 +3,7 @@ import { IconCircleDashedCheck, IconRefresh, IconSettingsCheck } from "@tabler/i
 import { BarLoader } from "react-spinners";
 
 export default function Predictions() {
-  const [modelAvailable, setModelAvailable] = React.useState(false);
+  const [modelAvailable, setModelAvailable] = React.useState(true);
   const [isTraining, setIsTraining] = React.useState(false);
   const count = modelAvailable ? 4 : 0;
   const iconColor = modelAvailable ? 'text-green-500' : 'text-gray-400';
