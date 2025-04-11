@@ -54,23 +54,25 @@ const SalesPredictions: React.FC<{ data: PredictionsData }> = ({ data }) => {
   return (
     <div className="sales-predictions-container">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Sales Predictions</h2>
-      
+      <p className="text-gray-600">
+          This is a prediction of sales for the next 6 months based on the previous months' data.
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white p-4 rounded-lg shadow">
           <h3 className="text-gray-500 text-sm font-medium">Total Predicted</h3>
-          <p className="text-2xl font-bold text-blue-600">{formatCurrency(totalSales)}</p>
+          <p className="text-2xl font-bold text-blue-800">{formatCurrency(totalSales)}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
           <h3 className="text-gray-500 text-sm font-medium">Average Monthly</h3>
-          <p className="text-2xl font-bold text-green-600">{formatCurrency(averageSales)}</p>
+          <p className="text-2xl font-bold text-[#6b67a0]">{formatCurrency(averageSales)}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
           <h3 className="text-gray-500 text-sm font-medium">Highest Month</h3>
-          <p className="text-2xl font-bold text-purple-600">{formatCurrency(maxSales)}</p>
+          <p className="text-2xl font-bold text-[#6b67a0]">{formatCurrency(maxSales)}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
           <h3 className="text-gray-500 text-sm font-medium">Lowest Month</h3>
-          <p className="text-2xl font-bold text-red-600">{formatCurrency(minSales)}</p>
+          <p className="text-2xl font-bold text-red-400">{formatCurrency(minSales)}</p>
         </div>
       </div>
 
@@ -92,7 +94,7 @@ const SalesPredictions: React.FC<{ data: PredictionsData }> = ({ data }) => {
               <Legend />
               <Bar 
                 dataKey="Sales" 
-                fill="#4f46e5" 
+                fill="#6b67a0" 
                 name="Predicted Sales"
                 radius={[4, 4, 0, 0]}
               />
