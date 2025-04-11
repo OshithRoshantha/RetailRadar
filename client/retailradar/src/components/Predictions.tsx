@@ -163,7 +163,7 @@ export default function Predictions() {
         <div className='churn-predictor mt-6 p-4 border rounded-lg'>
           <h2 className='text-2xl font-bold'>Churn Predictor</h2>
           <p className='text-gray-500'>Predict the likelihood of a customer churning.</p>
-          <div className='flex gap-3 items-center justify-center h-full mt-4'>
+          <div className='flex gap-3 items-center justify-start h-full mt-4'>
             <div className="relative flex flex-col">
               <input 
                 type="text" 
@@ -291,7 +291,7 @@ export default function Predictions() {
         <div className='clv-predictor mt-6 p-4 border rounded-lg'>
           <h2 className='text-2xl font-bold'>Customer Lifetime Value Predictor</h2>
           <p className='text-gray-500'>Predict the future value of a customer.</p>
-          <div className='flex gap-3 items-center justify-center h-full mt-4'>
+          <div className='flex gap-3 items-center justify-start h-full mt-4'>
             <div className="relative flex flex-col">
               <input 
                 type="text" 
@@ -368,7 +368,7 @@ export default function Predictions() {
               isClvFormValid() ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-400 cursor-not-allowed'
             }`}
           >
-            {isPredictingClv ? 'Predicting...' : 'Predict CLV'}
+            {isPredictingClv ? 'Predicting...' : 'Predict Lifetime Value'}
           </button>
 
           {isPredictingClv && <BarLoader color="#193cb8" width="100%" className="mt-2"/>}
