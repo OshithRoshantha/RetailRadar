@@ -12,10 +12,18 @@ export default function Predictions() {
     avgOrderValue: ''
   });
   const [autoCalculated, setAutoCalculated] = React.useState(false);
+  const [showResult, setShowResult] = React.useState(false);
+  const [isPredicting, setIsPredicting] = React.useState(false);
   const count = modelAvailable ? 4 : 0;
   const iconColor = modelAvailable ? 'text-green-500' : 'text-gray-400';
   const textColor = modelAvailable ? '' : 'text-gray-400';
   const models = ['XGBClassifier', 'XGBRegressor', 'Prophet', 'LSTM'];
+
+  // Constant prediction result
+  const result = {
+    "prediction": 0,
+    "probability": 0.4348597526550293
+  };
 
   const fieldLabels = {
     totalSpend: "Total Spend",
@@ -74,6 +82,19 @@ export default function Predictions() {
       return formatCurrency(value);
     }
     return value;
+  };
+
+  const handlePredict = () => {
+    setIsPredicting(true);
+    // Simulate prediction loading
+    setTimeout(() => {
+      setIsPredicting(false);
+      setShowResult(true);
+    }, 1000);
+  };
+
+  const isFormValid = () => {
+    return formData.totalSpend && formData.totalPurchases && formData.recency && formData.avgOrderValue;
   };
 
   return (
@@ -171,12 +192,59 @@ export default function Predictions() {
                   {tooltips.avgOrderValue}
                 </span>
               </div>
-            </div>    
+            </div>
           </div>
-          <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Predict</button>   
+
+          <button 
+            onClick={handlePredict}
+            disabled={!isFormValid() || isPredicting}
+            className={`mt-4 text-white px-4 py-2 rounded  ${
+              isFormValid() ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-400 cursor-not-allowed'
+            }`}
+          >
+            {isPredicting ? 'Predicting...' : 'Predict Risk'}
+          </button>
+
+          {isPredicting && <BarLoader color="#193cb8" width="100%" className="mt-2"/>}
+
+          {showResult && (
+            <div className="mt-6 p-4 border rounded-lg bg-gray-50">
+              <h3 className="text-lg font-semibold mb-2">Prediction Result</h3>
+              
+              <div className="flex items-center mb-3">
+                <span className="font-medium mr-2">Churn Prediction:</span>
+                <span className={`px-2 py-1 rounded ${
+                  result.prediction === 1 
+                    ? 'bg-red-100 text-red-800' 
+                    : 'bg-green-100 text-green-800'
+                }`}>
+                  {result.prediction === 1 ? 'High Risk' : 'Low Risk'}
+                </span>
+              </div>
+              
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+                <div 
+                  className={`h-2.5 rounded-full ${
+                    result.prediction === 1 ? 'bg-red-500' : 'bg-green-500'
+                  }`} 
+                  style={{ width: `${result.probability * 100}%` }}
+                ></div>
+              </div>
+              
+              <p className="text-sm text-gray-600">
+                Confidence: {(result.probability * 100).toFixed(1)}%
+              </p>
+              
+              <p className="mt-3 text-sm">
+                {result.prediction === 1 ? (
+                  <span className="text-red-600">This customer has a {Math.round(result.probability * 100)}% chance of churning. Consider retention strategies.</span>
+                ) : (
+                  <span className="text-green-600">This customer has a {Math.round((1 - result.probability) * 100)}% chance of staying. Focus on maintaining good engagement.</span>
+                )}
+              </p>
+            </div>
+          )}
         </div>
-
-
       </div>
     </div>
   );
