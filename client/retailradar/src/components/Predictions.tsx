@@ -17,6 +17,13 @@ export default function Predictions() {
   const textColor = modelAvailable ? '' : 'text-gray-400';
   const models = ['XGBClassifier', 'XGBRegressor', 'Prophet', 'LSTM'];
 
+  const fieldLabels = {
+    totalSpend: "Total Spend",
+    totalPurchases: "Total Purchases",
+    recency: "Recency (days)",
+    avgOrderValue: "Avg Order Value"
+  };
+
   const tooltips = {
     totalSpend: "The total amount of money the customer has spent with your business",
     totalPurchases: "The total number of purchases the customer has made",
@@ -94,15 +101,16 @@ export default function Predictions() {
           <h2 className='text-2xl font-bold'>Churn Predictor</h2>
           <p className='text-gray-500'>Predict the likelihood of a customer churning.</p>
           <div className='flex gap-3 items-center justify-start h-full'>
-            <div className="relative">
+            <div className="relative flex flex-col">
               <input 
                 type="text" 
                 name="totalSpend"
-                placeholder="Total Spend" 
-                className="border border-gray-300 rounded-md p-2 mb-4 w-full" 
+                placeholder="Enter amount" 
+                className="border border-gray-300 rounded-md p-2 w-full" 
                 value={getDisplayValue('totalSpend', formData.totalSpend)}
                 onChange={handleInputChange}
               />
+              <span className="text-sm text-gray-500 mt-1">{fieldLabels.totalSpend}</span>
               <div className="group absolute right-2 top-2">
                 <IconInfoCircle className="text-gray-400 hover:text-gray-600 cursor-pointer" />
                 <span className="hidden group-hover:block absolute z-10 w-64 p-2 text-sm text-white bg-gray-800 rounded-md bottom-full left-1/2 transform -translate-x-1/2">
@@ -111,15 +119,16 @@ export default function Predictions() {
               </div>
             </div>
             
-            <div className="relative">
+            <div className="relative flex flex-col">
               <input 
                 type="text" 
                 name="totalPurchases"
-                placeholder="Total Purchases" 
-                className="border border-gray-300 rounded-md p-2 mb-4 w-full" 
+                placeholder="Enter count" 
+                className="border border-gray-300 rounded-md p-2 w-full" 
                 value={formData.totalPurchases}
                 onChange={handleInputChange}
               />
+              <span className="text-sm text-gray-500 mt-1">{fieldLabels.totalPurchases}</span>
               <div className="group absolute right-2 top-2">
                 <IconInfoCircle className="text-gray-400 hover:text-gray-600 cursor-pointer" />
                 <span className="hidden group-hover:block absolute z-10 w-64 p-2 text-sm text-white bg-gray-800 rounded-md bottom-full left-1/2 transform -translate-x-1/2">
@@ -128,15 +137,16 @@ export default function Predictions() {
               </div>
             </div>
             
-            <div className="relative">
+            <div className="relative flex flex-col">
               <input 
                 type="text" 
                 name="recency"
-                placeholder="Recency" 
-                className="border border-gray-300 rounded-md p-2 mb-4 w-full" 
+                placeholder="Enter days" 
+                className="border border-gray-300 rounded-md p-2 w-full" 
                 value={formData.recency}
                 onChange={handleInputChange}
               />
+              <span className="text-sm text-gray-500 mt-1">{fieldLabels.recency}</span>
               <div className="group absolute right-2 top-2">
                 <IconInfoCircle className="text-gray-400 hover:text-gray-600 cursor-pointer" />
                 <span className="hidden group-hover:block absolute z-10 w-64 p-2 text-sm text-white bg-gray-800 rounded-md bottom-full left-1/2 transform -translate-x-1/2">
@@ -145,15 +155,16 @@ export default function Predictions() {
               </div>
             </div>
             
-            <div className="relative">
+            <div className="relative flex flex-col">
               <input 
                 type="text" 
                 name="avgOrderValue"
-                placeholder="Avg Order Value" 
-                className="border border-gray-300 rounded-md p-2 mb-4 w-full" 
+                placeholder="Enter value" 
+                className="border border-gray-300 rounded-md p-2 w-full" 
                 value={getDisplayValue('avgOrderValue', formData.avgOrderValue)}
                 onChange={handleAvgOrderValueChange}
               />
+              <span className="text-sm text-gray-500 mt-1">{fieldLabels.avgOrderValue}</span>
               <div className="group absolute right-2 top-2">
                 <IconInfoCircle className="text-gray-400 hover:text-gray-600 cursor-pointer" />
                 <span className="hidden group-hover:block absolute z-10 w-64 p-2 text-sm text-white bg-gray-800 rounded-md bottom-full left-1/2 transform -translate-x-1/2">
@@ -163,6 +174,8 @@ export default function Predictions() {
             </div>
           </div>
         </div>
+
+
       </div>
     </div>
   );
