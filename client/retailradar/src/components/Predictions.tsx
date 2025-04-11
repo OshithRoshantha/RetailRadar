@@ -3,8 +3,10 @@ import { IconInfoCircle } from "@tabler/icons-react"
 import { BarLoader } from "react-spinners";
 import SalesPredictions from './SalesPrediction';
 import DemandPrediction from './DemandPrediction';
+import predictError from '../assets/img/error.jpg'
 
 export default function Predictions() {
+  const [modelAvailable, setModelAvailable] = React.useState(false);
   const [churnFormData, setChurnFormData] = React.useState({
     totalSpend: '',
     totalPurchases: '',
@@ -193,12 +195,24 @@ export default function Predictions() {
   return (
     <div className="w-full h-full overflow-hidden">
       <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5">
+        {!modelAvailable && (
+          <div className='flex flex-col items-center justify-center h-full'>
+            <img
+                src={predictError}
+                alt="Image"
+            />
+            <p className='text-gray-500 pt-5'>To view demand forecasts, please train your prediction models first. Currently, no prediction data is available to display.</p>
+          </div>
+        )}
+        {modelAvailable && (
         <div className='mt-6 p-4 border rounded-lg'>
           <SalesPredictions  data={result3}/>
-        </div>
+        </div>)}
+        {modelAvailable && (
         <div className='mt-6 p-4 border rounded-lg'>
           <DemandPrediction data={result4}/>
-        </div>
+        </div>)}
+        {modelAvailable && (
         <div className='churn-predictor mt-6 p-4 border rounded-lg'>
           <h2 className='text-2xl font-bold'>Churn Predictor</h2>
           <p className='text-gray-500'>Predict the likelihood of a customer churning.</p>
@@ -325,8 +339,8 @@ export default function Predictions() {
               </p>
             </div>
           )}
-        </div>
-
+        </div>)}
+        {modelAvailable && (
         <div className='clv-predictor mt-6 p-4 border rounded-lg'>
           <h2 className='text-2xl font-bold'>Customer Lifetime Value Predictor</h2>
           <p className='text-gray-500'>Predict the future value of a customer.</p>
@@ -434,8 +448,7 @@ export default function Predictions() {
               </p>
             </div>
           )}
-        </div>
-
+        </div>)}
       </div>
     </div>
   );
