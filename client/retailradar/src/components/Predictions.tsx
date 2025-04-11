@@ -2,6 +2,7 @@ import React from 'react'
 import { IconCircleDashedCheck, IconRefresh, IconSettingsCheck, IconInfoCircle } from "@tabler/icons-react"
 import { BarLoader } from "react-spinners";
 import SalesPredictions from './SalesPrediction';
+import DemandPrediction from './DemandPrediction';
 
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(true);
@@ -162,7 +163,40 @@ export default function Predictions() {
   };
 
 
-
+  const result4 = {
+    "nextWeek": {
+      "Product_Category": {
+          "0": "Books",
+          "1": "Clothing",
+          "2": "Electronics",
+          "3": "Grocery",
+          "4": "Home Decor"
+      },
+      "Sales": {
+          "0": 2155,
+          "1": 2122,
+          "2": 2763,
+          "3": 2542,
+          "4": 2103
+      }
+  },
+  "nextMonth": {
+      "Product_Category": {
+          "0": "Books",
+          "1": "Clothing",
+          "2": "Electronics",
+          "3": "Grocery",
+          "4": "Home Decor"
+      },
+      "Sales": {
+          "0": 9325,
+          "1": 9218,
+          "2": 12000,
+          "3": 11004,
+          "4": 9121
+      }
+  }
+  }
 
   return (
     <div className="w-full h-full overflow-hidden">
@@ -421,11 +455,12 @@ export default function Predictions() {
             </div>
           )}
         </div>
-
-          <div className='mt-6 p-4 border rounded-lg'>
+        <div className='mt-6 p-4 border rounded-lg'>
           <SalesPredictions  data={result3}/>
-          </div>
-        
+        </div>
+        <div className='mt-6 p-4 border rounded-lg'>
+          <DemandPrediction data={result4}/>
+        </div>
       </div>
     </div>
   );

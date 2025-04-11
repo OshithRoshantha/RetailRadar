@@ -53,10 +53,8 @@ const SalesPredictions: React.FC<{ data: PredictionsData }> = ({ data }) => {
 
   return (
     <div className="sales-predictions-container">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Sales Predictions</h2>
-      <p className="text-gray-600">
-          This is a prediction of sales for the next 6 months based on the previous months' data.
-      </p>
+      <h2 className="text-2xl font-bold  text-gray-800">Sales Predictions</h2>
+      <p className="text-gray-600">This is a prediction of sales for the next 6 months based on the previous months' data.</p>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white p-4 rounded-lg shadow">
           <h3 className="text-gray-500 text-sm font-medium">Total Predicted</h3>
