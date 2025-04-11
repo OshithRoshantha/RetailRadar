@@ -5,6 +5,7 @@ import GettingStart from "@/components/GettingStart";
 import Predictions from "@/components/Predictions";
 import ProductSearch from "@/components/ProductSearch";
 import { SiteHeader } from "@/components/site-header"
+import TrainModels from "@/components/TrainModels";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import UserManual from "@/components/UserManual";
 import * as React from "react"
@@ -27,6 +28,8 @@ export default function Dashboard() {
         return <ProductSearch/>;
       case "Predictions":
         return <Predictions/>;
+      case "Train Models":
+        return <TrainModels/>;
     }
   };
 

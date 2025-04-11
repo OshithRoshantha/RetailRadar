@@ -1,13 +1,10 @@
 import React from 'react'
-import { IconCircleDashedCheck, IconRefresh, IconSettingsCheck, IconInfoCircle } from "@tabler/icons-react"
+import { IconInfoCircle } from "@tabler/icons-react"
 import { BarLoader } from "react-spinners";
 import SalesPredictions from './SalesPrediction';
 import DemandPrediction from './DemandPrediction';
 
 export default function Predictions() {
-  const [modelAvailable, setModelAvailable] = React.useState(true);
-  const [isTraining, setIsTraining] = React.useState(false);
-  
   const [churnFormData, setChurnFormData] = React.useState({
     totalSpend: '',
     totalPurchases: '',
@@ -26,11 +23,6 @@ export default function Predictions() {
   });
   const [showClvResult, setShowClvResult] = React.useState(false);
   const [isPredictingClv, setIsPredictingClv] = React.useState(false);
-
-  const count = modelAvailable ? 4 : 0;
-  const iconColor = modelAvailable ? 'text-green-500' : 'text-gray-400';
-  const textColor = modelAvailable ? '' : 'text-gray-400';
-  const models = ['XGBClassifier', 'XGBRegressor', 'Prophet', 'LSTM'];
 
   const churnResult = {
     "prediction": 0,
@@ -201,24 +193,12 @@ export default function Predictions() {
   return (
     <div className="w-full h-full overflow-hidden">
       <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5">
-        <p>{count} model(s) found.</p>
-        <ul>
-          {models.map((model, index) => (
-            <li key={index} className={`${textColor}`}>
-              <IconCircleDashedCheck className={`inline mr-1 ${iconColor}`} />
-              {model}
-            </li>
-          ))}
-        </ul>
-        {!modelAvailable && !isTraining && (
-        <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"><IconSettingsCheck className='inline'/> Launch Training</button>)}
-        {modelAvailable && !isTraining && (
-        <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"><IconRefresh className='inline'/> Re-Train</button>)}
-        {isTraining && (
-        <button disabled className="mt-4 bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-300 w-full">Training in progress...</button>)}   
-        {isTraining && (
-        <BarLoader color="#193cb8" width={1175}/>)}
-
+        <div className='mt-6 p-4 border rounded-lg'>
+          <SalesPredictions  data={result3}/>
+        </div>
+        <div className='mt-6 p-4 border rounded-lg'>
+          <DemandPrediction data={result4}/>
+        </div>
         <div className='churn-predictor mt-6 p-4 border rounded-lg'>
           <h2 className='text-2xl font-bold'>Churn Predictor</h2>
           <p className='text-gray-500'>Predict the likelihood of a customer churning.</p>
@@ -455,12 +435,7 @@ export default function Predictions() {
             </div>
           )}
         </div>
-        <div className='mt-6 p-4 border rounded-lg'>
-          <SalesPredictions  data={result3}/>
-        </div>
-        <div className='mt-6 p-4 border rounded-lg'>
-          <DemandPrediction data={result4}/>
-        </div>
+
       </div>
     </div>
   );

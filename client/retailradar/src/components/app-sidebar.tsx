@@ -10,6 +10,7 @@ import {
   IconBrain,
   IconBuildingStore,
   IconMessageFilled,
+  IconWashDryclean,
 } from "@tabler/icons-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -35,6 +36,11 @@ const data = {
       title: "Getting Started",
       url: "#",
       icon: IconStairs,
+    },
+    {
+      title: "Train Models",
+      url: "#",
+      icon: IconWashDryclean,
     },
     {
       title: "Analytics",
