@@ -422,8 +422,10 @@ export default function Predictions() {
           )}
         </div>
 
-
-        <SalesPredictions  data={result3}/>
+          <div className='mt-6 p-4 border rounded-lg'>
+          <SalesPredictions  data={result3}/>
+          </div>
+        
       </div>
     </div>
   );
