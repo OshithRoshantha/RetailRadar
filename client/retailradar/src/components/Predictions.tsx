@@ -6,7 +6,7 @@ import DemandPrediction from './DemandPrediction';
 import predictError from '../assets/img/error.jpg'
 
 export default function Predictions() {
-  const [modelAvailable, setModelAvailable] = React.useState(false);
+  const [modelAvailable, setModelAvailable] = React.useState(true);
   const [churnFormData, setChurnFormData] = React.useState({
     totalSpend: '',
     totalPurchases: '',

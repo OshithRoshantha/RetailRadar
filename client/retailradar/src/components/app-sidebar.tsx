@@ -63,11 +63,6 @@ const data = {
       icon: IconMessageFilled,
     },
     {
-      title: "Dataset Manager",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
       title: "Instruction Manual",
       url: "#",
       icon: IconBook,

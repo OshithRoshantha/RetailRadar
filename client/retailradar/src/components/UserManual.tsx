@@ -41,8 +41,6 @@ export default function UserManual() {
                         <li><b>Answer:</b> (e.g., "Product X sold 500 units.")</li>
                     </ul>
             </ul>
-        <h5 className='pt-3'>7. Dataset Manager</h5>
-        <p>Manage uploaded datasets efficiently.</p>
     </div>
     </div>
   )
