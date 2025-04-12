@@ -27,12 +27,14 @@ import {
 
 export function NavUser({
   user,
+  setShowLogoutConfirmation,
 }: {
   user: {
     name: string
     email: string
     avatar: string
   }
+  setShowLogoutConfirmation: (show: boolean) => void
 }) {
   const { isMobile } = useSidebar()
 
@@ -79,7 +81,7 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setShowLogoutConfirmation(true)} className="cursor-pointer">
               <IconLogout />
               Log out
             </DropdownMenuItem>

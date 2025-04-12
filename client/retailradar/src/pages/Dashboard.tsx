@@ -34,7 +34,7 @@ export default function Dashboard() {
     }
   };
 
-  const [showLogoutConfirmation, setShowLogoutConfirmation] = React.useState(true);
+  const [showLogoutConfirmation, setShowLogoutConfirmation] = React.useState(false);
 
   const handleLogout = () => {
     console.log('User logged out');
@@ -50,7 +50,7 @@ export default function Dashboard() {
             onCancel={() => setShowLogoutConfirmation(false)}
         /> 
         <SidebarProvider>
-        <AppSidebar variant="inset" setSelectedItem={setSelectedItem}/>
+        <AppSidebar variant="inset" setSelectedItem={setSelectedItem} setShowLogoutConfirmation={setShowLogoutConfirmation}/>
         <SidebarInset>
             <SiteHeader selectedItem={selectedItem}/>
             <div className="flex flex-1 flex-col">

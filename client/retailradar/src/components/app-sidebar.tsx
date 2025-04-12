@@ -122,10 +122,14 @@ const data = {
   ],
 }
 
-export function AppSidebar({ setSelectedItem, ...props }: 
-  React.ComponentProps<typeof Sidebar> & {  
-    setSelectedItem: (item: string) => void; 
-  }) {
+export function AppSidebar({
+    setSelectedItem,
+    setShowLogoutConfirmation,
+    ...props
+  }: React.ComponentProps<typeof Sidebar> & {  
+    setSelectedItem: (item: string) => void;
+    setShowLogoutConfirmation: (show: boolean) => void;
+}) {
 
   const handleItemClick = (title: string) => {
     setSelectedItem(title);
@@ -149,7 +153,7 @@ export function AppSidebar({ setSelectedItem, ...props }:
         <NavMain items={data.navMain} onItemClick={handleItemClick} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={data.user} setShowLogoutConfirmation={setShowLogoutConfirmation}/>
       </SidebarFooter>
     </Sidebar>
   )
