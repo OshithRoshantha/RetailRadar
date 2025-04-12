@@ -25,11 +25,15 @@ import {
 } from "@/components/ui/sidebar"
 import mainLogo from '../assets/logo/logo3.png'
 
+const companyName = "Retail Radar"
+const companyEmail = "m@retail.com"
+const avatarUrl = "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: companyName,
+    email: companyEmail,
+    avatar: avatarUrl,
   },
   navMain: [
     {
