@@ -25,7 +25,7 @@ const LogoutConfirmation: React.FC<LogoutConfirmationProps> = ({
   return (
     <div className="logout-confirmation-overlay">
       <div className="logout-confirmation-dialog">
-        <h3 className="logout-confirmation-title">{title}</h3>
+        <h5 className="logout-confirmation-title">{title}</h5>
         <p className="logout-confirmation-message">{message}</p>
         
         <div className="logout-confirmation-buttons">
