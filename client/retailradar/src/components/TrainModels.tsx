@@ -3,7 +3,7 @@ import { BarLoader } from "react-spinners";
 import React from 'react'
 
 export default function TrainModels() {
-      const [modelAvailable, setModelAvailable] = React.useState(true);
+      const [modelAvailable, setModelAvailable] = React.useState(false);
       const [isTraining, setIsTraining] = React.useState(false);
       const count = modelAvailable ? 4 : 0;
       const iconColor = modelAvailable ? 'text-green-500' : 'text-gray-400';
