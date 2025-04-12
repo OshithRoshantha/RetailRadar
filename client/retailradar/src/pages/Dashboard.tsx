@@ -1,6 +1,7 @@
 import Analytics from "@/components/Analytics";
 import { AppSidebar } from "@/components/app-sidebar"
 import AskAgent from "@/components/AskAgent";
+import LogoutConfirmation from "@/components/ConfirmLogout";
 import GettingStart from "@/components/GettingStart";
 import Predictions from "@/components/Predictions";
 import ProductSearch from "@/components/ProductSearch";
@@ -33,9 +34,21 @@ export default function Dashboard() {
     }
   };
 
+  const [showLogoutConfirmation, setShowLogoutConfirmation] = React.useState(true);
+
+  const handleLogout = () => {
+    console.log('User logged out');
+    setShowLogoutConfirmation(false);
+  };
+
   return (
     <div>
         <div className="main-hero">
+        <LogoutConfirmation
+            isOpen={showLogoutConfirmation}
+            onConfirm={handleLogout}
+            onCancel={() => setShowLogoutConfirmation(false)}
+        /> 
         <SidebarProvider>
         <AppSidebar variant="inset" setSelectedItem={setSelectedItem}/>
         <SidebarInset>

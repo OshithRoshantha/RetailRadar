@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiUpload, FiFileText, FiX, FiCheckSquare} from "react-icons/fi";
+import { FiUpload, FiFileText, FiX, FiCheckSquare, FiTarget} from "react-icons/fi";
 import Spinner from 'react-bootstrap/Spinner';
 import './css/GettingStart.css';
 
@@ -8,7 +8,7 @@ export default function GettingStart() {
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showProgress, setShowProgress] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState(true);
 
   const maxSize = 524288000; 
 
@@ -180,6 +180,9 @@ export default function GettingStart() {
         {isComplete && (<div className="flex pb-2">
             <FiCheckSquare size={32} className="text-blue-800 mr-3"/>
             <p className="text-gray-500 text-sm mt-2"><b className="text-blue-800">Process Successful!</b>&nbsp;&nbsp;&nbsp; Analytics are available.</p>
+        </div>)}
+        {isComplete && (<div className="flex pb-2">
+            <FiTarget size={30} className="text-green-500 mr-3"/> <p>You can update your file anytime by dragging a new one here.</p>
         </div>)}
         {showProgress && !isComplete && (<div className="flex pb-2">
             <Spinner animation="grow" variant="primary" className="mr-3"/>
