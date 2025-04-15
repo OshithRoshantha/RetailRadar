@@ -8,7 +8,7 @@ export default function GettingStart() {
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showProgress, setShowProgress] = useState(false);
-  const [isComplete, setIsComplete] = useState(true);
+  const [isComplete, setIsComplete] = useState(false);
 
   const maxSize = 524288000; 
 
@@ -77,6 +77,10 @@ export default function GettingStart() {
 
   const initializeProcessing = () =>{
     setShowProgress(true);
+
+
+
+    //call preprocess API
   }
 
   const steps = [

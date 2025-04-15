@@ -14,6 +14,16 @@ rrRouter = APIRouter(prefix="/retailradar")
  
 agent = initializeAgent()
 
+@rrRouter.post('/uploader')
+async def uploadFile(file: UploadFile = File(...)):
+    targetDir = Path("./data/raw/")
+    targetDir.mkdir(parents=True, exist_ok=True)
+    targetPath = targetDir / 'retail_data.csv'
+    
+    with open(targetPath, "wb") as f:
+        content = await file.read()
+        f.write(content)
+
 @rrRouter.get('/initialize')
 def intializeProcessing() -> initialResponse:
     return initialProcessing()
