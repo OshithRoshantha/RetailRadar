@@ -9,6 +9,7 @@ from src.schema.inputSchema import churnInput, clvInput, scrapeInput, llmInput
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
+from pathlib import Path
 
 rrRouter = APIRouter(prefix="/retailradar")
  
