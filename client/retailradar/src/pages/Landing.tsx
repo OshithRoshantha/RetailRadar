@@ -1,5 +1,6 @@
 import { LoginForm } from '@/components/LoginForm';
-import mainLogo from '../assets/logo/logo1.png'
+import mainLogo from '../assets/logo/logo1.png';
+import landingImg from '../assets/img/landing.png';
 import './css/SignIn.css'
 import { SignupForm } from "@/components/SignupForm";
 import { useState } from 'react';
@@ -30,7 +31,12 @@ export default function Landing() {
           </div>
         </div>
       </div>
-      <div className="relative hidden bg-muted lg:block">
+      <div className="relative hidden lg:block">
+        <img
+          src={landingImg}
+          alt="Image"
+          className="landing-image"
+        />
       </div>
     </div>
   )
