@@ -35,7 +35,7 @@ export default function Landing() {
         <img
           src={landingImg}
           alt="Image"
-          className="landing-image"
+          className='absolute inset-0 h-full w-full object-cover ml-[-17%]'
         />
       </div>
     </div>
