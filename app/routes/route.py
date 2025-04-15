@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from fastapi import UploadFile, File
 from src.preProcessing import initialProcessing
 from src.predictions import churnPredict, clvPredict, demandPredict, salesPredict
 from models.churnModel import trainChurnModel

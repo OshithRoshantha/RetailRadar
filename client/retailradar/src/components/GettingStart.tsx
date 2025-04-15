@@ -75,10 +75,14 @@ export default function GettingStart() {
     return `${(bytes / 1024).toFixed(2)} KB`;
   };
 
-  const initializeProcessing = () =>{
+  const initializeProcessing = async () =>{
     setShowProgress(true);
-
-
+    const formData = new FormData();
+    formData.append('file', csvFile);
+    const response = await fetch('http://localhost:8000/retailradar/uploader', {
+      method: 'POST',
+      body: formData,
+    });
 
     //call preprocess API
   }
