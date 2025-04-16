@@ -22,10 +22,10 @@ import { OrderStatusChart } from "./OrderStatus"
 import { DeliveryMetrics } from "./Delivery"
 
   export default function Analytics() {
-    const startDate = new Date("2001-01-24T00:00:00")
-    const endDate = new Date("2024-02-29T00:00:00")
-    const transactions = 522456
     const data = JSON.parse(localStorage.getItem('analyticsData') || 'null');
+    const startDate = new Date(data.startDate);
+    const endDate = new Date(data.endDate);
+    const transactions = data.ProcessedRows;
     
     const formattedStartDate = new Intl.DateTimeFormat("en-US", {
       weekday: "long",
