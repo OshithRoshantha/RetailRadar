@@ -36,7 +36,7 @@ def checkAvailability() -> dict:
     model2 = Path('./data/processed/model/clvModel.pkl').exists()
     model3 = Path('./data/processed/model/lstmModel.h5').exists()
     if model1 & model2 & model3:
-        return {'status': 'available'}
+        return {'models': 'available'}
 
 @rrRouter.get('/train')
 def trainModels() -> dict:

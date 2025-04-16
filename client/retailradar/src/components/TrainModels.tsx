@@ -1,6 +1,6 @@
 import { IconCircleDashedCheck, IconRefresh, IconSettingsCheck } from "@tabler/icons-react"
 import { BarLoader } from "react-spinners";
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function TrainModels() {
       const [modelAvailable, setModelAvailable] = React.useState(false);
@@ -9,6 +9,22 @@ export default function TrainModels() {
       const iconColor = modelAvailable ? 'text-green-500' : 'text-gray-400';
       const textColor = modelAvailable ? '' : 'text-gray-400';
       const models = ['XGBClassifier', 'XGBRegressor', 'Prophet', 'LSTM'];
+
+      useEffect(() => {
+        const checkAvailability = async () => {
+          const response = await fetch('http://localhost:8000/retailradar/models', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          const data = await response.json();
+          if (data.models == "available") {
+            setModelAvailable(true);
+          }
+        }
+        checkAvailability();
+      }, []);
 
   return (
     <div className="w-full h-full overflow-hidden">
