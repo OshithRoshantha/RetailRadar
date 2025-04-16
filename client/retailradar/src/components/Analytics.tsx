@@ -34,7 +34,7 @@ import predictError from '../assets/img/error.jpg'
                 src={predictError}
                 alt="Image"
               />
-              <p className='text-gray-500 pt-5'>Analytics data not available. Please initialize the application first.</p>
+              <p className='text-gray-500 pt-5'>To view analytics data, please initialize the application first. Currently, no analytics information is available to display.</p>
             </div>
           </div>
         </div>
