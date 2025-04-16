@@ -84,13 +84,13 @@ export default function GettingStart() {
       body: formData,
     });
 
-    const response2 = await fetch('http://localhost:8000/retailradar/initialize', {
+    const response = await fetch('http://localhost:8000/retailradar/initialize', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    const data = await response2.json();
+    const data = await response.json();
     localStorage.setItem('analyticsData', JSON.stringify(data));
     setIsComplete(true);
     setShowProgress(false);

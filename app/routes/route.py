@@ -30,6 +30,14 @@ async def uploadFile(file: UploadFile = File(...)):
 def intializeProcessing() -> initialResponse:
     return initialProcessing()
 
+@rrRouter.get('/models')
+def checkAvailability() -> dict:
+    model1 = Path('./data/processed/model/churnModel.pkl').exists()
+    model2 = Path('./data/processed/model/clvModel.pkl').exists()
+    model3 = Path('./data/processed/model/lstmModel.h5').exists()
+    if model1 & model2 & model3:
+        return {'status': 'available'}
+
 @rrRouter.get('/train')
 def trainModels() -> dict:
     model1 = trainChurnModel()
