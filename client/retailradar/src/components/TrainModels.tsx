@@ -22,6 +22,9 @@ export default function TrainModels() {
           if (data.models == "available") {
             setModelAvailable(true);
           }
+          else {
+            setModelAvailable(false);
+          }
         }
         checkAvailability();
       }, []);
