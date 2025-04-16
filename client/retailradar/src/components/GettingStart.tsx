@@ -91,7 +91,7 @@ export default function GettingStart() {
       },
     });
     const data = await response.json();
-    localStorage.setItem('analyticsData', JSON.stringify(data));
+    sessionStorage.setItem('analyticsData', JSON.stringify(data));
     setIsComplete(true);
     setShowProgress(false);
   }

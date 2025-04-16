@@ -20,9 +20,27 @@ import { TopCategoriesChart } from "./TopCategories"
 import { ProductRatingsChart } from "./ProductRatings"
 import { OrderStatusChart } from "./OrderStatus"
 import { DeliveryMetrics } from "./Delivery"
+import predictError from '../assets/img/error.jpg'
 
   export default function Analytics() {
-    const data = JSON.parse(localStorage.getItem('analyticsData') || 'null');
+    const data = JSON.parse(sessionStorage.getItem('analyticsData') || 'null');
+
+    if (!data) {
+      return (
+        <div className="w-full h-full overflow-hidden">
+          <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5">
+            <div className='flex flex-col items-center justify-center h-full'>
+              <img
+                src={predictError}
+                alt="Image"
+              />
+              <p className='text-gray-500 pt-5'>Analytics data not available. Please initialize the application first.</p>
+            </div>
+          </div>
+        </div>
+      );
+  }
+    
     const startDate = new Date(data.startDate);
     const endDate = new Date(data.endDate);
     const transactions = data.ProcessedRows;
@@ -41,17 +59,6 @@ import { DeliveryMetrics } from "./Delivery"
       day: "numeric",
     }).format(endDate)
 
-    if (!data) {
-        return (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-lg text-gray-600">Analytics data not available</p>
-              <p className="text-sm text-gray-500">Please initialize the application first.</p>
-            </div>
-          </div>
-        );
-    }
-  
     return (
       <div className="w-full h-full overflow-hidden">
         <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5">

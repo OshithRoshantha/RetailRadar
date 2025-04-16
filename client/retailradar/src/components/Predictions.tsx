@@ -3,10 +3,10 @@ import { IconInfoCircle } from "@tabler/icons-react"
 import { BarLoader } from "react-spinners";
 import SalesPredictions from './SalesPrediction';
 import DemandPrediction from './DemandPrediction';
-import predictError from '../assets/img/error.jpg'
+import predictError from '../assets/img/error.jpg';
 
 export default function Predictions() {
-  const [modelAvailable, setModelAvailable] = React.useState(true);
+  const [modelAvailable, setModelAvailable] = React.useState(false);
   const [churnFormData, setChurnFormData] = React.useState({
     totalSpend: '',
     totalPurchases: '',
