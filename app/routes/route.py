@@ -32,9 +32,9 @@ def intializeProcessing() -> initialResponse:
 
 @rrRouter.get('/models')
 def checkAvailability() -> dict:
-    model1 = Path('./data/processed/model/churnModel.pkl').exists()
-    model2 = Path('./data/processed/model/clvModel.pkl').exists()
-    model3 = Path('./data/processed/model/lstmModel.pkl').exists()
+    model1 = Path('data/processed/model/churnModel.pkl').exists()
+    model2 = Path('data/processed/model/clvModel.pkl').exists()
+    model3 = Path('data/processed/model/lstmModel.pkl').exists()
     if model1 and model2 and model3:
         return {'models': 'available'}
     else:
