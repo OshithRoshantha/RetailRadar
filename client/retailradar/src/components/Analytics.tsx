@@ -40,6 +40,17 @@ import { DeliveryMetrics } from "./Delivery"
       month: "long",
       day: "numeric",
     }).format(endDate)
+
+    if (!data) {
+        return (
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-lg text-gray-600">Analytics data not available</p>
+              <p className="text-sm text-gray-500">Please initialize the application first.</p>
+            </div>
+          </div>
+        );
+    }
   
     return (
       <div className="w-full h-full overflow-hidden">
