@@ -30,12 +30,14 @@ export default function TrainModels() {
       }, []);
 
     const startTraining = async () =>{
+      setIsTraining(true);
       await fetch('http://localhost:8000/retailradar/train', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
+      setIsTraining(false);
     }
 
   return (
