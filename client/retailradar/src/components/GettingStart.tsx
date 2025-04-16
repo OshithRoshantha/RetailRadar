@@ -79,12 +79,19 @@ export default function GettingStart() {
     setShowProgress(true);
     const formData = new FormData();
     formData.append('file', csvFile);
-    const response = await fetch('http://localhost:8000/retailradar/uploader', {
+    await fetch('http://localhost:8000/retailradar/uploader', {
       method: 'POST',
       body: formData,
     });
 
-    //call preprocess API
+    const response2 = await fetch('http://localhost:8000/retailradar/initialize', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response2.json();
+    localStorage.setItem('analyticsData', JSON.stringify(data));
   }
 
   const steps = [
