@@ -29,6 +29,15 @@ export default function TrainModels() {
         checkAvailability();
       }, []);
 
+    const startTraining = async () =>{
+      await fetch('http://localhost:8000/retailradar/train', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
   return (
     <div className="w-full h-full overflow-hidden">
       <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5">
