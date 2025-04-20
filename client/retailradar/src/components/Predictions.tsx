@@ -67,6 +67,10 @@ export default function Predictions() {
         Type: clvFormData.type
       })
     });
+    const response = await clvResult.json();
+    setClvResult(response);
+    setIsPredictingClv(false);
+    setShowClvResult(true);
   };
 
   const [churnFormData, setChurnFormData] = React.useState({
@@ -181,10 +185,7 @@ export default function Predictions() {
 
   const handlePredictClv = () => {
     setIsPredictingClv(true);
-    setTimeout(() => {
-      setIsPredictingClv(false);
-      setShowClvResult(true);
-    }, 1000);
+    predictClv();
   };
 
   const isChurnFormValid = () => {
