@@ -50,6 +50,10 @@ export default function Predictions() {
     fetchData();
   }, []);
 
+  const predictChurn = async () =>{};
+  
+  const predictClv = async () => {};
+
   const [churnFormData, setChurnFormData] = React.useState({
     totalSpend: '',
     totalPurchases: '',
