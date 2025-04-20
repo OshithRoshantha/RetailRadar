@@ -5,7 +5,6 @@ import SalesPredictions from './SalesPrediction';
 import DemandPrediction from './DemandPrediction';
 import loading from '../assets/img/loading.jpg';
 
-
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
   const [isDataLoaded, setIsDataLoaded] = React.useState(false);
@@ -15,35 +14,40 @@ export default function Predictions() {
   useEffect(() => {
     const checkModels = () => {
       const models = sessionStorage.getItem('models');
-      if (models === 'True') {
-        setModelAvailable(true);
-        } else {
-        setModelAvailable(false);
+      setModelAvailable(models === 'True');
+    };
+  
+    const fetchData = async () => {
+      try {
+        checkModels();
+        const [salesResponse, demandResponse] = await Promise.all([
+          fetch('http://localhost:8000/retailradar/predict/sales', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }),
+          fetch('http://localhost:8000/retailradar/predict/demand', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+        ]);
+  
+        const result3 = await salesResponse.json();
+        const result4 = await demandResponse.json();
+        
+        setResult3(result3);
+        setResult4(result4);
+        setIsDataLoaded(true);
+      } catch (error) {
+        console.error("Error fetching prediction data:", error);
+        setIsDataLoaded(true);
       }
     };
-    const getPredictions1 = async () => {
-      const response = await fetch('http://localhost:8000/retailradar/predict/sales', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const result3 = await response.json();
-      setResult3(result3);
-    };
-    const getPredictions2 = async () => {
-      const response = await fetch('http://localhost:8000/retailradar/predict/demand', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const result4 = await response.json();
-      setResult4(result4);
-    };
-    checkModels();
-    getPredictions1();
-    getPredictions2();
+  
+    fetchData();
   }, []);
 
   const [churnFormData, setChurnFormData] = React.useState({
