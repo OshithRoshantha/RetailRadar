@@ -27,7 +27,7 @@ export default function Predictions() {
       });
       const result3 = await response.json();
     };
-    cosnt getPredictions2 = async () => {
+    const getPredictions2 = async () => {
       const response = await fetch('http://localhost:8000/retailradar/predict/demand', {
         method: 'GET',
         headers: {
