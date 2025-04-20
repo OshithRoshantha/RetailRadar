@@ -21,9 +21,11 @@ export default function TrainModels() {
           const data = await response.json();
           if (data.models == "available") {
             setModelAvailable(true);
+            sessionStorage.setItem('models', 'True');
           }
           else {
             setModelAvailable(false);
+            sessionStorage.setItem('models', 'False');
           }
         }
         checkAvailability();
@@ -38,6 +40,7 @@ export default function TrainModels() {
         },
       });
       setIsTraining(false);
+      sessionStorage.setItem('models', 'True');
     }
 
   return (
