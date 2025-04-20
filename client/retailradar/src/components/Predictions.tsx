@@ -4,6 +4,7 @@ import { BarLoader } from "react-spinners";
 import SalesPredictions from './SalesPrediction';
 import DemandPrediction from './DemandPrediction';
 import predictError from '../assets/img/error.jpg';
+import { get } from 'http';
 
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
@@ -17,7 +18,27 @@ export default function Predictions() {
         setModelAvailable(false);
       }
     };
+    const getPredictions1 = async () => {
+      const response = await fetch('http://localhost:8000/retailradar/predict/sales', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result3 = await response.json();
+    };
+    cosnt getPredictions2 = async () => {
+      const response = await fetch('http://localhost:8000/retailradar/predict/demand', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result4 = await response.json();
+    };
     checkModels();
+    getPredictions1();
+    getPredictions2();
   }, []);
 
   const [churnFormData, setChurnFormData] = React.useState({
