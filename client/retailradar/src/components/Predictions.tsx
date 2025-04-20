@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IconInfoCircle } from "@tabler/icons-react"
 import { BarLoader } from "react-spinners";
 import SalesPredictions from './SalesPrediction';
@@ -7,6 +7,19 @@ import predictError from '../assets/img/error.jpg';
 
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
+
+  useEffect(() => {
+    const checkModels = () => {
+      const models = sessionStorage.getItem('models');
+      if (models === 'True') {
+        setModelAvailable(true);
+        } else {
+        setModelAvailable(false);
+      }
+    };
+    checkModels();
+  }, []);
+
   const [churnFormData, setChurnFormData] = React.useState({
     totalSpend: '',
     totalPurchases: '',
