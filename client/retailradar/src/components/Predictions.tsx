@@ -3,11 +3,12 @@ import { IconInfoCircle } from "@tabler/icons-react"
 import { BarLoader } from "react-spinners";
 import SalesPredictions from './SalesPrediction';
 import DemandPrediction from './DemandPrediction';
-import predictError from '../assets/img/error.jpg';
-import { get } from 'http';
+import loading from '../assets/img/loading.jpg';
+
 
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
+  const [isDataLoaded, setIsDataLoaded] = React.useState(false);
   const [result3, setResult3] = React.useState({});
   const [result4, setResult4] = React.useState({});
 
@@ -172,6 +173,23 @@ export default function Predictions() {
     return clvFormData.totalSpend && clvFormData.totalPurchases && 
            clvFormData.lifespan && clvFormData.type;
   };
+
+  if (!isDataLoaded) {
+    return (
+      <div className="w-full h-full overflow-hidden">
+        <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5">
+          <div className='flex flex-col items-center justify-center h-full'>
+            <img
+              src={loading}
+              alt="Image"
+              className="animate-spin w-16 h-16 mb-4"
+            />
+            <p className='text-gray-500 pt-5'>Hang tight! We’re getting things ready for you...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full overflow-hidden">
