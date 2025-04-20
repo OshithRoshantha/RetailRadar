@@ -8,6 +8,8 @@ import loading from '../assets/img/loading.jpg';
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
   const [isDataLoaded, setIsDataLoaded] = React.useState(false);
+  const [clvResult, setClvResult] = React.useState({});
+  cosnt [churnResult, setChurnResult] = React.useState({});
   const [result3, setResult3] = React.useState({});
   const [result4, setResult4] = React.useState({});
 
@@ -51,8 +53,21 @@ export default function Predictions() {
   }, []);
 
   const predictChurn = async () =>{};
-  
-  const predictClv = async () => {};
+
+  const predictClv = async () => {
+    const clvResult = await fetch('http://localhost:8000/retailradar/predict/clv', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Total_Spend: parseFloat(clvFormData.totalSpend),
+        Total_Purchases: parseInt(clvFormData.totalPurchases),
+        Lifespan: parseFloat(clvFormData.lifespan),
+        Type: clvFormData.type
+      })
+    });
+  };
 
   const [churnFormData, setChurnFormData] = React.useState({
     totalSpend: '',
