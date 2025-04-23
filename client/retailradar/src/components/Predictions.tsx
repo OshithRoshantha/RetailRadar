@@ -8,7 +8,7 @@ import loading from '../assets/img/loading.jpg';
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
   const [isDataLoaded, setIsDataLoaded] = React.useState(false);
- // const [clvResult, setClvResult] = React.useState({ predictedClv: 0 });
+ // const [clvResult, setClvResult] = React.useState();
  // const [churnResult, setChurnResult] = React.useState({});
   const [result3, setResult3] = React.useState({});
   const [result4, setResult4] = React.useState({});
@@ -68,7 +68,8 @@ export default function Predictions() {
       })
     });
     const response = await clvResult.json();
-    //setClvResult(response);
+   // setClvResult(response);
+    console.log(response)
     setIsPredictingClv(false);
     setShowClvResult(true);
   };
