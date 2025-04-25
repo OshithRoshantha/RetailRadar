@@ -185,10 +185,7 @@ export default function Predictions() {
 
   const handlePredictChurn = () => {
     setIsPredictingChurn(true);
-    setTimeout(() => {
-      setIsPredictingChurn(false);
-      setShowChurnResult(true);
-    }, 1000);
+    predictChurn();
   };
 
   const handlePredictClv = () => {
