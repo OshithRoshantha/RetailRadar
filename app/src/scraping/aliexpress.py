@@ -27,8 +27,22 @@ async def scraping(category):
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
         
-        await page.goto(f"https://www.aliexpress.com/w/wholesale-{category.replace(' ', '-')}.html?g=y&SearchText={category.replace(' ', '-')}&sortType=total_tranpro_desc&currency=USD", timeout=60000)
-        await page.wait_for_selector(".hs_bw.search-item-card-wrapper-gallery")
+        await page.goto(f"https://www.aliexpress.com/w/wholesale-{category.replace(' ', '-')}.html?g=y&SearchText={category.replace(' ', '-')}&sortType=total_tranpro_desc&currency=USD", timeout=60000, wait_until="networkidle")
+        selectors = [
+            ".hs_bw.search-item-card-wrapper-gallery",
+            ".search-item-card-wrapper-gallery",
+            ".search-card-item",
+            ".list-items"
+        ]
+
+        for selector in selectors:
+            try:
+                await page.wait_for_selector(selector, timeout=10000)
+                break
+            except:
+                continue
+        else:
+            raise Exception("No product container found")
         
         products = []
         items = await page.query_selector_all(".hs_bw.search-item-card-wrapper-gallery")
@@ -53,8 +67,7 @@ async def scraping(category):
         
         return {"Category": category, "Products": products}
     
-async def initializeScraping():
-    categories = dataSet.select("Product_Category").distinct().toPandas()['Product_Category'].tolist()
+async def initializeScraping(categories):
     results = []
     for category in categories:
         data = await scraping(category) 

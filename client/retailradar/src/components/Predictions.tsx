@@ -4,6 +4,7 @@ import { BarLoader } from "react-spinners";
 import SalesPredictions from './SalesPrediction';
 import DemandPrediction from './DemandPrediction';
 import loading from '../assets/img/loading.jpg';
+import predictError from '../assets/img/error.jpg'
 
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
