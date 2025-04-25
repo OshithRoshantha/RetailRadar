@@ -52,7 +52,20 @@ export default function Predictions() {
     fetchData();
   }, []);
 
-  const predictChurn = async () =>{};
+  const predictChurn = async () =>{
+    const churnResult = await fetch('http://localhost:8000/retailradar/predict/churn', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Total_Spend: parseFloat(clvFormData.totalSpend),
+        Total_Purchases: parseInt(clvFormData.totalPurchases),
+        Recency: parseFloat(clvFormData.lifespan),
+        Avg_Order_Value: parseFloat()
+      })
+    });
+  };
 
   const predictClv = async () => {
     const clvResult = await fetch('http://localhost:8000/retailradar/predict/clv', {
