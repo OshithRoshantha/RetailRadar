@@ -109,11 +109,6 @@ export default function Predictions() {
   const [showClvResult, setShowClvResult] = React.useState(false);
   const [isPredictingClv, setIsPredictingClv] = React.useState(false);
 
-  const churnResult = {
-    "prediction": 0,
-    "probability": 0.4348597526550293
-  };
-
   const fieldLabels = {
     totalSpend: "Total Spend",
     totalPurchases: "Total Purchases",
