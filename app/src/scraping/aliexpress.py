@@ -1,6 +1,8 @@
 from playwright.async_api import async_playwright
 import re
 import aiohttp
+from config.globalSession import spark
+from config.globalData import data
 
 async def getExchangeRate():
     url = "https://api.exchangerate-api.com/v4/latest/LKR"
@@ -51,7 +53,7 @@ async def scraping(category):
         return {"Category": category, "Products": products}
     
 async def initializeScraping():
-    categories = []
+    categories = data.select("Product_Category").distinct().rdd.flatMap(lambda x: x).collect()
     results = []
     for category in categories:
         data = await scraping(category) 
