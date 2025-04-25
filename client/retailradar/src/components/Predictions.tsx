@@ -9,7 +9,7 @@ export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
   const [isDataLoaded, setIsDataLoaded] = React.useState(false);
   const [clvResult, setClvResult] = React.useState({});
- // const [churnResult, setChurnResult] = React.useState({});
+  const [churnResult, setChurnResult] = React.useState({});
   const [result3, setResult3] = React.useState({});
   const [result4, setResult4] = React.useState({});
 
@@ -59,12 +59,16 @@ export default function Predictions() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        Total_Spend: parseFloat(clvFormData.totalSpend),
-        Total_Purchases: parseInt(clvFormData.totalPurchases),
-        Recency: parseFloat(clvFormData.lifespan),
-        Avg_Order_Value: parseFloat()
+        Total_Spend: parseFloat(churnFormData.totalSpend),
+        Total_Purchases: parseInt(churnFormData.totalPurchases),
+        Recency: parseFloat(churnFormData.recency),
+        Avg_Order_Value: parseFloat(churnFormData.avgOrderValue)
       })
     });
+    const respose = churnResult.json();
+    setChurnResult(respose);
+    setIsPredictingChurn(false);
+    setShowChurnResult(true);
   };
 
   const predictClv = async () => {
