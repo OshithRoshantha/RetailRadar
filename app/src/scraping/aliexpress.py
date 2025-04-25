@@ -27,25 +27,11 @@ async def scraping(category):
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
         
-        await page.goto(f"https://www.aliexpress.com/w/wholesale-{category.replace(' ', '-')}.html?g=y&SearchText={category.replace(' ', '-')}&sortType=total_tranpro_desc&currency=USD", timeout=60000, wait_until="networkidle")
-        selectors = [
-            ".hs_bw.search-item-card-wrapper-gallery",
-            ".search-item-card-wrapper-gallery",
-            ".search-card-item",
-            ".list-items"
-        ]
-
-        for selector in selectors:
-            try:
-                await page.wait_for_selector(selector, timeout=10000)
-                break
-            except:
-                continue
-        else:
-            raise Exception("No product container found")
+        await page.goto(f"https://www.aliexpress.com/w/wholesale-{category.replace(' ', '-')}.html?g=y&SearchText={category.replace(' ', '-')}&sortType=total_tranpro_desc&currency=USD", timeout=60000)
+        await page.wait_for_selector(".hm_bu.search-item-card-wrapper-gallery")
         
         products = []
-        items = await page.query_selector_all(".hs_bw.search-item-card-wrapper-gallery")
+        items = await page.query_selector_all(".hm_bu.search-item-card-wrapper-gallery")
         for item in items[:20]:
             card = await item.query_selector(".search-card-item")
             image = await item.query_selector(".ml_bg")
