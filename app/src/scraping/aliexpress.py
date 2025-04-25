@@ -50,7 +50,8 @@ async def scraping(category):
         
         return {"Category": category, "Products": products}
     
-async def initializeScraping(categories):
+async def initializeScraping():
+    categories = []
     results = []
     for category in categories:
         data = await scraping(category) 
