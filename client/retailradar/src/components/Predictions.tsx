@@ -65,8 +65,9 @@ export default function Predictions() {
         Avg_Order_Value: parseFloat(churnFormData.avgOrderValue)
       })
     });
-    const respose = churnResult.json();
+    const respose = await churnResult.json();
     setChurnResult(respose);
+    console.log(respose);
     setIsPredictingChurn(false);
     setShowChurnResult(true);
   };
