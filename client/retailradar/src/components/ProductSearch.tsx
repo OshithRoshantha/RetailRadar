@@ -1,6 +1,14 @@
 import ProductGrid from "./ProductGrid";
+import React, { useEffect } from 'react';
 
 export default function ProductSearch() {
+
+useEffect(() => {
+    const fetchData = () => {
+      
+    };
+    fetchData();
+  }, []);
 
   const productData = {
     "Result": [
