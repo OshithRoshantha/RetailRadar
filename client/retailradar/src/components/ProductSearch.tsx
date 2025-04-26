@@ -8,7 +8,7 @@ export default function ProductSearch() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const respose = await fetch('http://localhost:8000/retailradar/predict/sales', {
+            const respose = await fetch('http://localhost:8000/retailradar/scrape', {
                 method: 'GET',
                 headers: {
                 'Content-Type': 'application/json',
