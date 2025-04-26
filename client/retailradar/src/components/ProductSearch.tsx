@@ -3,9 +3,17 @@ import React, { useEffect } from 'react';
 
 export default function ProductSearch() {
 
+const [productData, setProductData] = React.useState({});
 useEffect(() => {
-    const fetchData = () => {
-      
+    const fetchData = async () => {
+        const respose = await fetch('http://localhost:8000/retailradar/predict/sales', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+        const result = await respose.json();  
+        setProductData(result);
     };
     fetchData();
   }, []);
