@@ -31,7 +31,7 @@ async def scraping(category):
         items = await page.query_selector_all(".hm_bu.search-item-card-wrapper-gallery")
         for item in items[:20]:
             card = await item.query_selector(".search-card-item")
-            image = await item.query_selector(".mm_mn")
+            image = await item.query_selector(".mm_be")
             data = await card.inner_text()
             details = data.split("\n")
             
