@@ -63,7 +63,7 @@ def model3() -> demandResponse:
 def model4() -> salesResponse:
     return salesPredict()
 
-@rrRouter.post('/scrape')
+@rrRouter.get('/scrape')
 async def intializeScraping() -> scrapeResponse:
     results = await initializeScraping()
     return results
