@@ -53,7 +53,8 @@ async def scraping(category):
         
         return {"Category": category, "Products": products}
     
-async def initializeScraping(categories):
+async def initializeScraping():
+    categories = dataSet.select("Product_Category").distinct().rdd.flatMap(lambda x: x).collect()
     results = []
     for category in categories:
         data = await scraping(category) 

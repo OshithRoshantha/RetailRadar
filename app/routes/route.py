@@ -64,8 +64,8 @@ def model4() -> salesResponse:
     return salesPredict()
 
 @rrRouter.post('/scrape')
-async def intializeScraping(data: scrapeInput) -> scrapeResponse:
-    results = await initializeScraping(data.categories)
+async def intializeScraping() -> scrapeResponse:
+    results = await initializeScraping()
     return results
 
 @rrRouter.post('/askAgent')
