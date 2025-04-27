@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FiUpload, FiFileText, FiX, FiCheckSquare, FiTarget} from "react-icons/fi";
 import Spinner from 'react-bootstrap/Spinner';
 import './css/GettingStart.css';
+import { uploader, initializer } from "@/services/GettingStart";
 
 export default function GettingStart() {
   const [isDragging, setIsDragging] = useState(false);
@@ -77,20 +78,11 @@ export default function GettingStart() {
 
   const initializeProcessing = async () =>{
     setShowProgress(true);
-    const formData = new FormData();
-    formData.append('file', csvFile);
-    await fetch('http://localhost:8000/retailradar/uploader', {
-      method: 'POST',
-      body: formData,
-    });
 
-    const response = await fetch('http://localhost:8000/retailradar/initialize', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    await uploader(csvFile);
+    const response = await initializer();
     const data = await response.json();
+    
     sessionStorage.setItem('analyticsData', JSON.stringify(data));
     setIsComplete(true);
     setShowProgress(false);
