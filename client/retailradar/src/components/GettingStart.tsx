@@ -81,9 +81,8 @@ export default function GettingStart() {
 
     await uploader(csvFile);
     const response = await initializer();
-    const data = await response.json();
-    
-    sessionStorage.setItem('analyticsData', JSON.stringify(data));
+
+    sessionStorage.setItem('analyticsData', JSON.stringify(response));
     setIsComplete(true);
     setShowProgress(false);
   }
