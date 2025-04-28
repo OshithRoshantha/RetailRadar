@@ -31,3 +31,17 @@ export const churnPredict = async (churnFormData) => {
   });
   return response.data;
 }
+
+export const clvPredict = async (clvFormData) => {
+  const response = await axios.post('', {
+      Total_Spend: parseFloat(clvFormData.totalSpend),
+      Total_Purchases: parseInt(clvFormData.totalPurchases),
+      Lifespan: parseFloat(clvFormData.lifespan),
+      Type: clvFormData.type
+  },{
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  return response.data;
+}
