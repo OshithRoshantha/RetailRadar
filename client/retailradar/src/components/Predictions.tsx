@@ -5,7 +5,7 @@ import SalesPredictions from './SalesPrediction';
 import DemandPrediction from './DemandPrediction';
 import loading from '../assets/img/loading.jpg';
 import predictError from '../assets/img/error.jpg';
-import { salesPredict, demandPredict } from '@/services/Predictions';
+import { salesPredict, demandPredict, clvPredict, churnPredict } from '@/services/Predictions';
 
 export default function Predictions() {
   const [modelAvailable, setModelAvailable] = React.useState(false);
@@ -31,7 +31,7 @@ export default function Predictions() {
         setResult3(salesResponse);
         setResult4(demandResponse);
         setIsDataLoaded(true);
-        
+
       } catch (error) {
         console.error("Error fetching prediction data:", error);
         setIsDataLoaded(true);
@@ -42,21 +42,9 @@ export default function Predictions() {
   }, []);
 
   const predictChurn = async () =>{
-    const churnResult = await fetch('http://localhost:8000/retailradar/predict/churn', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        Total_Spend: parseFloat(churnFormData.totalSpend),
-        Total_Purchases: parseInt(churnFormData.totalPurchases),
-        Recency: parseFloat(churnFormData.recency),
-        Avg_Order_Value: parseFloat(churnFormData.avgOrderValue)
-      })
-    });
-    const respose = await churnResult.json();
-    setChurnResult(respose);
-    console.log(respose);
+    const churnResult = await churnPredict(churnFormData)
+
+    setChurnResult(churnResult);
     setIsPredictingChurn(false);
     setShowChurnResult(true);
   };
