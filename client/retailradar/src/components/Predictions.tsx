@@ -27,13 +27,11 @@ export default function Predictions() {
         const [salesResponse, demandResponse] = await Promise.all([
           salesPredict(), demandPredict()
         ]);
-  
-        //const result3 = await salesResponse.json();
-        //const result4 = await demandResponse.json();
-        
+          
         setResult3(salesResponse);
         setResult4(demandResponse);
         setIsDataLoaded(true);
+        
       } catch (error) {
         console.error("Error fetching prediction data:", error);
         setIsDataLoaded(true);
