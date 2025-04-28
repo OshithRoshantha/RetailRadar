@@ -25,18 +25,7 @@ export default function Predictions() {
       try {
         checkModels();
         const [salesResponse, demandResponse] = await Promise.all([
-          fetch('http://localhost:8000/retailradar/predict/sales', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }),
-          fetch('http://localhost:8000/retailradar/predict/demand', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
+          salesPredict(), demandPredict()
         ]);
   
         const result3 = await salesResponse.json();
