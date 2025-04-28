@@ -50,20 +50,9 @@ export default function Predictions() {
   };
 
   const predictClv = async () => {
-    const clvResult = await fetch('http://localhost:8000/retailradar/predict/clv', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        Total_Spend: parseFloat(clvFormData.totalSpend),
-        Total_Purchases: parseInt(clvFormData.totalPurchases),
-        Lifespan: parseFloat(clvFormData.lifespan),
-        Type: clvFormData.type
-      })
-    });
-    const response = await clvResult.json();
-    setClvResult(response);
+    const clvResult = await clvPredict(clvFormData);
+
+    setClvResult(clvResult);
     setIsPredictingClv(false);
     setShowClvResult(true);
   };
