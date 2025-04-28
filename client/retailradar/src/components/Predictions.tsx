@@ -28,11 +28,11 @@ export default function Predictions() {
           salesPredict(), demandPredict()
         ]);
   
-        const result3 = await salesResponse.json();
-        const result4 = await demandResponse.json();
+        //const result3 = await salesResponse.json();
+        //const result4 = await demandResponse.json();
         
-        setResult3(result3);
-        setResult4(result4);
+        setResult3(salesResponse);
+        setResult4(demandResponse);
         setIsDataLoaded(true);
       } catch (error) {
         console.error("Error fetching prediction data:", error);
