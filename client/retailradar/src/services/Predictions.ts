@@ -33,7 +33,7 @@ export const churnPredict = async (churnFormData) => {
 }
 
 export const clvPredict = async (clvFormData) => {
-  const response = await axios.post('', {
+  const response = await axios.post('http://localhost:8000/retailradar/predict/clv', {
       Total_Spend: parseFloat(clvFormData.totalSpend),
       Total_Purchases: parseInt(clvFormData.totalPurchases),
       Lifespan: parseFloat(clvFormData.lifespan),
