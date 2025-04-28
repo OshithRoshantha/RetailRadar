@@ -1,6 +1,7 @@
 import ProductGrid from "./ProductGrid";
 import React, { useEffect } from 'react';
 import loading from '../assets/img/loading.jpg';
+import { webScrape } from "@/services/Scrape";
 
 export default function ProductSearch() {
     const [isDataLoaded, setIsDataLoaded] = React.useState(false);
@@ -8,15 +9,10 @@ export default function ProductSearch() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const respose = await fetch('http://localhost:8000/retailradar/scrape', {
-                method: 'GET',
-                headers: {
-                'Content-Type': 'application/json',
-                },
-            })
-            const result = await respose.json();  
-            setProductData(result);
-            setIsDataLoaded(true);
+          const response = await webScrape();
+ 
+          setProductData(response);
+          setIsDataLoaded(true);
         };
         fetchData();
     }, []);
