@@ -7,7 +7,7 @@ from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
 from models.llm.langChain import initializeAgent
 from src.schema.inputSchema import churnInput, clvInput, llmInput, authRequest
-from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse
+from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse, tokenResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
 from src.auth import createToken
@@ -23,11 +23,11 @@ rrRouter = APIRouter(prefix="/retailradar")
  
 agent = initializeAgent()
 
-@rrRouter.post('/getToken')
+@rrRouter.post('/getToken', response_model=tokenResponse)
 async def authUser(data: authRequest):
     tokenExp = timedelta(minutes=EXP)
     accessToken = createToken(data={"sub": data.email}, expDelta=tokenExp)
-    return {"accessToken": accessToken}
+    return {"accessToken": accessToken, "tokenType": "bearer"}
 
 @rrRouter.post('/uploader')
 async def uploadFile(file: UploadFile = File(...)):

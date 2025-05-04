@@ -14,6 +14,6 @@ def createToken(data: dict, expDelta: Optional[timedelta]=None):
         exp = datetime.utcnow()+expDelta
     else:
         exp = datetime.utcnow()+timedelta(minutes=15)
-    toEncode.update({"expire": exp})
+    toEncode.update({"exp": int(exp.timestamp())})
     encodeJwt = jwt.encode(toEncode, KEY, algorithm=ALGORITHM)
     return encodeJwt

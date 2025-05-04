@@ -35,3 +35,7 @@ class Category(BaseModel):
 
 class scrapeResponse(BaseModel):
     Result: List[Category]
+    
+class tokenResponse(BaseModel):
+    accessToken: str
+    tokenType: str = "bearer"
