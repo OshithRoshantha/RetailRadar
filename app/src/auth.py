@@ -1,0 +1,17 @@
+from jose import JWTError, jwt
+from datetime import datetime, timedelta
+from typing import Optional
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+def createToken(data: dict, expDelta: Optional[timedelta]=None):
+    toEncode = data.copy()
+    if expDelta:
+        exp = datetime.utcnow()+expDelta
+    else:
+        exp = datetime.utcnow()+timedelta(minutes=15)
+    toEncode.update({"expire": exp})
+    encodeJwt = jwt.encode(toEncode, os.getenv("KEY"), algorithm=os.getenv("ALGORITHM"))
+    return encodeJwt
