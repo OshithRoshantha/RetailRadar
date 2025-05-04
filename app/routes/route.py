@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from fastapi import UploadFile, File
 from src.preProcessing import initialProcessing
 from src.predictions import churnPredict, clvPredict, demandPredict, salesPredict
@@ -11,6 +11,7 @@ from src.schema.responseSchema import churnResponse, clvResponse, demandResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
 from src.auth import createToken
+from src.jwtVerify import currentUser
 from pathlib import Path
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
@@ -22,6 +23,11 @@ EXP = int(os.getenv("EXP"))
 rrRouter = APIRouter(prefix="/retailradar")
  
 agent = initializeAgent()
+
+def protectedRoute():
+    def dependency(currentUser: str = Depends(currentUser)):
+        return currentUser
+    return Depends(dependency)
 
 @rrRouter.post('/getToken', response_model=tokenResponse)
 async def authUser(data: authRequest):

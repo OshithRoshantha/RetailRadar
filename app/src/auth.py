@@ -1,4 +1,4 @@
-from jose import JWTError, jwt
+from jose import jwt
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 from dotenv import load_dotenv
