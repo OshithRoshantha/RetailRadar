@@ -79,7 +79,7 @@ export default function AskAgent() {
         {!thinking && (
         <FiArrowUpCircle onClick={askAgent} className="pt-2 text-blue-800 cursor-pointer" style={{fontSize: '300%'}}/>)}
         {thinking && (
-        <div className="chat-window flex flex-col justify-end">
+        <div className="chat-window flex flex-col justify-end" >
             {messages.map((message, index) => (
               message.isUser ? (
                 <Sent key={index} content={message.content} />
