@@ -4,6 +4,7 @@ import './css/AskAgent.css'
 import Sent from "./Sent";
 import Reply from "./Reply";
 import Loading from "./Loading";
+import { agentReply } from "@/services/Agent";
 
 interface Message {
   content: string;
@@ -27,13 +28,21 @@ export default function AskAgent() {
       }
     };
 
-    const askAgent = () =>{
+    const askAgent = async () =>{
       if (text.trim() === "") return; 
         
-      setMessages(prev => [...prev, { content: text, isUser: true }]);
+      const userMessage = { content: text, isUser: true };
+      setMessages(prev => [...prev, userMessage]);
       setText("");
-      setThinking(false);
-      setLoading(false);
+      setThinking(true);
+      setLoading(true);
+      try{
+        const response = await agentReply(text);
+        setMessages(prev => [...prev, { content: response, isUser: false }]);
+      }
+      finally{
+        setLoading(false);
+      }
     } 
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
