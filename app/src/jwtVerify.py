@@ -11,6 +11,6 @@ ALGORITHM = os.getenv("ALGORITHM")
 oauth2Scheme = OAuth2PasswordBearer(tokenUrl="retailradar/getToken")
 
 async def currentUser(token: str = Depends(oauth2Scheme)):
-    payload = jwt.decode(token, KEY, algorithm=ALGORITHM)
+    payload = jwt.decode(token, KEY, algorithms=[ALGORITHM])
     email: str = payload.get("sub")
     return email
