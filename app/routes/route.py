@@ -6,7 +6,7 @@ from models.churnModel import trainChurnModel
 from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
 from models.llm.langChain import initializeAgent
-from src.schema.inputSchema import churnInput, clvInput, scrapeInput, llmInput
+from src.schema.inputSchema import churnInput, clvInput, llmInput, authRequest
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
@@ -17,14 +17,15 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
+EXP = int(os.getenv("EXP"))
 
 rrRouter = APIRouter(prefix="/retailradar")
  
 agent = initializeAgent()
 
 @rrRouter.post('/getToken')
-async def authUser(data: dict):
-    tokenExp = timedelta(minutes=os.getenv("EXP"))
+async def authUser(data: authRequest):
+    tokenExp = timedelta(minutes=EXP)
     accessToken = createToken(data={"sub": data.email}, expDelta=tokenExp)
     return {"accessToken": accessToken}
 

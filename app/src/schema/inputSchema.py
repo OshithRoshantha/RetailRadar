@@ -18,3 +18,6 @@ class scrapeInput(BaseModel):
     
 class llmInput(BaseModel):
     question: str
+    
+class authRequest(BaseModel):
+    email: str

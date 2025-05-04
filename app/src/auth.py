@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
+KEY = os.getenv("KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 
 def createToken(data: dict, expDelta: Optional[timedelta]=None):
     toEncode = data.copy()
@@ -13,5 +15,5 @@ def createToken(data: dict, expDelta: Optional[timedelta]=None):
     else:
         exp = datetime.utcnow()+timedelta(minutes=15)
     toEncode.update({"expire": exp})
-    encodeJwt = jwt.encode(toEncode, os.getenv("KEY"), algorithm=os.getenv("ALGORITHM"))
+    encodeJwt = jwt.encode(toEncode, KEY, algorithm=ALGORITHM)
     return encodeJwt
