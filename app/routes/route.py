@@ -22,7 +22,7 @@ rrRouter = APIRouter(prefix="/retailradar")
  
 agent = initializeAgent()
 
-@rrRouter.post('/predict/churn')
+@rrRouter.post('/getToken')
 async def authUser(data: dict):
     tokenExp = timedelta(minutes=os.getenv("EXP"))
     accessToken = createToken(data={"sub": data.email}, expDelta=tokenExp)
