@@ -10,11 +10,23 @@ from src.schema.inputSchema import churnInput, clvInput, scrapeInput, llmInput
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
+from src.auth import createToken
 from pathlib import Path
+from datetime import datetime, timedelta
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 rrRouter = APIRouter(prefix="/retailradar")
  
 agent = initializeAgent()
+
+@rrRouter.post('/predict/churn')
+async def authUser(data: dict):
+    tokenExp = timedelta(minutes=os.getenv("EXP"))
+    accessToken = createToken(data={"sub": data.email}, expDelta=tokenExp)
+    return {"accessToken": accessToken}
 
 @rrRouter.post('/uploader')
 async def uploadFile(file: UploadFile = File(...)):
