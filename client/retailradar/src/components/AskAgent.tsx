@@ -32,8 +32,8 @@ export default function AskAgent() {
         
       setMessages(prev => [...prev, { content: text, isUser: true }]);
       setText("");
-      setThinking(true);
-      setLoading(true);
+      setThinking(false);
+      setLoading(false);
     } 
 
     const handleKeyDown = (e: React.KeyboardEvent) => {

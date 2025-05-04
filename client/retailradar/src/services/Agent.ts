@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const agentReply = async (ask) => {
+export const agentReply = async (ask: string) => {
     const response = await axios.post('http://localhost:8000/retailradar/askAgent', {
         question: ask
     }, {
