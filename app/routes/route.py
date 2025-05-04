@@ -13,7 +13,7 @@ from src.scraping.aliexpress import initializeScraping
 from src.auth import createToken
 from src.jwtVerify import currentUser
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
@@ -35,7 +35,7 @@ async def authUser(data: authRequest):
     accessToken = createToken(data={"sub": data.email}, expDelta=tokenExp)
     return {"accessToken": accessToken, "tokenType": "bearer"}
 
-@rrRouter.post('/uploader')
+@rrRouter.post('/uploader', dependencies=[protectedRoute()])
 async def uploadFile(file: UploadFile = File(...)):
     targetDir = Path("./data/raw/")
     targetDir.mkdir(parents=True, exist_ok=True)
@@ -45,11 +45,11 @@ async def uploadFile(file: UploadFile = File(...)):
         content = await file.read()
         f.write(content)
 
-@rrRouter.get('/initialize')
+@rrRouter.get('/initialize', dependencies=[protectedRoute()])
 def intializeProcessing() -> initialResponse:
     return initialProcessing()
 
-@rrRouter.get('/models')
+@rrRouter.get('/models', dependencies=[protectedRoute()])
 def checkAvailability() -> dict:
     model1 = Path('data/processed/model/churnModel.pkl').exists()
     model2 = Path('data/processed/model/clvModel.pkl').exists()
@@ -59,35 +59,35 @@ def checkAvailability() -> dict:
     else:
         return {'models': 'unavailable'}
 
-@rrRouter.get('/train')
+@rrRouter.get('/train', dependencies=[protectedRoute()])
 def trainModels() -> dict:
     model1 = trainChurnModel()
     model2 = trainClvModel()
     model3 = trainLSTMModel()
     return {'model1': model1, 'model2': model2, 'model3':model3}
 
-@rrRouter.post('/predict/churn')
+@rrRouter.post('/predict/churn', dependencies=[protectedRoute()])
 def model1(data: churnInput) -> churnResponse:
     return churnPredict(data.model_dump())
 
-@rrRouter.post('/predict/clv')
+@rrRouter.post('/predict/clv', dependencies=[protectedRoute()])
 def model2(data: clvInput) -> clvResponse:
     return clvPredict(data.model_dump())
 
-@rrRouter.get('/predict/demand')
+@rrRouter.get('/predict/demand', dependencies=[protectedRoute()])
 def model3() -> demandResponse:
     return demandPredict()
 
-@rrRouter.get('/predict/sales')
+@rrRouter.get('/predict/sales', dependencies=[protectedRoute()])
 def model4() -> salesResponse:
     return salesPredict()
 
-@rrRouter.get('/scrape')
+@rrRouter.get('/scrape', dependencies=[protectedRoute()])
 async def intializeScraping() -> scrapeResponse:
     results = await initializeScraping()
     return results
 
-@rrRouter.post('/askAgent')
+@rrRouter.post('/askAgent', dependencies=[protectedRoute()])
 def llm(data: llmInput) -> str:
     return agent.run(data.question)
 
