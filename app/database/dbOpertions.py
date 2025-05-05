@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from passlib.context import CryptContext
 from models.dbUser import user
+from models.dbCredential import credential
 
 load_dotenv()
 
@@ -20,3 +21,10 @@ async def register(newUser: user):
     del userDict["password"]
     userDict["password"] = hashedPwd
     await db["userProfiles"].insert_one(userDict)
+    
+async def authenticate(input: credential):
+    userData = await db["userProfiles"].find_one({"email": credential.email})
+    if pwdContext.verify(credential.password, userData.password):
+        print("Hi")
+    else:
+        print("Hi")
