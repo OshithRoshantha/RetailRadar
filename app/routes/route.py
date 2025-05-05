@@ -10,6 +10,7 @@ from src.schema.inputSchema import churnInput, clvInput, llmInput, authRequest
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse, tokenResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
+from database.dbOpertions import register
 from src.auth import createToken
 from src.jwtVerify import currentUser
 from pathlib import Path
@@ -91,4 +92,6 @@ async def intializeScraping() -> scrapeResponse:
 def llm(data: llmInput) -> str:
     return agent.run(data.question)
 
-
+@rrRouter.post('/signup')
+async def signUp(user: dict):
+    await register(user)

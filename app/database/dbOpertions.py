@@ -1,7 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 from dotenv import load_dotenv
-from userAccount import user
+from pydantic import BaseModel
 
 load_dotenv()
 
@@ -11,6 +11,10 @@ dbName = os.getenv("DATABASE")
 client = AsyncIOMotorClient(uri)
 db = client[dbName]
 
-async def register(user: user):
-    newUser = user.dict()
+class user(BaseModel):
+    businessName: str
+    email: str
+    password: str
+    
+async def register(newUser: user):
     await db["userProfiles"].insert_one(newUser)
