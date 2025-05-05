@@ -27,9 +27,17 @@ async def register(newUser: user):
     
 async def authenticate(input: credential):
     userData = await db["userProfiles"].find_one({"email": input.email})
-    if pwdContext.verify(input.password, userData["password"]):
-        tokenExp = timedelta(minutes=exp)
-        accessToken = createToken(data={"sub": userData["email"]}, expDelta=tokenExp)
-        return accessToken
+    if userData:
+        if pwdContext.verify(input.password, userData["password"]):
+            tokenExp = timedelta(minutes=exp)
+            accessToken = createToken(data={"sub": userData["email"]}, expDelta=tokenExp)
+            return accessToken
+        else:
+            return "Invalid"
     else:
-        return "invalid"
+        return "Invalid"
+    
+    
+    
+    
+
