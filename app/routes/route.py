@@ -7,11 +7,12 @@ from models.clvModel import trainClvModel
 from models.salesForecastModel import trainLSTMModel
 from models.llm.langChain import initializeAgent
 from models.dbUser import user
+from models.dbCredential import credential
 from src.schema.inputSchema import churnInput, clvInput, llmInput, authRequest
 from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse, tokenResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
-from database.dbOpertions import register
+from database.dbOpertions import register, authenticate
 from src.auth import createToken
 from src.jwtVerify import currentUser
 from pathlib import Path
@@ -96,3 +97,8 @@ def llm(data: llmInput) -> str:
 @rrRouter.post('/signup')
 async def signUp(user: user):
     await register(user)
+    
+@rrRouter.post('/login')
+async def logIn(input: credential):
+    response = await authenticate(input)
+    return response

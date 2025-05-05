@@ -23,8 +23,8 @@ async def register(newUser: user):
     await db["userProfiles"].insert_one(userDict)
     
 async def authenticate(input: credential):
-    userData = await db["userProfiles"].find_one({"email": credential.email})
-    if pwdContext.verify(credential.password, userData.password):
-        print("Hi")
+    userData = await db["userProfiles"].find_one({"email": input.email})
+    if pwdContext.verify(input.password, userData["password"]):
+        return userData["email"]
     else:
-        print("Hi")
+        return "invalid"
