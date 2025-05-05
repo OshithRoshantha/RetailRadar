@@ -8,15 +8,13 @@ from models.salesForecastModel import trainLSTMModel
 from models.llm.langChain import initializeAgent
 from models.dbUser import user
 from models.dbCredential import credential
-from src.schema.inputSchema import churnInput, clvInput, llmInput, authRequest
-from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse, tokenResponse
+from src.schema.inputSchema import churnInput, clvInput, llmInput
+from src.schema.responseSchema import churnResponse, clvResponse, demandResponse, salesResponse, scrapeResponse
 from src.schema.preProcessingSchema import initialResponse
 from src.scraping.aliexpress import initializeScraping
 from database.dbOpertions import register, authenticate
-from src.auth import createToken
 from src.jwtVerify import currentUser
 from pathlib import Path
-from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
@@ -31,12 +29,6 @@ def protectedRoute():
     def dependency(currentUser: str = Depends(currentUser)):
         return currentUser
     return Depends(dependency)
-
-@rrRouter.post('/getToken', response_model=tokenResponse)
-async def authUser(data: authRequest):
-    tokenExp = timedelta(minutes=EXP)
-    accessToken = createToken(data={"sub": data.email}, expDelta=tokenExp)
-    return {"accessToken": accessToken, "tokenType": "bearer"}
 
 @rrRouter.post('/uploader', dependencies=[protectedRoute()])
 async def uploadFile(file: UploadFile = File(...)):

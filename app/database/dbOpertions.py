@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 from passlib.context import CryptContext
 from models.dbUser import user
 from models.dbCredential import credential
+from src.auth import createToken
+from datetime import timedelta
 
 load_dotenv()
 
@@ -11,6 +13,7 @@ pwdContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 uri = os.getenv("MONGO_URI")
 dbName = os.getenv("DATABASE")
+exp = int(os.getenv("EXP"))
 
 client = AsyncIOMotorClient(uri)
 db = client[dbName]
@@ -25,6 +28,8 @@ async def register(newUser: user):
 async def authenticate(input: credential):
     userData = await db["userProfiles"].find_one({"email": input.email})
     if pwdContext.verify(input.password, userData["password"]):
-        return userData["email"]
+        tokenExp = timedelta(minutes=exp)
+        accessToken = createToken(data={"sub": userData["email"]}, expDelta=tokenExp)
+        return accessToken
     else:
         return "invalid"
