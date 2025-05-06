@@ -37,7 +37,8 @@ export default function Dashboard() {
   const [showLogoutConfirmation, setShowLogoutConfirmation] = React.useState(false);
 
   const handleLogout = () => {
-    console.log('User logged out');
+    sessionStorage.clear();
+    window.location.href = '/'
     setShowLogoutConfirmation(false);
   };
 
