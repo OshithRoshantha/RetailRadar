@@ -24,7 +24,7 @@ export function LoginForm({
             const response = await signIn(email, password)
             
             if (response === "Invalid") {
-                setError('Email or password incorrect')
+                setError('Incorrect email or password.')
             } else {
                 sessionStorage.setItem('jwtToken', response)
                 window.location.href = '/dashboard'
