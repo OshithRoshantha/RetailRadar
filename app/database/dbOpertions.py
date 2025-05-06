@@ -31,7 +31,11 @@ async def authenticate(input: credential):
         if pwdContext.verify(input.password, userData["password"]):
             tokenExp = timedelta(minutes=exp)
             accessToken = createToken(data={"sub": userData["email"]}, expDelta=tokenExp)
-            return accessToken
+            return {
+                "token": accessToken,
+                "email": userData["email"],
+                "company": userData["businessName"]
+            }
         else:
             return "Invalid"
     else:
