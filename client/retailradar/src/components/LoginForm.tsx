@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
 import { signIn } from "@/services/Landing"
 
 export function LoginForm({
@@ -14,6 +15,7 @@ export function LoginForm({
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -35,6 +37,10 @@ export function LoginForm({
         } finally {
             setIsLoading(false)
         }
+    }
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword)
     }
 
     return (
@@ -63,16 +69,35 @@ export function LoginForm({
                     />
                 </div>
                 <div className="grid gap-2">
-                    <div className="flex items-center">
+                    <div className="flex items-center justify-between">
                         <Label htmlFor="password">Password</Label>
+                        <button
+                            type="button"
+                            className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1"
+                            onClick={togglePasswordVisibility}
+                        >
+                            {showPassword ? (
+                                <>
+                                    <EyeOff className="h-4 w-4" />
+                                    <span>Hide</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Eye className="h-4 w-4" />
+                                    <span>Show</span>
+                                </>
+                            )}
+                        </button>
                     </div>
-                    <Input 
-                        id="password" 
-                        type="password" 
-                        required 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <div className="relative">
+                        <Input 
+                            id="password" 
+                            type={showPassword ? "text" : "password"} 
+                            required 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
                 </div>
                 <Button 
                     type="submit" 
