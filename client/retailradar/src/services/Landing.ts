@@ -12,3 +12,15 @@ export const signUp = async (businessName, email, password) => {
           },
     });
 }
+
+export const signIn = async (email, password) => {
+    const response = await axios.post('http://localhost:8000/retailradar/login', {
+        email: email,
+        password: password
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+          },
+    });
+    return response.data;
+}
