@@ -1,7 +1,7 @@
 import { IconCircleDashedCheck, IconRefresh, IconSettingsCheck } from "@tabler/icons-react"
 import { BarLoader } from "react-spinners";
 import React, { useEffect } from 'react'
-import { startTraining } from "@/services/GettingStart";
+import { checkModels, trainModels } from "@/services/GettingStart";
 
 export default function TrainModels() {
       const [modelAvailable, setModelAvailable] = React.useState(false);
@@ -13,14 +13,8 @@ export default function TrainModels() {
 
       useEffect(() => {
         const checkAvailability = async () => {
-          const response = await fetch('http://localhost:8000/retailradar/models', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-          const data = await response.json();
-          if (data.models == "available") {
+          const response = await checkModels();
+          if (response.models == "available") {
             setModelAvailable(true);
             sessionStorage.setItem('models', 'True');
           }
@@ -34,7 +28,7 @@ export default function TrainModels() {
 
     const startTraining = async () =>{
       setIsTraining(true);
-      await startTraining()
+      await trainModels()
       setIsTraining(false);
       sessionStorage.setItem('models', 'True');
     }
