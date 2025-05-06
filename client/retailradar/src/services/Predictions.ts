@@ -1,9 +1,12 @@
 import axios from "axios";
 
+const token = sessionStorage.getItem('jwtToken');
+
 export const salesPredict = async () => {
     const response = await axios.get('http://localhost:8000/retailradar/predict/sales', {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
       });
     return response.data;
@@ -13,6 +16,7 @@ export const demandPredict = async () => {
     const response = await axios.get('http://localhost:8000/retailradar/predict/demand', {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
       });
     return response.data;
@@ -26,7 +30,8 @@ export const churnPredict = async (churnFormData) => {
     Avg_Order_Value: parseFloat(churnFormData.avgOrderValue)
   },{
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
     }
   });
   return response.data;
@@ -40,7 +45,8 @@ export const clvPredict = async (clvFormData) => {
       Type: clvFormData.type
   },{
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
     }
   });
   return response.data;
