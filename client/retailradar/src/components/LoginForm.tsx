@@ -28,7 +28,9 @@ export function LoginForm({
             if (response === "Invalid") {
                 setError('Incorrect email or password.')
             } else {
-                sessionStorage.setItem('jwtToken', response)
+                sessionStorage.setItem('jwtToken', response.token)
+                sessionStorage.setItem('email', response.email)
+                sessionStorage.setItem('company', response.company)
                 window.location.href = '/dashboard'
             }
         } catch (err) {
