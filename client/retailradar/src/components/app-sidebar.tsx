@@ -6,7 +6,6 @@ import {
   IconStairs,
   IconFileAi,
   IconFileDescription,
-  IconFolder,
   IconBrain,
   IconBuildingStore,
   IconMessageFilled,
@@ -25,8 +24,8 @@ import {
 } from "@/components/ui/sidebar"
 import mainLogo from '../assets/logo/logo3.png'
 
-const companyName = "Retail Radar"
-const companyEmail = "m@retail.com"
+const companyName = sessionStorage.getItem('company');
+const companyEmail = sessionStorage.getItem('email');
 const avatarUrl = "https://i.pravatar.cc/150?u=a042581f4e29026704d"
 
 const data = {
