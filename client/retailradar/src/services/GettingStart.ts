@@ -22,3 +22,12 @@ export const initializer = async () => {
     });
     return response.data;
 }
+
+export const startTraining = async () => {
+  await axios.get('http://localhost:8000/retailradar/train', {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+  });
+}
