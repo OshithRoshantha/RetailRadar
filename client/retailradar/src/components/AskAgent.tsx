@@ -56,7 +56,7 @@ export default function AskAgent() {
     <div className="w-full h-full overflow-hidden">
       <div className="h-full overflow-y-auto scrollbar-hide py-3 px-5" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
         {!thinking && (
-        <p className="text-gray-800 font-bold" style={{fontSize:'150%'}}>Hi, I'm RetailRadar, your AI assistant. 🤖</p>)}
+        <p className="text-gray-800 font-bold" style={{fontSize:'150%'}}>Hi, I'm RetailRadar, I’m here to help analyze and provide insights on your data. 🤖</p>)}
         {!thinking && (
         <p className="text-gray-500 text-sm mt" style={{fontSize:'95%', marginTop: '-15px'}}>How can I help you today?</p>)}
         {!thinking && (
