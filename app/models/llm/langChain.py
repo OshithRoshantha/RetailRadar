@@ -8,7 +8,11 @@ from config.coreConfig import mainConfig
 
 def initializeAgent():
     mainConfig()
-    source = pd.read_parquet('data/processed/cleanedData.parquet')
+    
+    try:
+        source = pd.read_parquet('data/processed/cleanedData.parquet')
+    except:
+        source = pd.DataFrame()
 
     llm = ChatOpenAI(model=os.getenv('MODEL'))
 
